@@ -1,3 +1,10 @@
+import {
+  derivedCTSSamples,
+  derivedWeeklyRV,
+  derivedCTSLabStats,
+  derivedCTSInsights,
+} from './r7106-derived'
+
 // ===== INDUSTRY OVERVIEW =====
 export const industryStats = {
   annualRevenue: 24_000_000_000, // SASA official: "R24 billion annual direct income"
@@ -448,44 +455,11 @@ export const demoNotifications = [
   },
 ]
 
-// ===== CTS LAB DATA =====
-export const ctsSampleData = [
-  { id: 'S-0401', grower: 'Naidoo Bros', lab: 'CTS Sezela', brix: 21.4, pol: 18.2, fibre: 13.8, rv: 12.91, purity: 85.05, status: 'normal' as const, flagReason: null },
-  { id: 'S-0402', grower: 'Van der Merwe', lab: 'CTS Maidstone', brix: 20.8, pol: 17.6, fibre: 14.1, rv: 12.34, purity: 84.62, status: 'normal' as const, flagReason: null },
-  { id: 'S-0403', grower: 'Dlamini Holdings', lab: 'CTS Felixton', brix: 22.1, pol: 18.9, fibre: 13.2, rv: 13.48, purity: 85.52, status: 'normal' as const, flagReason: null },
-  { id: 'S-0404', grower: 'Sithole Family', lab: 'CTS Amatikulu', brix: 19.7, pol: 16.4, fibre: 14.5, rv: 11.22, purity: 83.25, status: 'normal' as const, flagReason: null },
-  { id: 'S-0405', grower: 'Patel & Sons', lab: 'CTS Eston', brix: 21.9, pol: 18.7, fibre: 13.5, rv: 13.21, purity: 85.39, status: 'normal' as const, flagReason: null },
-  { id: 'S-0406', grower: 'Zulu Cane Co-op', lab: 'CTS Noodsberg', brix: 20.3, pol: 17.1, fibre: 14.3, rv: 11.89, purity: 84.24, status: 'flagged' as const, flagReason: 'Low purity ratio — 84.2% vs 85.1% lab average; possible juice degradation' },
-  { id: 'S-0407', grower: 'Maharaj Farms', lab: 'CTS Komati', brix: 22.5, pol: 19.1, fibre: 12.9, rv: 13.72, purity: 84.89, status: 'normal' as const, flagReason: null },
-  { id: 'S-0408', grower: 'Ngcobo & Partners', lab: 'CTS Malelane', brix: 21.1, pol: 17.9, fibre: 13.7, rv: 12.68, purity: 84.83, status: 'normal' as const, flagReason: null },
-  { id: 'S-0409', grower: 'Botha Estate', lab: 'CTS Pongola', brix: 20.6, pol: 17.4, fibre: 14.0, rv: 12.11, purity: 84.47, status: 'normal' as const, flagReason: null },
-  { id: 'S-0410', grower: 'Mkhize Growers', lab: 'CTS Gledhow', brix: 21.8, pol: 18.5, fibre: 13.4, rv: 13.15, purity: 84.86, status: 'normal' as const, flagReason: null },
-  { id: 'S-0411', grower: 'Singh Agricultural', lab: 'CTS Umfolozi', brix: 19.9, pol: 16.7, fibre: 15.8, rv: 10.84, purity: 83.92, status: 'flagged' as const, flagReason: 'Abnormally high fibre (15.8%) — 1.6σ above seasonal mean; check cane age or variety' },
-  { id: 'S-0412', grower: 'Joubert & Co', lab: 'CTS Sezela', brix: 22.3, pol: 19.0, fibre: 13.1, rv: 13.58, purity: 85.20, status: 'normal' as const, flagReason: null },
-  { id: 'S-0413', grower: 'Ndlovu Trust', lab: 'CTS Maidstone', brix: 20.1, pol: 16.9, fibre: 14.2, rv: 11.67, purity: 84.08, status: 'normal' as const, flagReason: null },
-  { id: 'S-0414', grower: 'Reddy Plantations', lab: 'CTS Felixton', brix: 21.6, pol: 18.4, fibre: 13.6, rv: 13.02, purity: 85.19, status: 'normal' as const, flagReason: null },
-  { id: 'S-0415', grower: 'Cele Small-scale', lab: 'CTS Amatikulu', brix: 20.5, pol: 17.3, fibre: 14.4, rv: 11.78, purity: 84.39, status: 'normal' as const, flagReason: null },
-  { id: 'S-0416', grower: 'De Villiers Farm', lab: 'CTS Komati', brix: 21.2, pol: 18.0, fibre: 13.9, rv: 12.74, purity: 84.91, status: 'normal' as const, flagReason: null },
-  { id: 'S-0417', grower: 'Shabalala Group', lab: 'CTS Noodsberg', brix: 22.0, pol: 18.8, fibre: 13.3, rv: 13.41, purity: 85.45, status: 'normal' as const, flagReason: null },
-  { id: 'S-0418', grower: 'Thompson Estate', lab: 'CTS Pongola', brix: 19.4, pol: 16.1, fibre: 14.6, rv: 10.53, purity: 82.99, status: 'flagged' as const, flagReason: 'RV 10.53 below expected range (11.0+) — investigate cane freshness or delivery delay' },
-  { id: 'S-0419', grower: 'Moodley Agri', lab: 'CTS Malelane', brix: 21.7, pol: 18.6, fibre: 13.5, rv: 13.18, purity: 85.71, status: 'normal' as const, flagReason: null },
-  { id: 'S-0420', grower: 'Khumalo Farmers', lab: 'CTS Gledhow', brix: 20.9, pol: 17.7, fibre: 14.0, rv: 12.41, purity: 84.69, status: 'normal' as const, flagReason: null },
-]
-
-export const ctsWeeklyRV = [
-  { week: 'Wk 1', avgRV: 13.42, samples: 312 },
-  { week: 'Wk 2', avgRV: 13.38, samples: 298 },
-  { week: 'Wk 3', avgRV: 13.31, samples: 325 },
-  { week: 'Wk 4', avgRV: 13.25, samples: 310 },
-  { week: 'Wk 5', avgRV: 13.18, samples: 341 },
-  { week: 'Wk 6', avgRV: 13.09, samples: 289 },
-  { week: 'Wk 7', avgRV: 13.01, samples: 318 },
-  { week: 'Wk 8', avgRV: 12.94, samples: 305 },
-  { week: 'Wk 9', avgRV: 12.88, samples: 334 },
-  { week: 'Wk 10', avgRV: 12.79, samples: 321 },
-  { week: 'Wk 11', avgRV: 12.71, samples: 297 },
-  { week: 'Wk 12', avgRV: 12.64, samples: 316 },
-]
+// ===== CTS LAB DATA (derived from R7106 factory statistics) =====
+export const ctsSampleData = derivedCTSSamples
+export const ctsWeeklyRV = derivedWeeklyRV
+export const ctsLabStats = derivedCTSLabStats
+export const ctsAIInsights = derivedCTSInsights
 
 export const ctsRecoveryByShift = [
   { period: 'Mon AM', recovery: 91.2, samples: 48 },
@@ -498,27 +472,6 @@ export const ctsRecoveryByShift = [
   { period: 'Thu PM', recovery: 95.1, samples: 54 },
   { period: 'Fri AM', recovery: 94.9, samples: 46 },
   { period: 'Fri PM', recovery: 95.3, samples: 51 },
-]
-
-export const ctsLabStats = [
-  { lab: 'CTS Sezela', samplesDaily: 124, avgRV: 13.05, anomalyRate: 1.8, qualityScore: 96 },
-  { lab: 'CTS Maidstone', samplesDaily: 118, avgRV: 12.48, anomalyRate: 3.2, qualityScore: 91 },
-  { lab: 'CTS Felixton', samplesDaily: 132, avgRV: 13.25, anomalyRate: 1.5, qualityScore: 97 },
-  { lab: 'CTS Amatikulu', samplesDaily: 98, avgRV: 11.92, anomalyRate: 2.1, qualityScore: 94 },
-  { lab: 'CTS Eston', samplesDaily: 105, avgRV: 13.18, anomalyRate: 1.9, qualityScore: 95 },
-  { lab: 'CTS Noodsberg', samplesDaily: 112, avgRV: 12.87, anomalyRate: 2.4, qualityScore: 93 },
-  { lab: 'CTS Komati', samplesDaily: 141, avgRV: 13.31, anomalyRate: 1.6, qualityScore: 97 },
-  { lab: 'CTS Malelane', samplesDaily: 138, avgRV: 12.96, anomalyRate: 2.0, qualityScore: 95 },
-  { lab: 'CTS Pongola', samplesDaily: 109, avgRV: 12.11, anomalyRate: 2.7, qualityScore: 92 },
-  { lab: 'CTS Gledhow', samplesDaily: 87, avgRV: 12.78, anomalyRate: 2.3, qualityScore: 93 },
-  { lab: 'CTS Umfolozi', samplesDaily: 83, avgRV: 11.84, anomalyRate: 2.5, qualityScore: 92 },
-]
-
-export const ctsAIInsights = [
-  'RV trending down 2.8% over last 4 weeks — seasonal, but worth monitoring',
-  'CTS Maidstone anomaly rate (3.2%) is 1.4x the network average — investigate instrument calibration',
-  'Monday AM recovery is consistently 3.1% lower than weekly average — startup procedure optimization recommended',
-  'Grower cluster in Ugu region showing 8% higher fibre content than last season — possible varietal shift',
 ]
 
 // ===== TONGAAT HULETT CRISIS =====

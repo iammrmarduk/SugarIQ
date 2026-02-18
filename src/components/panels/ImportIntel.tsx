@@ -1,4 +1,4 @@
-import { ShieldAlert, AlertTriangle, TrendingUp, Ship, DollarSign, Scale } from 'lucide-react'
+import { ShieldAlert, AlertTriangle, TrendingUp, Ship, DollarSign, Scale, Factory } from 'lucide-react'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, PieChart, Pie, Cell,
@@ -9,6 +9,7 @@ import { StatCard } from '../shared/StatCard'
 import { ChartCard } from '../shared/ChartCard'
 import { RiskBadge } from '../shared/RiskBadge'
 import { importData, industryStats } from '../../lib/data'
+import { seasonTotals } from '../../lib/r7106-derived'
 
 const COLORS = ['#ef4444', '#f59e0b', '#3b82f6', '#a855f7', '#6b7280']
 
@@ -78,11 +79,12 @@ export function ImportIntel() {
         </StaggerChild>
         <StaggerChild index={4}>
           <StatCard
-            title="Jobs at Risk"
-            value={industryStats.directJobs}
-            icon={TrendingUp}
-            iconColor="text-orange-400"
-            description="Direct employment threatened"
+            title="Local Production"
+            value={Math.round(seasonTotals.estimatedSugarProduced / 1e3)}
+            suffix="K t"
+            icon={Factory}
+            iconColor="text-green-400"
+            description={`Imports = ${(importData.totalImports2025 / (seasonTotals.estimatedSugarProduced) * 100).toFixed(1)}% of local output`}
           />
         </StaggerChild>
       </div>

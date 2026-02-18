@@ -10,6 +10,7 @@ import { ChartCard } from '../shared/ChartCard'
 import { RiskBadge } from '../shared/RiskBadge'
 import { industryStats, millCompanies, maintenanceAlerts, cogenData, tongaatHulettCrisis } from '../../lib/data'
 import { mills } from '../../lib/mill-coordinates'
+import { millStatsList, derivedMaintenanceAlerts, seasonTotals } from '../../lib/r7106-derived'
 import { cn } from '../../lib/utils'
 
 const statusColors = {
@@ -20,8 +21,18 @@ const statusColors = {
 
 export function MillOps() {
   const operatingMills = mills.filter((m) => m.status === 'operating')
-  const avgEfficiency = operatingMills.reduce((sum, m) => sum + m.efficiency, 0) / operatingMills.length
+  const avgEfficiency = millStatsList.length > 0
+    ? millStatsList.reduce((sum, m) => sum + m.avgSucroseExtraction, 0) / millStatsList.length
+    : operatingMills.reduce((sum, m) => sum + m.efficiency, 0) / operatingMills.length
   const totalCogen = cogenData.mills.reduce((sum, m) => sum + m.current, 0)
+  const allAlerts = [...derivedMaintenanceAlerts, ...maintenanceAlerts]
+  const efficiencyData = millStatsList
+    .filter(ms => ms.avgSucroseExtraction > 0)
+    .map(ms => ({
+      name: ms.millName,
+      efficiency: Math.round(ms.avgSucroseExtraction * 10) / 10,
+    }))
+    .sort((a, b) => b.efficiency - a.efficiency)
 
   return (
     <AnimatedPanel>
@@ -54,21 +65,22 @@ export function MillOps() {
         </StaggerChild>
         <StaggerChild index={2}>
           <StatCard
-            title="Co-gen Output"
-            value={totalCogen}
-            suffix=" MW"
+            title="Avg Crush Rate"
+            value={Math.round(seasonTotals.avgCrushRate)}
+            suffix=" TCH"
             icon={Zap}
             iconColor="text-yellow-400"
-            description={`${cogenData.potentialOutput} MW potential`}
+            description={`${(seasonTotals.totalCaneCrushed / 1e6).toFixed(1)}M tonnes this season`}
           />
         </StaggerChild>
         <StaggerChild index={3}>
           <StatCard
             title="Maintenance Alerts"
-            value={maintenanceAlerts.length}
+            value={allAlerts.length}
             suffix=" active"
             icon={Wrench}
             iconColor="text-orange-400"
+            description={`${derivedMaintenanceAlerts.filter(a => a.severity === 'high').length} data-driven`}
           />
         </StaggerChild>
       </div>
@@ -126,11 +138,11 @@ export function MillOps() {
 
         {/* Maintenance Alerts */}
         <StaggerChild index={5}>
-          <ChartCard title="Predictive Maintenance Alerts" subtitle="AI-driven maintenance scheduling">
-            <div className="space-y-3">
-              {maintenanceAlerts.map((alert) => (
+          <ChartCard title="Predictive Maintenance Alerts" subtitle="AI-driven alerts from R7106 factory statistics + planned maintenance">
+            <div className="max-h-[420px] space-y-3 overflow-y-auto">
+              {allAlerts.map((alert, i) => (
                 <div
-                  key={`${alert.mill}-${alert.component}`}
+                  key={`${alert.mill}-${alert.component}-${i}`}
                   className="rounded-lg border border-slate-700/50 bg-slate-800/30 p-3"
                 >
                   <div className="flex items-start justify-between">
@@ -162,20 +174,24 @@ export function MillOps() {
         {/* Mill Efficiency */}
         <StaggerChild index={6}>
           <ChartCard
-            title="Mill Efficiency Comparison"
-            subtitle="Overall recovery efficiency by mill (%)"
+            title="Mill Sucrose Extraction"
+            subtitle="Average sucrose extraction efficiency from R7106 data (%)"
           >
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={360}>
               <BarChart
-                data={operatingMills.map((m) => ({
-                  name: m.name,
-                  efficiency: m.efficiency,
-                  company: m.company,
-                }))}
+                data={efficiencyData}
                 layout="vertical"
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                <XAxis type="number" domain={[85, 96]} stroke="#64748b" fontSize={11} />
+                <XAxis
+                  type="number"
+                  domain={[
+                    Math.floor(Math.min(...efficiencyData.map(d => d.efficiency))) - 1,
+                    Math.ceil(Math.max(...efficiencyData.map(d => d.efficiency))) + 1,
+                  ]}
+                  stroke="#64748b"
+                  fontSize={11}
+                />
                 <YAxis
                   type="category"
                   dataKey="name"
@@ -193,15 +209,15 @@ export function MillOps() {
                   }}
                   labelStyle={{ color: '#f8fafc' }}
                   itemStyle={{ color: '#cbd5e1' }}
-                  formatter={(value) => [`${value}%`, 'Efficiency']}
+                  formatter={(value) => [`${value}%`, 'Sucrose Extraction']}
                 />
                 <Bar dataKey="efficiency" radius={[0, 4, 4, 0]}>
-                  {operatingMills.map((m, i) => (
+                  {efficiencyData.map((d, i) => (
                     <Cell
                       key={i}
                       fill={
-                        m.efficiency >= 93 ? '#22c55e' :
-                        m.efficiency >= 91 ? '#f59e0b' : '#ef4444'
+                        d.efficiency >= 93 ? '#22c55e' :
+                        d.efficiency >= 91 ? '#f59e0b' : '#ef4444'
                       }
                     />
                   ))}

@@ -3,6 +3,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { mills, millRegions, ctsLabs } from '../../lib/mill-coordinates'
 import type { Mill } from '../../lib/mill-coordinates'
+import { millStatsById, derivedCTSLabStats, type MillStats } from '../../lib/r7106-derived'
 import { Map as MapIcon, Layers, FlaskConical } from 'lucide-react'
 import { AnimatedPanel } from '../shared/AnimatedPanel'
 import { SectionTitle } from '../shared/SectionTitle'
@@ -23,11 +24,15 @@ const statusLabels: Record<string, string> = {
 
 const tongaatMillIds = new Set(['maidstone', 'amatikulu', 'felixton', 'darnall'])
 
-function createPopupContent(mill: Mill, hasCtsLab: boolean): string {
+function createPopupContent(mill: Mill, hasCtsLab: boolean, stats?: MillStats): string {
   const statusColor = statusColors[mill.status]
   const isTongaat = tongaatMillIds.has(mill.id)
+  const eff = stats ? stats.avgSucroseExtraction : mill.efficiency
+  const effColor = eff >= 93 ? '#22c55e' : eff >= 91 ? '#f59e0b' : '#ef4444'
+  const caneStr = stats ? `${(stats.totalCaneTons / 1e6).toFixed(2)}M t` : mill.throughput
+  const crushStr = stats ? `${stats.avgCrushRate.toFixed(0)} TCH` : mill.capacity
   return `
-    <div style="font-family: system-ui, sans-serif; min-width: 220px;">
+    <div style="font-family: system-ui, sans-serif; min-width: 240px;">
       ${isTongaat ? `
         <div style="background: #ef444420; border: 1px solid #ef444440; border-radius: 6px; padding: 6px 8px; margin-bottom: 8px;">
           <div style="font-size: 10px; font-weight: 700; color: #ef4444; text-transform: uppercase; letter-spacing: 0.5px;">⚠ Tongaat Hulett — Liquidation Filed 12 Feb 2026</div>
@@ -44,23 +49,42 @@ function createPopupContent(mill: Mill, hasCtsLab: boolean): string {
       ${mill.status === 'operating' ? `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
           <div style="background: #1e293b80; padding: 6px 8px; border-radius: 6px;">
-            <div style="font-size: 10px; color: #64748b;">Capacity</div>
-            <div style="font-size: 13px; font-weight: 600; color: #f8fafc;">${mill.capacity}</div>
+            <div style="font-size: 10px; color: #64748b;">Avg Crush Rate</div>
+            <div style="font-size: 13px; font-weight: 600; color: #f8fafc;">${crushStr}</div>
           </div>
           <div style="background: #1e293b80; padding: 6px 8px; border-radius: 6px;">
-            <div style="font-size: 10px; color: #64748b;">Efficiency</div>
-            <div style="font-size: 13px; font-weight: 600; color: ${mill.efficiency >= 92 ? '#22c55e' : mill.efficiency >= 90 ? '#f59e0b' : '#ef4444'};">${mill.efficiency}%</div>
+            <div style="font-size: 10px; color: #64748b;">Sucrose Extraction</div>
+            <div style="font-size: 13px; font-weight: 600; color: ${effColor};">${eff.toFixed(1)}%</div>
           </div>
           <div style="background: #1e293b80; padding: 6px 8px; border-radius: 6px;">
-            <div style="font-size: 10px; color: #64748b;">Throughput</div>
-            <div style="font-size: 13px; font-weight: 600; color: #f8fafc;">${mill.throughput}</div>
+            <div style="font-size: 10px; color: #64748b;">Season Cane</div>
+            <div style="font-size: 13px; font-weight: 600; color: #f8fafc;">${caneStr}</div>
           </div>
-          ${mill.cogenMW ? `
+          ${stats ? `
+          <div style="background: #1e293b80; padding: 6px 8px; border-radius: 6px;">
+            <div style="font-size: 10px; color: #64748b;">Avg RV</div>
+            <div style="font-size: 13px; font-weight: 600; color: ${stats.avgRV >= 12 ? '#22c55e' : stats.avgRV >= 11 ? '#f59e0b' : '#ef4444'};">${stats.avgRV.toFixed(2)}</div>
+          </div>` : mill.cogenMW ? `
           <div style="background: #1e293b80; padding: 6px 8px; border-radius: 6px;">
             <div style="font-size: 10px; color: #64748b;">Co-gen</div>
             <div style="font-size: 13px; font-weight: 600; color: #fbbf24;">${mill.cogenMW} MW</div>
           </div>` : ''}
         </div>
+        ${stats ? `
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+          <div style="background: #1e293b60; padding: 4px 6px; border-radius: 4px; text-align: center;">
+            <div style="font-size: 9px; color: #64748b;">Time Eff</div>
+            <div style="font-size: 11px; font-weight: 600; color: ${stats.avgTimeEfficiency >= 85 ? '#22c55e' : '#f59e0b'};">${stats.avgTimeEfficiency.toFixed(1)}%</div>
+          </div>
+          <div style="background: #1e293b60; padding: 4px 6px; border-radius: 4px; text-align: center;">
+            <div style="font-size: 9px; color: #64748b;">Purity</div>
+            <div style="font-size: 11px; font-weight: 600; color: #cbd5e1;">${stats.avgPurity.toFixed(1)}%</div>
+          </div>
+          <div style="background: #1e293b60; padding: 4px 6px; border-radius: 4px; text-align: center;">
+            <div style="font-size: 9px; color: #64748b;">Pol Extr</div>
+            <div style="font-size: 11px; font-weight: 600; color: #cbd5e1;">${stats.avgPolExtraction.toFixed(1)}%</div>
+          </div>
+        </div>` : ''}
       ` : ''}
       ${hasCtsLab ? `
         <div style="background: #06b6d420; border: 1px solid #06b6d440; border-radius: 6px; padding: 6px 8px; margin-bottom: 8px;">
@@ -166,12 +190,13 @@ export function SugarMap() {
         })
 
         const hasCts = ctsMillIds.has(mill.id)
+        const stats = millStatsById[mill.id]
 
         const popup = new maplibregl.Popup({
           offset: 15,
           closeButton: true,
-          maxWidth: '320px',
-        }).setHTML(createPopupContent(mill, hasCts))
+          maxWidth: '340px',
+        }).setHTML(createPopupContent(mill, hasCts, stats))
 
         const marker = new maplibregl.Marker({ element: wrapper, anchor: 'center' })
           .setLngLat([mill.lng, mill.lat])
@@ -207,17 +232,36 @@ export function SugarMap() {
           ring.style.transform = 'scale(1)'
         })
 
+        const labStat = derivedCTSLabStats.find(l => l.lab === lab.name)
         const popup = new maplibregl.Popup({
           offset: 15,
           closeButton: true,
-          maxWidth: '280px',
+          maxWidth: '300px',
         }).setHTML(`
           <div style="font-family: system-ui, sans-serif;">
             <h3 style="margin: 0 0 4px; font-size: 14px; font-weight: 700; color: #06b6d4;">🧪 ${lab.name}</h3>
             <p style="margin: 0 0 8px; font-size: 12px; color: #94a3b8;">Cane Testing Service Laboratory</p>
+            ${labStat ? `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+              <div style="background: #1e293b80; padding: 5px 7px; border-radius: 5px;">
+                <div style="font-size: 9px; color: #64748b;">Avg RV</div>
+                <div style="font-size: 13px; font-weight: 600; color: ${labStat.avgRV >= 12 ? '#22c55e' : labStat.avgRV >= 11 ? '#f59e0b' : '#ef4444'};">${labStat.avgRV.toFixed(2)}</div>
+              </div>
+              <div style="background: #1e293b80; padding: 5px 7px; border-radius: 5px;">
+                <div style="font-size: 9px; color: #64748b;">Samples/Day</div>
+                <div style="font-size: 13px; font-weight: 600; color: #f8fafc;">${labStat.samplesDaily}</div>
+              </div>
+              <div style="background: #1e293b80; padding: 5px 7px; border-radius: 5px;">
+                <div style="font-size: 9px; color: #64748b;">Quality Score</div>
+                <div style="font-size: 13px; font-weight: 600; color: ${labStat.qualityScore >= 95 ? '#22c55e' : '#f59e0b'};">${labStat.qualityScore}%</div>
+              </div>
+              <div style="background: #1e293b80; padding: 5px 7px; border-radius: 5px;">
+                <div style="font-size: 9px; color: #64748b;">Anomaly Rate</div>
+                <div style="font-size: 13px; font-weight: 600; color: ${labStat.anomalyRate <= 2 ? '#22c55e' : '#f59e0b'};">${labStat.anomalyRate.toFixed(1)}%</div>
+              </div>
+            </div>` : ''}
             <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-              <strong>Services:</strong> Direct Analysis of Cane (DAC), Recoverable Value (RV) determination, mill balance analysis, weekly reconciliation<br/>
-              <strong>Purpose:</strong> Ensuring accurate, fair payments between millers and growers<br/>
+              <strong>Services:</strong> Direct Analysis of Cane (DAC), RV determination, weekly reconciliation<br/>
               <strong>Region:</strong> ${lab.region}
             </div>
           </div>

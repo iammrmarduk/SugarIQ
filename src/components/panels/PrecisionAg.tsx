@@ -9,6 +9,7 @@ import { StatCard } from '../shared/StatCard'
 import { ChartCard } from '../shared/ChartCard'
 import { RiskBadge } from '../shared/RiskBadge'
 import { industryStats, yieldHistory, regionalHealth } from '../../lib/data'
+import { seasonTotals } from '../../lib/r7106-derived'
 import type { WeatherData } from '../../lib/api'
 
 interface PrecisionAgProps {
@@ -36,7 +37,7 @@ export function PrecisionAg({ weather }: PrecisionAgProps) {
         <StaggerChild index={0}>
           <StatCard
             title="Cane Crushed (2025/26)"
-            value={17.3}
+            value={Math.round(seasonTotals.totalCaneCrushed / 1e4) / 100}
             suffix="M t"
             icon={Sprout}
             iconColor="text-green-400"
@@ -45,11 +46,12 @@ export function PrecisionAg({ weather }: PrecisionAgProps) {
         </StaggerChild>
         <StaggerChild index={1}>
           <StatCard
-            title="Sugar Produced"
-            value={1.94}
+            title="Sugar Produced (est)"
+            value={Math.round(seasonTotals.estimatedSugarProduced / 1e4) / 100}
             suffix="M t"
             icon={Leaf}
             iconColor="text-green-400"
+            description={`Avg RV: ${seasonTotals.avgRV.toFixed(2)}`}
           />
         </StaggerChild>
         <StaggerChild index={2}>
