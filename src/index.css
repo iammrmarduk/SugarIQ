@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cane-50: #fefce8;
+  --color-cane-100: #fef9c3;
+  --color-cane-200: #fef08a;
+  --color-cane-300: #fde047;
+  --color-cane-400: #facc15;
+  --color-cane-500: #eab308;
+  --color-cane-600: #ca8a04;
+  --color-cane-700: #a16207;
+  --color-cane-800: #854d0e;
+  --color-cane-900: #713f12;
+  --color-gold: #f59e0b;
+  --color-gold-light: #fbbf24;
+  --color-gold-dark: #d97706;
+  --color-sugar: #fef3c7;
+  --color-panel: #0f172a;
+  --color-panel-lighter: #1e293b;
+  --color-panel-border: #334155;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.maplibregl-popup-content {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  max-width: 300px !important;
+}
+.maplibregl-popup-tip {
+  border-top-color: #1e293b !important;
+}
+.maplibregl-popup-close-button {
+  color: #94a3b8 !important;
+  font-size: 18px !important;
+  padding: 4px 8px !important;
+}
+
+@keyframes pulse-glow-red {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(239,68,68,0.4), 0 0 12px rgba(239,68,68,0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(239,68,68,0.2), 0 0 20px rgba(239,68,68,0.5); }
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(34, 197, 94, 0.8); }
+}
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor::after {
+  content: '\25ca';
+  animation: blink 0.8s infinite;
+  color: #f59e0b;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.notification-enter {
+  animation: slide-in-right 0.4s ease-out;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+:fullscreen {
+  background: #020617;
+}
