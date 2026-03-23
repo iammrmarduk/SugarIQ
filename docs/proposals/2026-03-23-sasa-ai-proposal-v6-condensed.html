@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applied AI Programme — SASA Overview PROP-SASA-2026-006</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FAF7F0;
+      --cream-deep: #F2EDE3;
+      --gold: #B8862A;
+      --gold-light: #D4A84B;
+      --gold-pale: #F0E2C4;
+      --charcoal: #1E1A16;
+      --ink: #2D2820;
+      --ink-mid: #5C5248;
+      --ink-light: #8C8278;
+      --rule: #D8CFC0;
+      --urgent: #8B1A1A;
+      --urgent-bg: #FDF2F2;
+      --green: #1A4A2E;
+      --green-light: #2E6B44;
+      --green-pale: #E8F2EC;
+      --orange: #B85A1A;
+      --orange-pale: #FDF0E8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--cream-deep);
+      color: var(--ink);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+    }
+
+    /* ── URGENT BANNER ── */
+    .urgent-banner {
+      background: var(--urgent);
+      color: #fff;
+      text-align: center;
+      padding: 0.65rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 5px solid var(--gold);
+      padding: 2.75rem 3rem 2.25rem;
+      margin: 2.5rem 0 2.5rem;
+    }
+
+    .cover-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .cover-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .cover-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2.5rem;
+      margin-bottom: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .cover-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.1rem;
+    }
+
+    .meta-value {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .cover-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.67rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .tag-gold {
+      background: var(--gold-pale);
+      border-color: var(--gold-light);
+      color: var(--gold);
+    }
+
+    .tag-urgent {
+      background: var(--urgent-bg);
+      border-color: #C87070;
+      color: var(--urgent);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.45rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ── SESSION GRID ── */
+    .session-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .session-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SESSION CARD ── */
+    .session-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 1.1rem 1.2rem 1.1rem;
+      position: relative;
+    }
+
+    .session-card.card-agent {
+      border-top-color: var(--orange);
+    }
+
+    .session-card.card-close {
+      border-top-color: var(--green);
+    }
+
+    .session-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .session-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .badge-gold {
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid var(--gold-light);
+    }
+
+    .badge-orange {
+      background: var(--orange-pale);
+      color: var(--orange);
+      border: 1px solid #E0B090;
+    }
+
+    .badge-green {
+      background: var(--green-pale);
+      color: var(--green-light);
+      border: 1px solid #9ABCAA;
+    }
+
+    .session-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+
+    .session-ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .session-ul li {
+      padding: 0.18rem 0 0.18rem 1.1rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.45;
+    }
+
+    .session-ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      top: 0.3rem;
+    }
+
+    .card-agent .session-ul li::before {
+      color: var(--orange);
+    }
+
+    .card-close .session-ul li::before {
+      color: var(--green-light);
+    }
+
+    /* ── INVESTMENT TABLE ── */
+    .investment-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      margin-bottom: 0.75rem;
+      font-size: 0.93rem;
+    }
+
+    .investment-table thead {
+      background: var(--gold);
+    }
+
+    .investment-table thead th {
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .investment-table thead th:last-child,
+    .investment-table thead th:nth-child(3),
+    .investment-table thead th:nth-child(4) {
+      text-align: right;
+    }
+
+    .investment-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--cream);
+      vertical-align: top;
+    }
+
+    .investment-table td:last-child,
+    .investment-table td:nth-child(3),
+    .investment-table td:nth-child(4) {
+      text-align: right;
+    }
+
+    .investment-table td:first-child {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .investment-table td:last-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .investment-table .row-total td {
+      background: var(--charcoal);
+      color: var(--gold-light);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .investment-table .row-total td:first-child {
+      color: #E0D4BC;
+    }
+
+    .investment-note {
+      font-size: 0.86rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── FOOTER ── */
+    .proposal-footer {
+      border-top: 2px solid var(--rule);
+      margin-top: 3rem;
+      padding-top: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.84rem;
+      color: var(--ink-light);
+    }
+
+    .footer-cta {
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--gold);
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1rem;
+      font-size: 0.93rem;
+      color: var(--ink-mid);
+    }
+
+    .footer-cta strong {
+      color: var(--ink);
+    }
+
+    .footer-left {
+      font-family: 'Crimson Pro', Georgia, serif;
+    }
+
+    .footer-left .footer-name {
+      font-weight: 600;
+      color: var(--ink-mid);
+      font-size: 0.95rem;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      text-align: right;
+      color: var(--ink-light);
+    }
+
+    .footer-right span {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    @media print {
+      .urgent-banner { position: static; }
+      .session-grid { grid-template-columns: 1fr 1fr; }
+      body { font-size: 13px; }
+      .cover { margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- URGENT BANNER -->
+<div class="urgent-banner">
+  ⚠ &nbsp; All documentation must be approved by Wednesday, 25 March 2026
+</div>
+
+<div class="page">
+
+  <!-- ══ COVER ══ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Programme Overview</div>
+    <h1 class="cover-title">Applied AI Consulting<br>&amp; Development Programme</h1>
+    <div class="cover-subtitle">South African Sugar Association (SASA) — Programme Overview</div>
+    <div class="cover-meta-row">
+      <div class="cover-meta-item">
+        <span class="meta-label">Reference</span>
+        <span class="meta-value">PROP-SASA-2026-006</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Date</span>
+        <span class="meta-value">23 March 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Format</span>
+        <span class="meta-value">6 sessions × 7 hours</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Investment</span>
+        <span class="meta-value">R24,150 incl. VAT</span>
+      </div>
+    </div>
+    <div class="cover-tags">
+      <span class="tag tag-gold">Condensed Overview</span>
+      <span class="tag tag-urgent">Approval deadline: 25 March 2026</span>
+    </div>
+  </div>
+
+  <!-- ══ SESSION GRID ══ -->
+  <div class="section">
+    <div class="section-label">Programme Sessions</div>
+    <h2>Six Sessions, One Direction</h2>
+
+    <div class="session-grid">
+
+      <!-- S1 -->
+      <div class="session-card">
+        <div class="session-card-header">
+          <span class="session-badge badge-gold">S1 — Week 1</span>
+          <span class="session-title">Foundations Audit, Strategic Framing &amp; Prompt Engineering</span>
+        </div>
+        <ul class="session-ul">
+          <li>Map SASA data landscape: R7106, LIMS, Autolab, mill reports</li>
+          <li>Configure tooling and shared Claude Pro account</li>
+          <li>Prompt engineering fundamentals: RCTF anatomy, XML tags, 200K context window</li>
+          <li>Establish shared prompt library and consulting log</li>
+          <li>Deliverable: systems map + seed prompt library (10–15 entries)</li>
+        </ul>
+      </div>
+
+      <!-- S2 -->
+      <div class="session-card">
+        <div class="session-card-header">
+          <span class="session-badge badge-gold">S2 — Week 3</span>
+          <span class="session-title">Excel, Reporting &amp; AI-Generated Workflows</span>
+        </div>
+        <ul class="session-ul">
+          <li>Rebuild SASA Excel report using Claude as co-pilot</li>
+          <li>Reusable Excel prompt library and exception-flagging template</li>
+          <li>Copilot Excel + PowerPoint integration</li>
+          <li>Repeatable report narrative workflow: data → prompt → draft → director sign-off</li>
+          <li>One complete AI-assisted report draft produced in-session</li>
+        </ul>
+      </div>
+
+      <!-- S3 -->
+      <div class="session-card">
+        <div class="session-card-header">
+          <span class="session-badge badge-gold">S3 — Week 5</span>
+          <span class="session-title">Large Datasets, RAG &amp; Context Management</span>
+        </div>
+        <ul class="session-ul">
+          <li>RAG: query large SASA datasets without uploading everything</li>
+          <li>Context window management: paste vs. chunk vs. RAG</li>
+          <li>Chunking and summarisation chains for 10-year multi-centre data</li>
+          <li>SASA data-preparation checklist (LIMS, Autolab, mill formats)</li>
+          <li>Deliverable: RAG demo + context reference card + checklist</li>
+        </ul>
+      </div>
+
+      <!-- S4 -->
+      <div class="session-card">
+        <div class="session-card-header">
+          <span class="session-badge badge-gold">S4 — Week 7</span>
+          <span class="session-title">Python &amp; Automation Pipelines</span>
+        </div>
+        <ul class="session-ul">
+          <li>AI-generated Python pipeline: LIMS export → transformation → flagged output</li>
+          <li>Node.js for API and SharePoint connectors</li>
+          <li>Version control basics for AI-generated code</li>
+          <li>Automation candidate list per team area (input to Session 6 build day)</li>
+          <li>Deliverable: working LIMS pipeline stub + candidate list</li>
+        </ul>
+      </div>
+
+      <!-- S5 -->
+      <div class="session-card card-agent">
+        <div class="session-card-header">
+          <span class="session-badge badge-orange">S5 — Local AI + Agents</span>
+          <span class="session-title">Local AI Infrastructure &amp; Agentic Workflows</span>
+        </div>
+        <ul class="session-ul">
+          <li>Install local AI model on SASA server (Ollama + Open WebUI) — no software on individual machines</li>
+          <li>Local RAG: query internal SASA documents with no internet</li>
+          <li>SASA data governance policy: cloud vs. on-premise classification</li>
+          <li>Intro to agents: AI that does tasks, not just answers questions</li>
+          <li>Build a SASA agent pipeline: data → exception check → alert → SharePoint output (n8n)</li>
+        </ul>
+      </div>
+
+      <!-- S6 -->
+      <div class="session-card card-close">
+        <div class="session-card-header">
+          <span class="session-badge badge-green">S6 — Build Day + Close</span>
+          <span class="session-title">Build Day, Governance &amp; Programme Roadmap</span>
+        </div>
+        <ul class="session-ul">
+          <li>Teams build one working tool from their automation candidate lists</li>
+          <li>Showcase: each group presents their output (demo, not slides)</li>
+          <li>SASA AI governance framework and operating model</li>
+          <li>12-month integration roadmap + individual 90-day action plans</li>
+          <li>Goal: every group ships something usable from Monday</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ INVESTMENT ══ -->
+  <div class="section">
+    <div class="section-label">Investment</div>
+    <h2>Programme Pricing</h2>
+    <table class="investment-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Sessions</th>
+          <th>Total excl. VAT</th>
+          <th>VAT 15%</th>
+          <th>Total incl. VAT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>6-Session Programme</td>
+          <td>6 × 7 hrs @ R3,500</td>
+          <td>R21,000</td>
+          <td>R3,150</td>
+          <td><strong>R24,150</strong></td>
+        </tr>
+        <tr>
+          <td>Extension (Sessions 7–10)</td>
+          <td>4 × 7 hrs @ R3,500</td>
+          <td>R14,000</td>
+          <td>R2,100</td>
+          <td><strong>R16,100</strong></td>
+        </tr>
+        <tr class="row-total">
+          <td colspan="4">Full Programme (Sessions 1–10)</td>
+          <td>R40,250</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="investment-note">
+      Sessions invoiced individually on completion. Extension covers LIMS &amp; Autolab deep integration, advanced agentic workflows, source system deployment, and capstone review.
+    </p>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="proposal-footer">
+    <div class="footer-cta">
+      <strong>To confirm:</strong> please respond to this document or issue a Purchase Order referencing <strong>PROP-SASA-2026-006</strong>.
+    </div>
+    <div class="footer-left">
+      <div class="footer-name">Richard [Surname]</div>
+      <div>[Email]</div>
+      <div>[Phone]</div>
+      <div>[Company]</div>
+    </div>
+    <div class="footer-right">
+      <span>PROP-SASA-2026-006</span>
+      <span>23 March 2026</span>
+      <span>Valid until 31 March 2026</span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

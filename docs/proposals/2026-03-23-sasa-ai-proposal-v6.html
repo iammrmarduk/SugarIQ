@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applied AI Consulting & Development — SASA Proposal PROP-SASA-2026-006</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FAF7F0;
+      --cream-deep: #F2EDE3;
+      --gold: #B8862A;
+      --gold-light: #D4A84B;
+      --gold-pale: #F0E2C4;
+      --charcoal: #1E1A16;
+      --ink: #2D2820;
+      --ink-mid: #5C5248;
+      --ink-light: #8C8278;
+      --rule: #D8CFC0;
+      --urgent: #8B1A1A;
+      --urgent-bg: #FDF2F2;
+      --green: #1A4A2E;
+      --green-light: #2E6B44;
+      --green-pale: #E8F2EC;
+      --orange: #B85A1A;
+      --orange-pale: #FDF0E8;
+
+      --agent-bg: #1A1600;
+      --agent-accent: #D4A800;
+      --agent-accent-pale: #FFF8D6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--cream-deep);
+      color: var(--ink);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+    }
+
+    /* ── URGENT BANNER ── */
+    .urgent-banner {
+      background: var(--urgent);
+      color: #fff;
+      text-align: center;
+      padding: 0.65rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── COVER PAGE ── */
+    .cover {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 5px solid var(--gold);
+      padding: 3.5rem 3.5rem 3rem;
+      margin: 2.5rem 0 3rem;
+      position: relative;
+    }
+
+    .cover-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .cover-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .budget-tag {
+      display: inline-block;
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-light);
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+    }
+
+    .cover-meta-cell {
+      padding: 0.85rem 1.1rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cover-meta-cell:nth-child(3n) { border-right: none; }
+    .cover-meta-cell:nth-child(4),
+    .cover-meta-cell:nth-child(5),
+    .cover-meta-cell:nth-child(6) { border-bottom: none; }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-value {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    /* ── SECTION HEADINGS ── */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.45rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.25;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0.85rem;
+      color: var(--ink);
+    }
+
+    /* ── STATS GRID ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-cell {
+      padding: 1.1rem 1.25rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .stat-cell:nth-child(3n) { border-right: none; }
+    .stat-cell:nth-child(4),
+    .stat-cell:nth-child(5),
+    .stat-cell:nth-child(6) { border-bottom: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+
+    /* ── BULLET LIST ── */
+    .principles-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 1rem;
+    }
+
+    .principles-list li {
+      padding: 0.45rem 0 0.45rem 1.4rem;
+      position: relative;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink);
+    }
+
+    .principles-list li:last-child { border-bottom: none; }
+
+    .principles-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.9rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-light);
+    }
+
+    /* ── OVERVIEW TABLE ── */
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .overview-table thead {
+      background: var(--gold);
+    }
+
+    .overview-table thead th {
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .overview-table tbody tr:nth-child(even) {
+      background: var(--cream-deep);
+    }
+
+    .overview-table tbody tr:nth-child(odd) {
+      background: var(--cream);
+    }
+
+    .overview-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    .overview-table td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 3.5rem;
+    }
+
+    .overview-table td:nth-child(3) {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      white-space: nowrap;
+    }
+
+    /* ── SESSION CARDS ── */
+    .session-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--gold);
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+
+    .session-card.close-session {
+      border-left: 4px solid var(--green);
+    }
+
+    .session-header {
+      background: var(--gold-pale);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .close-session .session-header {
+      background: var(--green-pale);
+    }
+
+    .session-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .close-session .session-number {
+      color: var(--green-light);
+    }
+
+    .session-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .session-week {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-light);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .session-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .session-period-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.35rem;
+      margin-top: 1rem;
+    }
+
+    .session-period-label:first-child { margin-top: 0; }
+
+    .session-ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.75rem;
+    }
+
+    .session-ul li {
+      padding: 0.2rem 0 0.2rem 1.2rem;
+      position: relative;
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    .session-ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      top: 0.28rem;
+    }
+
+    .close-session .session-ul li::before {
+      color: var(--green-light);
+    }
+
+    /* ── PROMPT BLOCK ── */
+    .prompt-block {
+      background: var(--green);
+      color: #E8F2EC;
+      padding: 1.1rem 1.3rem;
+      margin: 1rem 0;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .prompt-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .prompt-block-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .prompt-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .prompt-block ul li {
+      padding: 0.18rem 0 0.18rem 1.1rem;
+      position: relative;
+      font-size: 0.93rem;
+      color: #C8E4D0;
+    }
+
+    .prompt-block ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* ── AGENT BLOCK ── */
+    .agent-block {
+      background: var(--agent-bg);
+      color: #E8E0C0;
+      padding: 1.1rem 1.3rem;
+      margin: 1rem 0;
+      border-radius: 2px;
+      border-left: 3px solid var(--agent-accent);
+      position: relative;
+    }
+
+    .agent-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--agent-accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .agent-block-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--agent-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .agent-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .agent-block ul li {
+      padding: 0.18rem 0 0.18rem 1.1rem;
+      position: relative;
+      font-size: 0.93rem;
+      color: #C8C0A0;
+    }
+
+    .agent-block ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--agent-accent);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* ── DELIVERABLE BOX ── */
+    .deliverable-box {
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-light);
+      border-left: 3px solid var(--gold);
+      padding: 0.8rem 1.1rem;
+      margin-top: 1.1rem;
+    }
+
+    .deliverable-box.close-deliverable {
+      background: var(--green-pale);
+      border-color: var(--green-light);
+      border-left-color: var(--green);
+    }
+
+    .deliverable-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .close-deliverable .deliverable-label {
+      color: var(--green-light);
+    }
+
+    .deliverable-box p, .deliverable-box ul {
+      font-size: 0.92rem;
+      color: var(--ink-mid);
+      margin-bottom: 0;
+    }
+
+    .deliverable-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .deliverable-box ul li {
+      padding: 0.1rem 0 0.1rem 1rem;
+      position: relative;
+    }
+
+    .deliverable-box ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+
+    .close-deliverable ul li::before {
+      color: var(--green-light);
+    }
+
+    /* ── NOTE BOX ── */
+    .note-box {
+      background: var(--cream-deep);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--gold-light);
+      padding: 0.6rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      font-style: italic;
+    }
+
+    /* ── PREREQ BOX ── */
+    .prereq-box {
+      background: var(--orange-pale);
+      border: 1px solid #E0B090;
+      border-left: 3px solid var(--orange);
+      padding: 0.6rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+    }
+
+    .prereq-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── DELIVERABLES TABLE ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+      font-size: 0.93rem;
+    }
+
+    .data-table thead {
+      background: var(--charcoal);
+    }
+
+    .data-table thead th {
+      color: #E8DDD0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 400;
+    }
+
+    .data-table tbody tr:nth-child(even) {
+      background: var(--cream-deep);
+    }
+
+    .data-table tbody tr:nth-child(odd) {
+      background: var(--cream);
+    }
+
+    .data-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    .data-table td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    /* ── EXTENSION BLOCK ── */
+    .extension-block {
+      background: var(--orange-pale);
+      border: 1px solid #E0B090;
+      border-left: 4px solid var(--orange);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .extension-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+
+    .extension-block h3 {
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .extension-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .extension-item {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.93rem;
+    }
+
+    .extension-item-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--orange);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
+
+    /* ── INVESTMENT TABLE ── */
+    .investment-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+    }
+
+    .investment-table thead {
+      background: var(--gold);
+    }
+
+    .investment-table thead th {
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .investment-table thead th:last-child { text-align: right; }
+
+    .investment-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--cream);
+    }
+
+    .investment-table td:last-child { text-align: right; }
+
+    .investment-total {
+      background: var(--charcoal) !important;
+      color: #fff;
+    }
+
+    .investment-total td {
+      background: var(--charcoal) !important;
+      color: var(--gold-light);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .investment-vat {
+      background: var(--cream-deep) !important;
+    }
+
+    .investment-vat td {
+      background: var(--cream-deep) !important;
+      color: var(--ink-mid);
+      font-size: 0.92rem;
+    }
+
+    /* ── GLOSSARY TABLE ── */
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      font-size: 0.91rem;
+    }
+
+    .glossary-table thead {
+      background: var(--cream-deep);
+    }
+
+    .glossary-table thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border-bottom: 2px solid var(--rule);
+    }
+
+    .glossary-table tbody tr:nth-child(even) {
+      background: var(--cream-deep);
+    }
+
+    .glossary-table tbody tr:nth-child(odd) {
+      background: var(--cream);
+    }
+
+    .glossary-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    .glossary-table td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 12rem;
+    }
+
+    /* ── TECH TABLE ── */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      margin-bottom: 1rem;
+      font-size: 0.93rem;
+    }
+
+    .tech-table thead {
+      background: var(--cream-deep);
+    }
+
+    .tech-table thead th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-weight: 500;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .tech-table tbody tr:nth-child(even) {
+      background: var(--cream-deep);
+    }
+
+    .tech-table tbody tr:nth-child(odd) {
+      background: var(--cream);
+    }
+
+    .tech-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .tech-table td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    /* ── LICENSING NOTE ── */
+    .licensing-note {
+      background: var(--cream-deep);
+      border: 1px solid var(--rule);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .licensing-note .meta-label { margin-bottom: 0.4rem; }
+
+    /* ── FOOTER ── */
+    .proposal-footer {
+      border-top: 2px solid var(--rule);
+      margin-top: 4rem;
+      padding-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 0.84rem;
+      color: var(--ink-light);
+    }
+
+    .footer-left {
+      font-family: 'Crimson Pro', Georgia, serif;
+    }
+
+    .footer-left .footer-name {
+      font-weight: 600;
+      color: var(--ink-mid);
+      font-size: 0.95rem;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      text-align: right;
+      color: var(--ink-light);
+    }
+
+    .footer-right span {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── UTILITY ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+    }
+
+    .gold-text { color: var(--gold); }
+    .strong { font-weight: 600; }
+    .mono { font-family: 'DM Mono', monospace; font-size: 0.85em; }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+
+    @media print {
+      .urgent-banner { position: static; }
+      .session-card { break-inside: avoid; }
+      body { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- URGENT BANNER -->
+<div class="urgent-banner">
+  ⚠ &nbsp; All documentation must be approved by Wednesday, 25 March 2026
+</div>
+
+<div class="page">
+
+  <!-- ══ COVER PAGE ══ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Consulting Proposal</div>
+    <h1 class="cover-title">Applied AI Consulting<br>&amp; Development</h1>
+    <div class="cover-subtitle">South African Sugar Association</div>
+    <div class="budget-tag">Budget Line: Professional Fees</div>
+    <hr class="cover-rule" />
+    <div class="cover-meta-grid">
+      <div class="cover-meta-cell">
+        <div class="meta-label">Prepared For</div>
+        <div class="meta-value">SASA</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="meta-label">Sessions</div>
+        <div class="meta-value">6 × 7 hours</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="meta-label">Investment</div>
+        <div class="meta-value">R24,150 incl. VAT</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">23 March 2026</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="meta-label">Reference</div>
+        <div class="meta-value">PROP-SASA-2026-006</div>
+      </div>
+      <div class="cover-meta-cell">
+        <div class="meta-label">Prepared By</div>
+        <div class="meta-value">Richard [Surname]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EXECUTIVE SUMMARY ══ -->
+  <div class="section">
+    <div class="section-label">01 — Overview</div>
+    <h2>Executive Summary</h2>
+    <p class="section-intro">
+      This proposal outlines a structured six-session Applied AI programme for the South African Sugar Association. Over approximately eleven weeks, your teams will move from AI awareness to operational capability — producing real outputs in each session, not just attending presentations.
+    </p>
+    <p>
+      The programme is built around SASA's actual data systems: R7106, LIMS, Autolab, and mill reporting workflows. Every session is grounded in real problems, real documents, and real outputs. By the final session, teams will have built and shipped at least one working tool.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Sessions</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">~11</div>
+        <div class="stat-label">Weeks</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">26</div>
+        <div class="stat-label">15 in-person + 11 online</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Deliverables</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">R0</div>
+        <div class="stat-label">Ongoing tools cost</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">R21k</div>
+        <div class="stat-label">Excl. VAT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ APPROACH ══ -->
+  <div class="section">
+    <div class="section-label">02 — Method</div>
+    <h2>Approach</h2>
+    <p class="section-intro">
+      This is not a training course. It is a consulting engagement where learning happens through doing. The principles below govern how every session is designed and delivered.
+    </p>
+    <ul class="principles-list">
+      <li><strong>Grounded in your data.</strong> Every exercise uses SASA's real systems and real documents — not synthetic examples or generic datasets.</li>
+      <li><strong>Output in every session.</strong> Each session ends with a tangible deliverable that SASA staff can use from the following Monday.</li>
+      <li><strong>Managers direct, AI writes.</strong> The programme builds prompting and oversight skills, not dependency. Your team learns to use AI as a junior analyst, not a black box.</li>
+      <li><strong>Zero-cost tool stack.</strong> Where possible, all tools are open-source and self-hosted (Python, n8n, Ollama, Open WebUI). No per-seat licensing beyond Claude Pro.</li>
+      <li><strong>Build, don't present.</strong> The final session is a live build day. Teams ship working tools, not slide decks.</li>
+      <li><strong>Governance from day one.</strong> Data classification, acceptable use, and prompt ownership are introduced in Session 1 and formalised in Session 6.</li>
+      <li><strong>Senior consultant throughout.</strong> Richard leads all sessions. Advanced participants co-facilitate in Session 6 — building internal capability, not dependency on the consultant.</li>
+    </ul>
+  </div>
+
+  <!-- ══ PROGRAMME OVERVIEW ══ -->
+  <div class="section">
+    <div class="section-label">03 — Programme</div>
+    <h2>Programme Overview — Six Sessions, One Direction</h2>
+    <p class="section-intro">
+      The six sessions run fortnightly over eleven weeks, building from foundations to live deployment. Each session is seven hours, split across morning and afternoon.
+    </p>
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th>Ref</th>
+          <th>Session Title</th>
+          <th>Timing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>S1</td>
+          <td>Foundations Audit, Strategic Framing &amp; Prompt Engineering</td>
+          <td>Week 1</td>
+        </tr>
+        <tr>
+          <td>S2</td>
+          <td>Excel, Reporting &amp; AI-Generated Workflows</td>
+          <td>Week 3</td>
+        </tr>
+        <tr>
+          <td>S3</td>
+          <td>Working with Large Datasets, RAG &amp; Context Management</td>
+          <td>Week 5</td>
+        </tr>
+        <tr>
+          <td>S4</td>
+          <td>Python &amp; Automation Pipelines</td>
+          <td>Week 7</td>
+        </tr>
+        <tr>
+          <td>S5</td>
+          <td>Local AI Infrastructure &amp; Agentic Workflows</td>
+          <td>Week 9</td>
+        </tr>
+        <tr>
+          <td>S6</td>
+          <td>Build Day, Governance &amp; Programme Roadmap</td>
+          <td>Week 11</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ SESSION DETAILS ══ -->
+  <div class="section">
+    <div class="section-label">04 — Session Detail</div>
+    <h2>Session Details</h2>
+
+    <!-- SESSION 1 -->
+    <div class="session-card">
+      <div class="session-header">
+        <span class="session-number">Session 01</span>
+        <span class="session-title">Foundations Audit, Strategic Framing &amp; Prompt Engineering</span>
+        <span class="session-week">Week 1</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">Morning — Audit &amp; Strategic Framing</div>
+        <ul class="session-ul">
+          <li>Map SASA's full data landscape: R7106, LIMS, Autolab, mill reports</li>
+          <li>Identify integration targets and highest-value AI use cases</li>
+          <li>Configure Claude Pro shared account and workspaces</li>
+          <li>Review Microsoft Copilot licensing and overlap with Claude</li>
+          <li>Establish consulting log and shared SharePoint structure</li>
+        </ul>
+
+        <div class="prompt-block">
+          <span class="prompt-block-label">Prompt Engineering — Afternoon</span>
+          <div class="prompt-block-title">Foundations of Effective Prompting</div>
+          <ul>
+            <li>RCTF anatomy: Role, Context, Task, Format — the four levers of every prompt</li>
+            <li>XML tags for structured outputs and multi-step tasks</li>
+            <li>Understanding Claude's 200K context window and what fits inside it</li>
+            <li>Iteration workflow: draft → test → refine → save</li>
+            <li>Common failure modes and how to diagnose them</li>
+            <li>Establish shared SharePoint prompt library (seed with 10–15 entries)</li>
+          </ul>
+        </div>
+
+        <div class="deliverable-box">
+          <div class="deliverable-label">Session 1 Deliverable</div>
+          <ul>
+            <li>SASA data &amp; systems map with integration targets annotated</li>
+            <li>Consulting log (shared, living document)</li>
+            <li>Seed prompt library — 10–15 tested entries in SharePoint</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 2 -->
+    <div class="session-card">
+      <div class="session-header">
+        <span class="session-number">Session 02</span>
+        <span class="session-title">Excel, Reporting &amp; AI-Generated Workflows</span>
+        <span class="session-week">Week 3</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">Morning — Excel Co-pilot &amp; Prompt Library</div>
+        <ul class="session-ul">
+          <li>Rebuild one live SASA Excel report using Claude as co-pilot</li>
+          <li>Copilot Excel comparison — where each tool excels</li>
+          <li>Build the exception-flagging template (out-of-spec values, missing data)</li>
+        </ul>
+
+        <div class="prompt-block">
+          <span class="prompt-block-label">Prompt Engineering — Embedded in Morning</span>
+          <div class="prompt-block-title">Parameterised Reporting Prompts</div>
+          <ul>
+            <li>Parameterised templates: swap mill, week, or metric without rewriting</li>
+            <li>Excel prompt library: summarise / flag / extract / compare — four core patterns</li>
+            <li>Version discipline: naming, dating, and archiving prompt iterations</li>
+          </ul>
+        </div>
+
+        <div class="session-period-label">Afternoon — Narrative Reporting &amp; Director Review</div>
+        <ul class="session-ul">
+          <li>Audit the full reporting burden — ROI conversation with management</li>
+          <li>Narrative workflow: data → prompt → draft → director sign-off</li>
+          <li>Copilot PowerPoint integration for report presentation</li>
+          <li>Build report commentary template in SASA house style</li>
+          <li>Produce one complete AI-assisted report draft, reviewed by director in-session</li>
+        </ul>
+
+        <div class="deliverable-box">
+          <div class="deliverable-label">Session 2 Deliverable</div>
+          <ul>
+            <li>AI-augmented Excel report (one live SASA report, rebuilt)</li>
+            <li>Exception-flagging template</li>
+            <li>Excel prompt library (4 core patterns, versioned)</li>
+            <li>Report commentary template in SASA house style</li>
+            <li>One complete AI-assisted report draft, director-reviewed in session</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 3 -->
+    <div class="session-card">
+      <div class="session-header">
+        <span class="session-number">Session 03</span>
+        <span class="session-title">Working with Large Datasets, RAG &amp; Context Management</span>
+        <span class="session-week">Week 5</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">Morning — RAG Introduction &amp; Document Indexing</div>
+        <ul class="session-ul">
+          <li>Introduce RAG (Retrieval-Augmented Generation) — AI as a librarian for SASA's archive</li>
+          <li>Work with SASA's multi-year dataset — R7106, Autolab, LIMS exports</li>
+          <li>Build a working document index: chunk, embed, retrieve</li>
+          <li>Live demonstration: query 10 years of data without uploading the full dataset</li>
+        </ul>
+
+        <div class="prompt-block">
+          <span class="prompt-block-label">Prompt Engineering — Afternoon</span>
+          <div class="prompt-block-title">Context Window Management &amp; Multi-Document Prompting</div>
+          <ul>
+            <li>Context window choices: paste vs. chunk vs. RAG — when to use each</li>
+            <li>Chunking strategies for large SASA reports and multi-centre data</li>
+            <li>Summarisation chains: reducing 50-page reports to actionable briefs</li>
+            <li>Synthesis vs. extraction — knowing which prompt pattern to apply</li>
+            <li>Multi-document prompting: cross-referencing mill reports and LIMS output</li>
+            <li>Build the SASA data-preparation checklist (LIMS, Autolab, mill formats)</li>
+          </ul>
+        </div>
+
+        <div class="note-box">
+          High-value session for online supervisors — participants working with large datasets across multiple mill sites will find this session particularly applicable to day-to-day analytical work.
+        </div>
+
+        <div class="deliverable-box">
+          <div class="deliverable-label">Session 3 Deliverable</div>
+          <ul>
+            <li>SASA data-preparation checklist (LIMS, Autolab, mill formats)</li>
+            <li>Working RAG demonstration on SASA historical data</li>
+            <li>Context management reference card</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 4 -->
+    <div class="session-card">
+      <div class="session-header">
+        <span class="session-number">Session 04</span>
+        <span class="session-title">Python &amp; Automation Pipelines</span>
+        <span class="session-week">Week 7</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">What We Build in This Session</div>
+        <ul class="session-ul">
+          <li>Consulting frame: managers direct, AI writes — Python as the execution layer</li>
+          <li>Build an AI-generated Python pipeline: LIMS export → transformation → flagged output</li>
+          <li>Introduction to Node.js for API connectors and SharePoint integration</li>
+          <li>Version control basics: saving, sharing, and rolling back AI-generated code</li>
+          <li>Compile automation candidate list per team area — direct input to Session 6 build day</li>
+        </ul>
+
+        <div class="prereq-box">
+          <div class="prereq-label">Pre-session Requirement</div>
+          Python, Node.js, and VS Code must be pre-installed on all participant machines before this session. Richard will provide installation instructions two weeks in advance.
+        </div>
+
+        <div class="deliverable-box">
+          <div class="deliverable-label">Session 4 Deliverable</div>
+          <ul>
+            <li>Working LIMS pipeline stub (LIMS export → transformation → flagged output)</li>
+            <li>Automation candidate list per team area (input to Session 6 build day)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 5 -->
+    <div class="session-card">
+      <div class="session-header">
+        <span class="session-number">Session 05</span>
+        <span class="session-title">Local AI Infrastructure &amp; Agentic Workflows</span>
+        <span class="session-week">Week 9</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">Morning — Local AI Infrastructure</div>
+        <ul class="session-ul">
+          <li>Review IT meeting findings from pre-session infrastructure check</li>
+          <li>Install Ollama and Open WebUI on SASA server</li>
+          <li>Browser-based access for all participants — no software on individual machines</li>
+          <li>Live demo: local RAG query on internal SASA documents — no internet required</li>
+          <li>Establish SASA data governance framework: cloud vs. on-premise policy</li>
+        </ul>
+
+        <div class="agent-block">
+          <span class="agent-block-label">Agentic Workflows — Afternoon</span>
+          <div class="agent-block-title">From Prompting to Acting — SASA's First Agent Pipeline</div>
+          <ul>
+            <li>What is an agent? The ask vs. act distinction — AI that takes steps, not just answers questions</li>
+            <li>Introduction to n8n: open-source, self-hosted, zero per-seat cost</li>
+            <li>Build a SASA agent pipeline: data input → exception check → draft alert → SharePoint / file output</li>
+            <li>Connect to the Session 4 Python output — end-to-end pipeline demonstration</li>
+            <li>Design SASA's first agentic use case specification: inputs / triggers / outputs / human review gate</li>
+            <li>Server specification notice: minimum server requirements for production Ollama + n8n deployment</li>
+          </ul>
+        </div>
+
+        <div class="deliverable-box">
+          <div class="deliverable-label">Session 5 Deliverable</div>
+          <ul>
+            <li>Local AI server operational (Ollama + Open WebUI)</li>
+            <li>Working n8n agent pipeline demonstration</li>
+            <li>Agentic use case specification document</li>
+            <li>SASA data governance policy (cloud vs. on-premise classification)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 6 -->
+    <div class="session-card close-session">
+      <div class="session-header">
+        <span class="session-number">Session 06 — Close</span>
+        <span class="session-title">Build Day, Governance &amp; Programme Roadmap</span>
+        <span class="session-week">Week 11</span>
+      </div>
+      <div class="session-body">
+        <div class="session-period-label">Morning — Build Day</div>
+        <ul class="session-ul">
+          <li>Teams self-select into 2–3 build groups from the Session 4 automation candidate lists</li>
+          <li>Build targets: Excel exception report / Python pipeline / local RAG / n8n agent</li>
+          <li>Richard rotates as senior consultant — every group gets dedicated support</li>
+          <li>Advanced participants lead their groups — internal capability, not consultant dependency</li>
+          <li>Goal: every group ships something usable from Monday</li>
+        </ul>
+
+        <div class="session-period-label">Afternoon — Governance &amp; Roadmap</div>
+        <ul class="session-ul">
+          <li>Showcase: 5 minutes per build group — demo, not slides</li>
+          <li>Review Session 1 targets: what we set out to do, what we delivered</li>
+          <li>Governance framework: acceptable use / data classification / prompt ownership</li>
+          <li>Operating model: who owns what after the programme ends</li>
+          <li>Skills continuity plan: how to keep building without the consultant</li>
+          <li>12-month integration roadmap: 3–5 targets with owners and review dates</li>
+          <li>Individual 90-day action plans for every participant</li>
+        </ul>
+
+        <div class="deliverable-box close-deliverable">
+          <div class="deliverable-label">Session 6 Deliverable</div>
+          <ul>
+            <li>Team-built working tools (one per build group, ready Monday)</li>
+            <li>SASA AI data governance policy (finalised)</li>
+            <li>12-month integration roadmap with owners</li>
+            <li>Individual 90-day action plans</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /section details -->
+
+  <!-- ══ DELIVERABLES TABLE ══ -->
+  <div class="section">
+    <div class="section-label">05 — Summary</div>
+    <h2>Programme Deliverables</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Session</th>
+          <th>Deliverable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>S1</td>
+          <td>SASA data &amp; systems map · Consulting log · Seed prompt library (10–15 entries)</td>
+        </tr>
+        <tr>
+          <td>S2</td>
+          <td>AI-augmented Excel report · Exception-flagging template · Excel prompt library · Report commentary template · Director-reviewed report draft</td>
+        </tr>
+        <tr>
+          <td>S3</td>
+          <td>Data-preparation checklist · Working RAG demonstration · Context management reference card</td>
+        </tr>
+        <tr>
+          <td>S4</td>
+          <td>Working LIMS pipeline stub · Automation candidate list per team area</td>
+        </tr>
+        <tr>
+          <td>S5</td>
+          <td>Local AI server (Ollama + Open WebUI) · Working n8n agent pipeline · Agentic use case specification · Data governance policy</td>
+        </tr>
+        <tr>
+          <td>S6</td>
+          <td>Team-built working tools · Data governance policy (finalised) · 12-month roadmap · Individual 90-day action plans</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ EXTENSION ══ -->
+  <div class="section">
+    <div class="section-label">06 — Optional Extension</div>
+    <h2>Extension Programme — Sessions 7–10</h2>
+    <div class="extension-block">
+      <div class="extension-label">Optional — Available on completion of the 6-session programme</div>
+      <h3>Advanced Integration: Sessions 7–10</h3>
+      <p style="font-size:0.95rem; color:var(--ink-mid); margin-bottom:0.75rem;">
+        Four additional sessions at <strong>R3,500 per session</strong> — <strong>R16,100 incl. VAT</strong> for the full extension. Sessions invoiced individually on completion.
+      </p>
+      <div class="extension-grid">
+        <div class="extension-item">
+          <span class="extension-item-num">S7</span>
+          <span>LIMS &amp; Autolab deep integration — connecting live source systems to AI pipelines</span>
+        </div>
+        <div class="extension-item">
+          <span class="extension-item-num">S8</span>
+          <span>Advanced agentic workflows — scheduling, error handling, and multi-step orchestration</span>
+        </div>
+        <div class="extension-item">
+          <span class="extension-item-num">S9</span>
+          <span>Source system integration &amp; production deployment — moving from stub to live</span>
+        </div>
+        <div class="extension-item">
+          <span class="extension-item-num">S10</span>
+          <span>Capstone review &amp; extended roadmap — governance audit and 24-month planning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TECHNICAL REQUIREMENTS ══ -->
+  <div class="section">
+    <div class="section-label">07 — Technical</div>
+    <h2>Technical Requirements</h2>
+
+    <h3 style="margin-bottom:0.5rem; margin-top:1rem;">AI Licensing</h3>
+    <div class="licensing-note">
+      <div class="meta-label">Claude Pro</div>
+      <p style="font-size:0.93rem; margin-bottom:0;">
+        One shared Claude Pro account is required for the programme. Current cost is approximately <strong>R1,700 per month</strong> (billed in USD, subject to exchange rate). This covers all participants via a shared workspace. No other AI subscription is required for the core six-session programme.
+      </p>
+    </div>
+
+    <h3 style="margin-bottom:0.5rem; margin-top:1.25rem;">Software (All Open-Source, Zero Per-Seat Cost)</h3>
+    <table class="tech-table" style="margin-bottom:1.5rem;">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Purpose</th>
+          <th>Cost</th>
+          <th>Required By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Python 3.11+</td>
+          <td>Automation pipelines and data transformation</td>
+          <td>Free</td>
+          <td>Session 4</td>
+        </tr>
+        <tr>
+          <td>Node.js 20 LTS</td>
+          <td>API connectors and SharePoint integration</td>
+          <td>Free</td>
+          <td>Session 4</td>
+        </tr>
+        <tr>
+          <td>VS Code</td>
+          <td>Code editor for all AI-generated code</td>
+          <td>Free</td>
+          <td>Session 4</td>
+        </tr>
+        <tr>
+          <td>n8n (self-hosted)</td>
+          <td>Agentic workflow automation and pipeline orchestration</td>
+          <td>Free (self-hosted)</td>
+          <td>Session 5</td>
+        </tr>
+        <tr>
+          <td>Ollama</td>
+          <td>Local LLM inference on SASA server</td>
+          <td>Free</td>
+          <td>Session 5</td>
+        </tr>
+        <tr>
+          <td>Open WebUI</td>
+          <td>Browser-based interface for local AI (no client install)</td>
+          <td>Free</td>
+          <td>Session 5</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-bottom:0.5rem; margin-top:1.25rem;">Server Specification (Sessions 5–6 and beyond)</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Minimum</th>
+          <th>Recommended</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CPU</td>
+          <td>8-core modern processor</td>
+          <td>16-core (AMD EPYC or Intel Xeon)</td>
+        </tr>
+        <tr>
+          <td>RAM</td>
+          <td>32 GB</td>
+          <td>64 GB</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>500 GB SSD</td>
+          <td>2 TB NVMe SSD</td>
+        </tr>
+        <tr>
+          <td>GPU (optional)</td>
+          <td>None (CPU inference)</td>
+          <td>NVIDIA RTX 4090 or A-series for speed</td>
+        </tr>
+        <tr>
+          <td>OS</td>
+          <td>Ubuntu 22.04 LTS</td>
+          <td>Ubuntu 24.04 LTS</td>
+        </tr>
+        <tr>
+          <td>Network</td>
+          <td>Internal LAN access</td>
+          <td>Isolated VLAN with firewall policy</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ INVESTMENT ══ -->
+  <div class="section">
+    <div class="section-label">08 — Investment</div>
+    <h2>Investment</h2>
+    <table class="investment-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Rate</th>
+          <th>Sessions</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Applied AI Consulting — 6-session programme</td>
+          <td>R3,500 per session</td>
+          <td>6 × 7 hrs</td>
+          <td>R21,000</td>
+        </tr>
+        <tr class="investment-vat">
+          <td colspan="3" style="color:var(--ink-mid);">VAT @ 15%</td>
+          <td style="color:var(--ink-mid);">R3,150</td>
+        </tr>
+        <tr class="investment-total">
+          <td colspan="3"><strong>Total Investment incl. VAT</strong></td>
+          <td><strong>R24,150</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.88rem; color:var(--ink-light);">Sessions are invoiced individually on completion. No upfront payment required. Extension sessions (S7–S10) are priced at R3,500 each (R16,100 incl. VAT for all four) and are entirely optional.</p>
+  </div>
+
+  <!-- ══ GLOSSARY ══ -->
+  <div class="section">
+    <div class="section-label">09 — Reference</div>
+    <h2>Glossary of Terms</h2>
+    <p class="section-intro">For participants new to AI tooling, this glossary defines the key terms used throughout this proposal and the programme.</p>
+    <table class="glossary-table">
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AI</td>
+          <td>Artificial Intelligence — software systems that perform tasks typically requiring human reasoning, such as reading, summarising, and generating text.</td>
+        </tr>
+        <tr>
+          <td>LLM</td>
+          <td>Large Language Model — the class of AI model underlying tools like Claude and ChatGPT. Trained on vast text corpora; responds to natural language instructions.</td>
+        </tr>
+        <tr>
+          <td>Claude</td>
+          <td>Anthropic's large language model. Noted for long context windows, instruction-following accuracy, and safety. Used as the primary AI tool in this programme.</td>
+        </tr>
+        <tr>
+          <td>Claude Pro</td>
+          <td>The paid subscription tier of Claude (~R1,700/month). Provides expanded context, higher usage limits, and shared workspace functionality.</td>
+        </tr>
+        <tr>
+          <td>Prompt</td>
+          <td>The instruction or question given to an AI model. Quality of output is directly determined by quality of the prompt.</td>
+        </tr>
+        <tr>
+          <td>Prompt Engineering</td>
+          <td>The craft of writing structured, effective prompts to get reliable, accurate, and useful responses from an AI model.</td>
+        </tr>
+        <tr>
+          <td>Context Window</td>
+          <td>The maximum amount of text an AI model can read and reason over in a single interaction. Claude's context window is approximately 200,000 tokens (~150,000 words).</td>
+        </tr>
+        <tr>
+          <td>RAG</td>
+          <td>Retrieval-Augmented Generation — a technique where relevant documents are retrieved from a database and inserted into the prompt, enabling AI to answer questions about large document sets without fine-tuning.</td>
+        </tr>
+        <tr>
+          <td>Token</td>
+          <td>The basic unit of text processed by an LLM. Roughly 4 characters or ¾ of a word. Context windows and costs are measured in tokens.</td>
+        </tr>
+        <tr>
+          <td>Copilot</td>
+          <td>Microsoft's AI assistant integrated into Office 365 (Word, Excel, PowerPoint, Teams). Complements Claude for document and spreadsheet workflows.</td>
+        </tr>
+        <tr>
+          <td>API</td>
+          <td>Application Programming Interface — a defined connection point that allows two software systems to communicate. Used to connect Python pipelines to LIMS and SharePoint.</td>
+        </tr>
+        <tr>
+          <td>Python</td>
+          <td>A free, widely-used programming language favoured for data processing and automation. AI can write Python code; managers direct the logic.</td>
+        </tr>
+        <tr>
+          <td>Node.js</td>
+          <td>A JavaScript runtime used for building API connectors and web-based tools. Used in this programme for SharePoint integration.</td>
+        </tr>
+        <tr>
+          <td>VS Code</td>
+          <td>Visual Studio Code — a free, industry-standard code editor. Used to view, edit, and run AI-generated Python and Node.js code.</td>
+        </tr>
+        <tr>
+          <td>Ollama</td>
+          <td>A free, open-source tool that runs large language models locally on a server. Enables SASA to use AI on internal documents without sending data to the cloud.</td>
+        </tr>
+        <tr>
+          <td>Open WebUI</td>
+          <td>A browser-based interface for Ollama. Allows all participants to access the local AI model via a web browser — no software installed on individual machines.</td>
+        </tr>
+        <tr>
+          <td>Agent / Agentic Workflow</td>
+          <td>An AI system configured to take a sequence of actions autonomously — not just answer a question, but execute a multi-step task (e.g., check data → draft alert → send to SharePoint).</td>
+        </tr>
+        <tr>
+          <td>n8n</td>
+          <td>An open-source, self-hosted workflow automation tool. Used to build SASA's agent pipelines without per-seat licensing costs. Connects AI outputs to internal systems.</td>
+        </tr>
+        <tr>
+          <td>LIMS</td>
+          <td>Laboratory Information Management System — SASA's system for recording and managing laboratory sample data, including quality and compliance records.</td>
+        </tr>
+        <tr>
+          <td>Autolab</td>
+          <td>SASA's automated laboratory analysis system. Produces structured data outputs that are used as inputs to AI pipelines in this programme.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="proposal-footer">
+    <div class="footer-left">
+      <div class="footer-name">Richard [Surname]</div>
+      <div>[Company]</div>
+      <div>[Email]</div>
+      <div>[Phone]</div>
+    </div>
+    <div class="footer-right">
+      <span>PROP-SASA-2026-006</span>
+      <span>23 March 2026</span>
+      <span>Valid until 31 March 2026</span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

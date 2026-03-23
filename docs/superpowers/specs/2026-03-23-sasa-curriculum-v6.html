@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASA Applied AI Programme — Curriculum V6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D1117;
+    --panel: #161B22;
+    --card: #1C2128;
+    --border: #30363D;
+    --text: #E6EDF3;
+    --muted: #8B949E;
+
+    --green: #3FB950;
+    --green-dim: #196C2E;
+    --green-glow: rgba(63,185,80,0.12);
+    --green-pale: #0D2117;
+
+    --gold: #D29922;
+    --gold-dim: #7D5A00;
+    --gold-pale: #1F1900;
+
+    --orange: #D18616;
+    --orange-pale: #1F1300;
+    --orange-border: #6E3714;
+
+    --blue: #58A6FF;
+    --blue-pale: #0D1F3C;
+
+    --purple: #BC8CFF;
+    --purple-pale: #1A0F2E;
+
+    --amber: #D4A800;
+    --amber-bg: #1A1600;
+
+    --red: #F85149;
+    --red-pale: #1F0A0A;
+
+    --font-body: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-heading: 'Lora', serif;
+
+    --sidebar-width: 240px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-sub {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-badge {
+    display: inline-block;
+    background: var(--green-pale);
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+
+  .nav-section-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px 6px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 6px 16px 6px 20px;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    line-height: 1.35;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .nav-link.active {
+    color: var(--green);
+    border-left-color: var(--green);
+    background: var(--green-glow);
+    font-weight: 500;
+  }
+
+  .nav-link.session-link { padding-left: 20px; }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: var(--sidebar-width);
+    padding: 40px 48px 80px;
+    max-width: calc(var(--sidebar-width) + 860px);
+  }
+
+  .content-wrap { max-width: 860px; }
+
+  /* ── URGENT BANNER ── */
+  .urgent-banner {
+    background: var(--red-pale);
+    border: 1px solid var(--red);
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .urgent-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .urgent-text {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--red);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header { margin-bottom: 40px; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .page-subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .meta-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .chip-green {
+    color: var(--green);
+    background: var(--green-pale);
+    border-color: var(--green-dim);
+  }
+
+  .chip-gold {
+    color: var(--gold);
+    background: var(--gold-pale);
+    border-color: var(--gold-dim);
+  }
+
+  .chip-muted {
+    color: var(--muted);
+    background: var(--card);
+    border-color: var(--border);
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 56px; scroll-margin-top: 24px; }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* ── STATS GRID ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .stat-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .stat-num {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--green);
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ARC ROW ── */
+  .arc-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .arc-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .arc-phase {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--green);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .arc-sessions {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .arc-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ── TABLES ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .data-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .data-table td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .data-table td:first-child {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .table-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .table-wrap .data-table th,
+  .table-wrap .data-table td { border-left: none; border-right: none; border-top: none; }
+  .table-wrap .data-table tr:first-child th { border-top: none; }
+
+  /* ── SESSION CARD ── */
+  .session-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    scroll-margin-top: 24px;
+  }
+
+  .session-header {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .session-num-block {
+    width: 90px;
+    flex-shrink: 0;
+    background: var(--gold-pale);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px;
+    gap: 6px;
+  }
+
+  .session-num-block.green-num {
+    background: var(--green-pale);
+    border-right-color: var(--green-dim);
+  }
+
+  .session-num {
+    font-family: var(--font-heading);
+    font-size: 40px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .session-num-block.green-num .session-num { color: var(--green); }
+
+  .session-week {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gold-dim);
+    letter-spacing: 0.06em;
+  }
+
+  .session-num-block.green-num .session-week { color: var(--green-dim); }
+
+  .session-header-info {
+    flex: 1;
+    padding: 18px 22px;
+  }
+
+  .session-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+    border: 1px solid;
+  }
+
+  .tag-gold { color: var(--gold); background: var(--gold-pale); border-color: var(--gold-dim); }
+  .tag-green { color: var(--green); background: var(--green-pale); border-color: var(--green-dim); }
+  .tag-blue { color: var(--blue); background: var(--blue-pale); border-color: #1A3A6E; }
+  .tag-orange { color: var(--orange); background: var(--orange-pale); border-color: var(--orange-border); }
+
+  .session-title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .session-subtitle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .session-body { padding: 24px 24px 20px; }
+
+  .session-intro {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── HALF-DAY BLOCK ── */
+  .half-day {
+    margin-bottom: 18px;
+  }
+
+  .half-day-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .half-day-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bullet-list li {
+    font-size: 13.5px;
+    color: var(--text);
+    padding: 4px 0 4px 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .bullet-list li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── PROMPT BLOCK ── */
+  .prompt-block {
+    background: #0A1810;
+    border: 1px solid var(--green-dim);
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+
+  .prompt-block-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .prompt-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .prompt-block-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  /* ── AGENT BLOCK ── */
+  .agent-block {
+    background: var(--amber-bg);
+    border: 1px solid var(--orange-border);
+    border-left: 3px solid var(--amber);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+
+  .agent-block-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .agent-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .agent-block-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* ── DELIVERABLE BOX ── */
+  .deliverable-box {
+    background: var(--gold-pale);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 18px;
+  }
+
+  .deliverable-box.green-del {
+    background: var(--green-pale);
+    border-left-color: var(--green);
+  }
+
+  .deliverable-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .deliverable-box.green-del .deliverable-label { color: var(--green); }
+
+  .deliverable-text {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    background: var(--blue-pale);
+    border: 1px solid #1A3A6E;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--blue);
+    line-height: 1.5;
+  }
+
+  .note-box-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  /* ── PREREQ BAR ── */
+  .prereq-bar {
+    background: var(--purple-pale);
+    border: 1px solid #3A1F6E;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--purple);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .prereq-bar-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+  /* ── EXTENSION BLOCK ── */
+  .extension-block {
+    background: var(--orange-pale);
+    border: 1px solid var(--orange-border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .extension-title {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--orange);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .extension-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .ext-session {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--orange-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+
+  .ext-session-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--orange);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .ext-session-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .ext-session-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .extension-price {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--orange-border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 500;
+  }
+
+  /* ── PREREQUISITES ── */
+  .prereq-section { margin-bottom: 20px; }
+
+  .prereq-group-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+
+  .checklist li {
+    font-size: 13.5px;
+    color: var(--text);
+    padding: 5px 0 5px 26px;
+    position: relative;
+    line-height: 1.45;
+  }
+
+  .checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 14px;
+    font-family: var(--font-mono);
+  }
+
+  .checklist li span.mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--green);
+  }
+
+  /* ── INVESTMENT TABLE ── */
+  .investment-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .investment-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .investment-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 11px 14px;
+    color: var(--text);
+    vertical-align: middle;
+  }
+
+  .investment-table tr.total-row td {
+    background: var(--green-pale);
+    border-top: 2px solid var(--green-dim);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  .investment-table td.mono-cell {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+
+  .investment-table td.gold-cell {
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .invest-notes {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .invest-notes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .invest-notes ul li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.45;
+  }
+
+  .invest-notes ul li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footer-left, .footer-right {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .footer-right { text-align: right; }
+
+  /* ── PHILOSOPHY PARAS ── */
+  .philosophy-para {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .philosophy-para strong {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── DELIVERABLES SUMMARY TABLE ── */
+  .del-table td:first-child {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 24px 20px 60px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .arc-row { grid-template-columns: 1fr; }
+    .extension-grid { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; }
+    .footer-right { text-align: left; }
+  }
+
+  @media (max-width: 600px) {
+    .session-header { flex-direction: column; }
+    .session-num-block { width: 100%; flex-direction: row; justify-content: flex-start; border-right: none; border-bottom: 1px solid var(--border); }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     SIDEBAR
+═════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">SASA · 2026</div>
+    <div class="sidebar-sub">Applied AI Programme<br>Curriculum V6</div>
+    <span class="sidebar-badge">6 Sessions · R24,150</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-link" href="#overview">Programme Overview</a>
+    <a class="nav-link" href="#context">Context &amp; Parameters</a>
+    <a class="nav-link" href="#philosophy">Curriculum Philosophy</a>
+
+    <div class="nav-section-label">Sessions 1–3 · Foundations</div>
+    <a class="nav-link session-link" href="#s1">1 — Foundations &amp; Prompts</a>
+    <a class="nav-link session-link" href="#s2">2 — Excel &amp; Reporting</a>
+    <a class="nav-link session-link" href="#s3">3 — RAG &amp; Context</a>
+
+    <div class="nav-section-label">Sessions 4–5 · Capability</div>
+    <a class="nav-link session-link" href="#s4">4 — Python Pipelines</a>
+    <a class="nav-link session-link" href="#s5">5 — Local AI &amp; Agents</a>
+
+    <div class="nav-section-label">Session 6 · Close-out</div>
+    <a class="nav-link session-link" href="#s6" style="color: var(--green);">6 — Build Day &amp; Roadmap</a>
+
+    <div class="nav-section-label">Reference</div>
+    <a class="nav-link" href="#deliverables">Deliverables</a>
+    <a class="nav-link" href="#extension">Extension (7–10)</a>
+    <a class="nav-link" href="#prerequisites">Prerequisites</a>
+    <a class="nav-link" href="#investment">Investment</a>
+  </nav>
+</aside>
+
+<!-- ════════════════════════════════════════════════════════
+     MAIN CONTENT
+═════════════════════════════════════════════════════════ -->
+<main class="main">
+<div class="content-wrap">
+
+  <!-- URGENT BANNER -->
+  <div class="urgent-banner">
+    <span class="urgent-icon">⚠</span>
+    <span class="urgent-text">All documentation must be approved by Wednesday, 25 March 2026</span>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="eyebrow">Curriculum Design Specification · V6</div>
+    <h1 class="page-title">SASA Applied AI Programme</h1>
+    <p class="page-subtitle">South African Sugar Association · Mount Edgecombe</p>
+    <div class="meta-chips">
+      <span class="chip chip-green">6 Sessions</span>
+      <span class="chip chip-gold">R3,500 / session</span>
+      <span class="chip chip-gold">R24,150 incl. VAT</span>
+      <span class="chip chip-muted">7 hours each</span>
+      <span class="chip chip-muted">~11 weeks</span>
+      <span class="chip chip-muted">In-person · Mount Edgecombe</span>
+      <span class="chip chip-muted">23 March 2026</span>
+    </div>
+  </header>
+
+  <!-- ══ SECTION: PROGRAMME OVERVIEW ══ -->
+  <section class="section" id="overview">
+    <h2 class="section-title">Programme Overview</h2>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Sessions</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">15</div>
+        <div class="stat-label">In-person participants</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">11</div>
+        <div class="stat-label">Online supervisors</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Deliverables</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">~2wk</div>
+        <div class="stat-label">Cadence between sessions</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">R21k</div>
+        <div class="stat-label">Excl. VAT</div>
+      </div>
+    </div>
+
+    <div class="arc-row">
+      <div class="arc-cell">
+        <div class="arc-phase">Phase 1</div>
+        <div class="arc-sessions">Sessions 1–3</div>
+        <div class="arc-desc">Data foundations + prompt literacy</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-phase">Phase 2</div>
+        <div class="arc-sessions">Sessions 4 &amp; build</div>
+        <div class="arc-desc">Technical integration + automation</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-phase">Phase 3</div>
+        <div class="arc-sessions">Sessions 5–6</div>
+        <div class="arc-desc">Local AI + agents + build day close-out</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: CONTEXT & PARAMETERS ══ -->
+  <section class="section" id="context">
+    <h2 class="section-title">Context &amp; Parameters</h2>
+    <div class="table-wrap">
+      <table class="data-table">
+        <tbody>
+          <tr>
+            <td>Budget line</td>
+            <td>Professional Fees (consulting, not training)</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>SASA facility, Mount Edgecombe</td>
+          </tr>
+          <tr>
+            <td>Session format</td>
+            <td>7 hrs: 09:00–12:30 · lunch · 13:30–17:00</td>
+          </tr>
+          <tr>
+            <td>Cadence</td>
+            <td>~every 2 weeks (~11 weeks total)</td>
+          </tr>
+          <tr>
+            <td>In-person</td>
+            <td>11 managers + 3–5 directors</td>
+          </tr>
+          <tr>
+            <td>Remote</td>
+            <td>Up to 11 supervisors</td>
+          </tr>
+          <tr>
+            <td>AI tool</td>
+            <td>Claude Pro shared (~R1,700/mo) + Microsoft Copilot</td>
+          </tr>
+          <tr>
+            <td>Technical scope</td>
+            <td>Python, Node.js, RAG, large SASA datasets, Ollama, n8n</td>
+          </tr>
+          <tr>
+            <td>Advanced members</td>
+            <td>Dave and Sheetal already building — used as benchmarks</td>
+          </tr>
+          <tr>
+            <td>Paperwork deadline</td>
+            <td>Wednesday 25 March 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: CURRICULUM PHILOSOPHY ══ -->
+  <section class="section" id="philosophy">
+    <h2 class="section-title">Curriculum Philosophy</h2>
+    <p class="philosophy-para"><strong>Core principle:</strong> Every session produces something usable. The programme is structured so that each session builds on the last — not as abstract theory but as a running consulting engagement with SASA as the client. Participants direct the work; AI assists. The consultant role is to accelerate capability, not to deliver a finished product and leave.</p>
+    <p class="philosophy-para"><strong>Prompt engineering thread (S1–3):</strong> Prompt literacy is the foundation the entire programme rests on. Sessions 1, 2, and 3 each contain a dedicated prompt engineering block that progressively builds skill — from first principles (RCTF) through parameterised templates to RAG-aware context management. Every prompt block adds directly to the shared SASA prompt library on SharePoint, building a reusable institutional asset.</p>
+    <p class="philosophy-para"><strong>Build day (S6):</strong> The final session is deliberately not a lecture. Teams self-select into build groups based on their automation candidates from Session 4, build something real with senior consultant support, and present it. The programme ends with tools on desks and plans in hand — not a certificate on a wall.</p>
+
+    <div class="arc-row">
+      <div class="arc-cell">
+        <div class="arc-phase">Prompt Track</div>
+        <div class="arc-sessions">S1–3</div>
+        <div class="arc-desc">RCTF → reuse → RAG + context</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-phase">Build Track</div>
+        <div class="arc-sessions">S4–5</div>
+        <div class="arc-desc">Pipeline code → local AI → agents</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-phase">Close-out</div>
+        <div class="arc-sessions">S6</div>
+        <div class="arc-desc">Build day → governance → 90-day plans</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 1
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s1">
+    <div class="session-header">
+      <div class="session-num-block">
+        <div class="session-num">1</div>
+        <div class="session-week">Week 1</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-gold">Foundations</span>
+          <span class="tag tag-green">Prompt Engineering</span>
+        </div>
+        <h3 class="session-title">Foundations Audit, Strategic Framing &amp; Prompt Engineering</h3>
+        <p class="session-subtitle">Mapping SASA's data landscape — building the prompt discipline the whole programme runs on</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">The first session maps SASA's current data landscape, standardises tooling, agrees on integration targets, and establishes the prompt foundations every session builds on.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Morning — Audit &amp; Setup</div>
+        <ul class="bullet-list">
+          <li>Review advanced members' AI work as benchmark</li>
+          <li>Map SASA data landscape: R7106, LIMS, Autolab, mill reports</li>
+          <li>Configure Claude Pro shared account, Copilot review, setup</li>
+          <li>Define programme capstone goals</li>
+        </ul>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-block-header">
+          <span class="prompt-dot"></span>
+          <span class="prompt-block-label">Afternoon — Prompt Engineering Block</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Role · Context · Task · Format (RCTF) — first template from real SASA report language</li>
+          <li>XML tags, 200K context window, system prompts, Projects vs. conversations</li>
+          <li>Iteration workflow: draft → test → refine → save</li>
+          <li>Common failure modes diagnosed from real examples</li>
+          <li>Establish SharePoint prompt library: naming, categories, validation discipline</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">SASA data &amp; systems map + integration targets + consulting log + seed prompt library (10–15 entries)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 2
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s2">
+    <div class="session-header">
+      <div class="session-num-block">
+        <div class="session-num">2</div>
+        <div class="session-week">Week 3</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-gold">Excel</span>
+          <span class="tag tag-gold">Reporting</span>
+          <span class="tag tag-blue">Copilot</span>
+        </div>
+        <h3 class="session-title">Excel, Reporting &amp; AI-Generated Workflows</h3>
+        <p class="session-subtitle">Rebuilding data workflows and eliminating manual report commentary — in one day</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">Two sides of the same problem — turning SASA's data into decisions faster — handled in a single session.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Morning — Excel &amp; Data Workflows</div>
+        <ul class="bullet-list">
+          <li>Rebuild one SASA Excel report with Claude co-pilot</li>
+          <li>Structured data principles: column naming, type consistency, AI-readable format</li>
+        </ul>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-block-header">
+          <span class="prompt-dot"></span>
+          <span class="prompt-block-label">Embedded Morning — Prompt Engineering Block</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Parameterised templates vs fixed prompts</li>
+          <li>Excel prompt library: summarise, flag, extract, compare</li>
+          <li>Version discipline — avoiding drift across the team</li>
+          <li>Add to shared SASA library</li>
+        </ul>
+      </div>
+
+      <div class="half-day">
+        <div class="half-day-label">Afternoon — Reporting Workflows</div>
+        <ul class="bullet-list">
+          <li>Audit reporting burden — hours/week on interpretive text — ROI conversation</li>
+          <li>Narrative workflow: structured data → Claude prompt → draft → sign-off</li>
+          <li>Copilot PowerPoint from SASA data summary</li>
+          <li>Report commentary template: house style, regulatory language, exception conventions</li>
+          <li>One complete AI-assisted report draft reviewed by director in-session</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">AI-augmented Excel report + exception-flagging template + Excel prompt library + report commentary template + completed AI-assisted report draft</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 3
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s3">
+    <div class="session-header">
+      <div class="session-num-block">
+        <div class="session-num">3</div>
+        <div class="session-week">Week 5</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-gold">RAG</span>
+          <span class="tag tag-green">Context Management</span>
+          <span class="tag tag-blue">Large Datasets</span>
+        </div>
+        <h3 class="session-title">Working with Large Datasets, RAG &amp; Context Management</h3>
+        <p class="session-subtitle">Making 10 years of multi-centre SASA data queryable and manageable</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">Session 3 addresses SASA's scale challenge — how to query 10 years of operational data without feeding everything to an AI at once.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Morning — RAG Concepts &amp; Data Work</div>
+        <ul class="bullet-list">
+          <li>Introduce RAG — AI-as-librarian pattern, practical analogy, no code required</li>
+          <li>Work with SASA multi-year multi-centre data: slice, filter, summarise</li>
+          <li>Surface data structural problems that limit AI</li>
+          <li>Build simple document index for targeted queries</li>
+        </ul>
+      </div>
+
+      <div class="prompt-block">
+        <div class="prompt-block-header">
+          <span class="prompt-dot"></span>
+          <span class="prompt-block-label">Afternoon — Prompt Engineering Block</span>
+        </div>
+        <ul class="bullet-list">
+          <li>Context window management: Claude's 200K tokens — paste vs chunk vs RAG</li>
+          <li>Chunking strategies: query across chunks without losing coherence</li>
+          <li>Summarisation chains: compress 10-year data without losing outliers</li>
+          <li>Prompting for synthesis vs extraction</li>
+          <li>Multi-document prompting across SASA sources</li>
+          <li>Design SASA data-preparation checklist (LIMS, Autolab, mill formats)</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">Data-preparation checklist + working RAG demonstration + context management reference card</div>
+      </div>
+
+      <div class="note-box">
+        <div class="note-box-label">Note for online supervisors</div>
+        High-value session for online supervisors — RAG concept, context guide, and checklist apply across all roles.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 4
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s4">
+    <div class="session-header">
+      <div class="session-num-block">
+        <div class="session-num">4</div>
+        <div class="session-week">Week 7</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-blue">Python</span>
+          <span class="tag tag-blue">Node.js</span>
+          <span class="tag tag-gold">LIMS Pipeline</span>
+        </div>
+        <h3 class="session-title">Python &amp; Automation Pipelines</h3>
+        <p class="session-subtitle">Writing and understanding the code that connects SASA's systems to AI</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">Managers direct and review the code — the AI writes it. This session builds the literacy to do that confidently, then puts it to work on a real LIMS data pipeline.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Full Day — What We Build Together</div>
+        <ul class="bullet-list">
+          <li>Consulting frame: you direct and review, AI writes</li>
+          <li>Python pipeline: LIMS export → transformation → flagged output → formatted report</li>
+          <li>Node.js contrast: Python for data, Node.js for API/SharePoint connectors</li>
+          <li>Version control intro for AI-generated code</li>
+          <li>Each participant identifies one automation candidate — these form Session 6 build briefs</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">Working LIMS-to-output pipeline stub + automation candidate list per team area (input to Session 6 build day)</div>
+      </div>
+
+      <div class="prereq-bar">
+        <span class="prereq-bar-icon">⚙</span>
+        <span><strong>Pre-session requirement:</strong> Python 3.x, Node.js LTS, and VS Code pre-installed on all attendee machines. IT support required before this session.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 5
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s5">
+    <div class="session-header">
+      <div class="session-num-block">
+        <div class="session-num">5</div>
+        <div class="session-week">Week 9</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-green">Local AI</span>
+          <span class="tag tag-orange">Agents</span>
+          <span class="tag tag-green">Governance</span>
+        </div>
+        <h3 class="session-title">Local AI Infrastructure &amp; Agentic Workflows</h3>
+        <p class="session-subtitle">The session that changes how SASA thinks about AI — from a tool you ask to a system that acts</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">This session deploys SASA's local AI capability — keeping sensitive data on-premise — and introduces agentic automation: AI processes that run without constant human instruction.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Morning — Local AI Deployment</div>
+        <ul class="bullet-list">
+          <li>IT meeting findings mapped against Session 3 data decisions</li>
+          <li>Install and configure Ollama + Open WebUI on SASA server with IT present</li>
+          <li>Browser access for all team members — no software on individual machines</li>
+          <li>Local RAG: index SASA documents, query without internet</li>
+          <li>Design data governance framework: cloud vs on-premise — one-page policy for director sign-off</li>
+        </ul>
+      </div>
+
+      <div class="agent-block">
+        <div class="agent-block-header">
+          <span class="agent-dot"></span>
+          <span class="agent-block-label">Afternoon — Agentic Workflows</span>
+        </div>
+        <ul class="bullet-list">
+          <li>What is an agent? "I ask an AI" vs "the AI does the task and tells me when something needs attention"</li>
+          <li>Introduce n8n: open-source, self-hosted, no per-seat licence</li>
+          <li>Build SASA agent pipeline: data → exception check → draft alert → SharePoint/file output</li>
+          <li>Connect to Session 4 Python output — real data, not a demo</li>
+          <li>Design SASA's first agentic use case specification: inputs, triggers, outputs, human review gate</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box green-del">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">Local AI server operational + working n8n agent pipeline + agentic use case specification + data governance policy</div>
+      </div>
+
+      <div class="note-box">
+        <div class="note-box-label">Server specification</div>
+        Minimum: 16 GB RAM · modern CPU · dedicated GPU 4+ GB VRAM · 50 GB SSD · network-accessible<br>
+        Recommended: 32 GB RAM · RTX 3060 12 GB · 100 GB SSD
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SESSION 6 (close-out — green styling)
+  ══════════════════════════════════════════ -->
+  <section class="session-card" id="s6" style="border-color: var(--green-dim);">
+    <div class="session-header" style="border-bottom-color: var(--green-dim);">
+      <div class="session-num-block green-num">
+        <div class="session-num">6</div>
+        <div class="session-week">Week 11</div>
+      </div>
+      <div class="session-header-info">
+        <div class="session-tags">
+          <span class="tag tag-green">Build Day</span>
+          <span class="tag tag-green">Governance</span>
+          <span class="tag tag-green">Roadmap</span>
+        </div>
+        <h3 class="session-title">Build Day, Governance &amp; Programme Roadmap</h3>
+        <p class="session-subtitle">Teams build something real — the programme closes with a clear path forward</p>
+      </div>
+    </div>
+    <div class="session-body">
+      <p class="session-intro">The final session is structured in two halves: a morning build day where teams construct a working tool, and an afternoon that turns the programme into a sustained 12-month capability.</p>
+
+      <div class="half-day">
+        <div class="half-day-label">Morning — Build Day</div>
+        <ul class="bullet-list">
+          <li>Teams self-select into 2–3 build groups from Session 4 automation candidate lists</li>
+          <li>Build targets: Excel exception report / Python data pipeline / local RAG / n8n agent workflow</li>
+          <li>Richard rotates as senior consultant; advanced members lead their groups</li>
+          <li>GOAL: every group ships something usable from Monday — not a prototype</li>
+        </ul>
+      </div>
+
+      <div class="half-day">
+        <div class="half-day-label">Afternoon — Governance &amp; Roadmap Close-out</div>
+        <ul class="bullet-list">
+          <li>Showcase: each group presents their build (5 minutes each)</li>
+          <li>Review all sessions against Session 1 integration targets — what was built, what remains</li>
+          <li>Governance framework: acceptable use, data classification, prompt library ownership</li>
+          <li>Operating model: who owns what, how new use cases are prioritised</li>
+          <li>Skills continuity: who deepens, who needs operational literacy</li>
+          <li>12-month roadmap: 3–5 targets with owners and effort</li>
+          <li>Individual 90-day action plans</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-box green-del">
+        <div class="deliverable-label">Deliverable</div>
+        <div class="deliverable-text">Team-built working tools (one per group, usable immediately) + data governance policy + 12-month integration roadmap + individual 90-day action plans</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: DELIVERABLES SUMMARY ══ -->
+  <section class="section" id="deliverables">
+    <h2 class="section-title">Deliverables Summary</h2>
+    <div class="table-wrap">
+      <table class="data-table del-table">
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Deliverable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>S1</td>
+            <td>SASA data &amp; systems map + integration targets + consulting log + seed prompt library</td>
+          </tr>
+          <tr>
+            <td>S2</td>
+            <td>AI-augmented Excel report + exception-flagging template + report commentary template + AI-assisted report draft</td>
+          </tr>
+          <tr>
+            <td>S3</td>
+            <td>Data-preparation checklist + RAG demonstration + context management reference card</td>
+          </tr>
+          <tr>
+            <td>S4</td>
+            <td>LIMS-to-output pipeline stub + automation candidate list</td>
+          </tr>
+          <tr>
+            <td>S5</td>
+            <td>Local AI server + n8n agent pipeline + agentic use case spec + data governance policy</td>
+          </tr>
+          <tr>
+            <td>S6</td>
+            <td>Team-built working tools + 12-month roadmap + individual 90-day action plans</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: EXTENSION PROGRAMME ══ -->
+  <section class="section" id="extension">
+    <h2 class="section-title">Extension Programme</h2>
+    <div class="extension-block">
+      <div class="extension-title">Sessions 7–10 · R3,500 per session</div>
+      <div class="extension-grid">
+        <div class="ext-session">
+          <div class="ext-session-num">Session 7</div>
+          <div class="ext-session-title">LIMS &amp; Autolab Deep Integration</div>
+          <div class="ext-session-desc">AI-assisted exception detection, notification architecture, Autolab data feed</div>
+        </div>
+        <div class="ext-session">
+          <div class="ext-session-num">Session 8</div>
+          <div class="ext-session-title">Advanced Agentic Workflows</div>
+          <div class="ext-session-desc">Multi-step pipelines, scheduling, error handling, escalation paths</div>
+        </div>
+        <div class="ext-session">
+          <div class="ext-session-num">Session 9</div>
+          <div class="ext-session-title">Source System Integration &amp; Production Deployment</div>
+          <div class="ext-session-desc">API connectors, live LIMS/SharePoint</div>
+        </div>
+        <div class="ext-session">
+          <div class="ext-session-num">Session 10</div>
+          <div class="ext-session-title">Capstone Review, Advanced Governance &amp; Extended Roadmap</div>
+          <div class="ext-session-desc"></div>
+        </div>
+      </div>
+      <div class="extension-price">4 sessions × R3,500 = R14,000 excl. VAT &nbsp;|&nbsp; R16,100 incl. VAT (15%)</div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: PREREQUISITES ══ -->
+  <section class="section" id="prerequisites">
+    <h2 class="section-title">Prerequisites</h2>
+
+    <div class="prereq-section">
+      <div class="prereq-group-title">Before Session 1</div>
+      <ul class="checklist">
+        <li>Claude Pro account set up and shared credentials distributed</li>
+        <li>Admin rights on attendee machines confirmed</li>
+        <li>Projector + video link configured for remote participants</li>
+        <li>SharePoint location created for prompt library</li>
+        <li>Richard reviews Dave &amp; Sheetal's existing AI work before session</li>
+      </ul>
+    </div>
+
+    <div class="prereq-section">
+      <div class="prereq-group-title">Before Session 4</div>
+      <ul class="checklist">
+        <li><span class="mono">Python 3.x</span> installed on all attendee machines</li>
+        <li><span class="mono">Node.js LTS</span> installed on all attendee machines</li>
+        <li><span class="mono">VS Code</span> installed — IT support required</li>
+      </ul>
+    </div>
+
+    <div class="prereq-section">
+      <div class="prereq-group-title">Before Session 5</div>
+      <ul class="checklist">
+        <li>IT meeting completed — server provisioned and network-accessible</li>
+        <li>AI server meets minimum spec: 16 GB RAM, network-accessible</li>
+        <li><span class="mono">Ollama</span> pre-installed and tested on SASA server</li>
+        <li>AI model pre-downloaded (avoid session-day bandwidth issues)</li>
+        <li><span class="mono">n8n</span> installed and accessible on server</li>
+      </ul>
+    </div>
+
+    <div class="prereq-section">
+      <div class="prereq-group-title">Before Session 6</div>
+      <ul class="checklist">
+        <li>Build briefs confirmed — automation candidates reviewed with Richard</li>
+        <li>Data for build day accessible and prepared in agreed formats</li>
+      </ul>
+    </div>
+
+    <div class="prereq-section">
+      <div class="prereq-group-title">All Sessions</div>
+      <ul class="checklist">
+        <li>Sample or live SASA data available for the session's focus area</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ SECTION: INVESTMENT ══ -->
+  <section class="section" id="investment">
+    <h2 class="section-title">Investment</h2>
+
+    <div class="table-wrap" style="margin-bottom: 16px;">
+      <table class="investment-table">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Sessions</th>
+            <th>Rate</th>
+            <th>Subtotal</th>
+            <th>VAT (15%)</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6-session programme</td>
+            <td class="mono-cell">6 × 7 hrs</td>
+            <td class="mono-cell">R3,500</td>
+            <td class="mono-cell">R21,000</td>
+            <td class="mono-cell">R3,150</td>
+            <td class="gold-cell">R24,150</td>
+          </tr>
+          <tr>
+            <td>Extension (7–10)</td>
+            <td class="mono-cell">4 × 7 hrs</td>
+            <td class="mono-cell">R3,500</td>
+            <td class="mono-cell">R14,000</td>
+            <td class="mono-cell">R2,100</td>
+            <td class="gold-cell">R16,100</td>
+          </tr>
+          <tr class="total-row">
+            <td>Full programme (all 10 sessions)</td>
+            <td>—</td>
+            <td>—</td>
+            <td>R35,000</td>
+            <td>R5,250</td>
+            <td>R40,250</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="invest-notes">
+      <ul>
+        <li>Sessions invoiced individually upon completion</li>
+        <li>Payment terms: 14 days from invoice date</li>
+        <li>Travel and accommodation invoiced separately where applicable</li>
+        <li>Cancellation: 5 business days notice required</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      Richard [Surname]<br>
+      [Company]<br>
+      [Email]<br>
+      [Phone]
+    </div>
+    <div class="footer-right">
+      PROP-SASA-2026-006<br>
+      Curriculum V6 · 23 March 2026<br>
+      Valid until 31 March 2026
+    </div>
+  </footer>
+
+</div>
+</main>
+
+<script>
+  // Active nav link highlighting via IntersectionObserver
+  (function () {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sectionIds = Array.from(navLinks)
+      .map(l => l.getAttribute('href'))
+      .filter(h => h && h.startsWith('#'))
+      .map(h => h.slice(1));
+
+    const sections = sectionIds
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+
+    const setActive = (id) => {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === '#' + id) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    };
+
+    // Use a map to track which sections are currently visible
+    const visibleSections = new Map();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          visibleSections.set(entry.target.id, entry.isIntersecting);
+        });
+
+        // Find the first visible section (topmost)
+        let activeId = null;
+        for (const section of sections) {
+          if (visibleSections.get(section.id)) {
+            activeId = section.id;
+            break;
+          }
+        }
+
+        if (activeId) setActive(activeId);
+      },
+      {
+        rootMargin: '-60px 0px -60% 0px',
+        threshold: 0
+      }
+    );
+
+    sections.forEach(s => observer.observe(s));
+
+    // Set initial state
+    if (sections.length > 0) setActive(sections[0].id);
+  })();
+</script>
+
+</body>
+</html>
