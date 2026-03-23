@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASA AI Curriculum V5 — 6 Sessions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #0D1117;
+    --bg-panel:     #161B22;
+    --bg-card:      #1C2128;
+    --bg-elevated:  #21262D;
+    --border:       #30363D;
+    --border-subtle:#21262D;
+
+    --text:         #E6EDF3;
+    --text-muted:   #8B949E;
+    --text-dim:     #484F58;
+
+    --green:        #3FB950;
+    --green-dim:    #196C2E;
+    --green-glow:   rgba(63,185,80,0.12);
+    --green-pale:   #0D2117;
+
+    --gold:         #D29922;
+    --gold-dim:     #7D5A00;
+    --gold-pale:    #1F1900;
+
+    --blue:         #58A6FF;
+    --blue-pale:    #0D1F3C;
+
+    --orange:       #D18616;
+    --orange-pale:  #1F1300;
+    --orange-border:#6E3714;
+
+    --red:          #F85149;
+    --red-pale:     #1F0A0A;
+
+    --purple:       #BC8CFF;
+    --purple-pale:  #1A0F2E;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0 0 2rem;
+    z-index: 100;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+  }
+  .sidebar-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+  .sidebar-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .sidebar-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    background: var(--green-pale);
+    color: var(--green);
+    border: 1px solid var(--green-dim);
+    border-radius: 2px;
+    margin-top: 0.4rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-section { padding: 0.5rem 0; }
+  .nav-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0.4rem 1.25rem;
+    display: block;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.42rem 1.25rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: all 0.15s ease;
+    border-left: 2px solid transparent;
+  }
+  .nav-link:hover { color: var(--text); background: var(--bg-card); }
+  .nav-link.active { color: var(--green); border-left-color: var(--green); background: var(--green-glow); }
+  .nav-link .nav-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    min-width: 1.2rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .nav-link.close .nav-num { color: var(--green); }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 240px;
+    flex: 1;
+    max-width: 860px;
+    padding: 3rem 3rem 6rem;
+  }
+
+  /* URGENT */
+  .urgent {
+    background: var(--red-pale);
+    border: 1px solid rgba(248,81,73,0.3);
+    padding: 0.75rem 1.1rem;
+    margin-bottom: 2.5rem;
+    border-radius: 3px;
+    font-size: 0.88rem;
+    color: #FF7B72;
+  }
+  .urgent strong { font-weight: 700; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .page-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+  }
+  .page-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .page-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .meta-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 2px;
+  }
+  .meta-chip.green { color: var(--green); border-color: var(--green-dim); background: var(--green-pale); }
+  .meta-chip.gold { color: var(--gold); border-color: var(--gold-dim); background: var(--gold-pale); }
+
+  /* SECTION */
+  section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+  .sec-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+  h2.sec-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  h3.sub-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  /* OVERVIEW GRID */
+  .overview-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stat-cell {
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat-cell:nth-child(3n) { border-right: none; }
+  .stat-cell:nth-last-child(-n+3) { border-bottom: none; }
+  .stat-num {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--green);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; }
+
+  /* ARC */
+  .arc-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .arc-cell {
+    background: var(--bg-card);
+    padding: 1.1rem 1.1rem;
+  }
+  .arc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .arc-sessions {
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .arc-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* SESSION CARD */
+  .session-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .session-card-header {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+  .session-number-block {
+    background: var(--bg-elevated);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--border);
+    min-width: 72px;
+  }
+  .session-number-block .num {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .session-number-block .week-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+  .session-card.close-session .session-number-block .num { color: var(--green); }
+  .session-header-info {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+  }
+  .session-tag-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .tag.gold { background: var(--gold-pale); color: var(--gold); border: 1px solid var(--gold-dim); }
+  .tag.green { background: var(--green-pale); color: var(--green); border: 1px solid var(--green-dim); }
+  .tag.blue { background: var(--blue-pale); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .tag.orange { background: var(--orange-pale); color: var(--orange); border: 1px solid var(--orange-border); }
+  .tag.purple { background: var(--purple-pale); color: var(--purple); border: 1px solid rgba(188,140,255,0.3); }
+
+  h3.session-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+  }
+  .session-subtitle { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+  .session-card-body { padding: 1.5rem; }
+  .session-intro { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.7; }
+
+  /* HALF-DAY BLOCKS */
+  .half-day { margin-bottom: 1.25rem; }
+  .half-day-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .half-day-label::after { content: ''; flex: 1; height: 1px; background: var(--border-subtle); }
+  ul.item-list { list-style: none; padding: 0; }
+  ul.item-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0 0.25rem 1.4rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  ul.item-list li::before { content: '·'; position: absolute; left: 0.4rem; color: var(--gold); font-size: 1rem; top: 0.15rem; }
+
+  /* PROMPT BLOCK */
+  .prompt-block {
+    background: #0A1810;
+    border: 1px solid var(--green-dim);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+  }
+  .pb-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(31,108,46,0.4);
+  }
+  .pb-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+  .pb-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  ul.prompt-items { list-style: none; padding: 0; }
+  ul.prompt-items li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.77rem;
+    color: #7CC890;
+    padding: 0.22rem 0 0.22rem 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  ul.prompt-items li::before { content: '›'; position: absolute; left: 0.2rem; color: var(--green); }
+
+  /* DELIVERABLE */
+  .deliverable {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 0.85rem 1.1rem;
+    margin-top: 1.25rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .deliverable .del-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .deliverable p { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+  .deliverable.green { border-left-color: var(--green); }
+  .deliverable.green .del-label { color: var(--green); }
+
+  .note-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 0.7rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-radius: 3px;
+  }
+  .prereq-bar {
+    background: var(--gold-pale);
+    border: 1px solid var(--gold-dim);
+    padding: 0.5rem 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    margin-top: 0.85rem;
+    border-radius: 3px;
+  }
+
+  /* TABLES */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 1rem 0;
+  }
+  table.data-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  table.data-table td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+  table.data-table tr:last-child td { border-bottom: none; }
+  table.data-table td.mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+  }
+  table.data-table td.strong { color: var(--text); font-weight: 500; }
+  table.data-table .total-row td { background: var(--bg-elevated); font-weight: 700; color: var(--text); }
+  table.data-table .total-row td.mono { color: var(--green); font-size: 0.88rem; }
+
+  /* EXTENSION BLOCK */
+  .extension-block {
+    background: var(--orange-pale);
+    border: 1px solid var(--orange-border);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0;
+  }
+  .ext-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+  .ext-title {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+  .ext-sessions { list-style: none; padding: 0; margin-bottom: 1rem; }
+  .ext-sessions li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0 0.3rem 1.4rem;
+    position: relative;
+    border-bottom: 1px solid rgba(110,55,20,0.3);
+  }
+  .ext-sessions li:last-child { border-bottom: none; }
+  .ext-sessions li::before { content: '→'; position: absolute; left: 0; color: var(--orange); }
+  .ext-sessions li strong { color: var(--text); }
+  .ext-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--orange);
+    background: rgba(209,134,22,0.08);
+    border: 1px solid rgba(209,134,22,0.2);
+    padding: 0.4rem 0.85rem;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  /* CHECKLIST */
+  ul.checklist { list-style: none; padding: 0; }
+  ul.checklist li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0 0.3rem 1.6rem;
+    position: relative;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  ul.checklist li:last-child { border-bottom: none; }
+  ul.checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    top: 0.38rem;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-left p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; }
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    text-align: right;
+    line-height: 1.8;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 2rem 1.25rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">SASA · 2026</div>
+    <div class="sidebar-title">Applied AI Programme<br>Curriculum V5</div>
+    <div class="sidebar-badge">6 Sessions · R24,150</div>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Overview</span>
+    <a href="#overview" class="nav-link active"><span class="nav-num">—</span> Programme Overview</a>
+    <a href="#context" class="nav-link"><span class="nav-num">—</span> Context &amp; Parameters</a>
+    <a href="#philosophy" class="nav-link"><span class="nav-num">—</span> Curriculum Philosophy</a>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Sessions 1–3 · Foundations</span>
+    <a href="#s1" class="nav-link"><span class="nav-num">1</span> Foundations &amp; Prompts</a>
+    <a href="#s2" class="nav-link"><span class="nav-num">2</span> Excel Engineering</a>
+    <a href="#s3" class="nav-link"><span class="nav-num">3</span> RAG &amp; Context</a>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Sessions 4–5 · Capability</span>
+    <a href="#s4" class="nav-link"><span class="nav-num">4</span> Python &amp; Node.js</a>
+    <a href="#s5" class="nav-link"><span class="nav-num">5</span> Reporting &amp; Narratives</a>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Session 6 · Close-out</span>
+    <a href="#s6" class="nav-link close"><span class="nav-num">6</span> Infra &amp; Roadmap</a>
+  </div>
+
+  <div class="nav-section">
+    <span class="nav-label">Reference</span>
+    <a href="#deliverables" class="nav-link"><span class="nav-num">—</span> Deliverables</a>
+    <a href="#extension" class="nav-link"><span class="nav-num">—</span> Extension (7–10)</a>
+    <a href="#prerequisites" class="nav-link"><span class="nav-num">—</span> Prerequisites</a>
+    <a href="#investment" class="nav-link"><span class="nav-num">—</span> Investment</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="urgent">
+    <strong>⚠ Urgent:</strong> All documentation must be approved by <strong>Wednesday, 25 March 2026</strong> to meet internal budget processing deadlines.
+  </div>
+
+  <header class="page-header">
+    <p class="page-eyebrow">Curriculum Design Specification · V5</p>
+    <h1 class="page-title">SASA Applied AI Programme</h1>
+    <p class="page-subtitle">South African Sugar Association · Mount Edgecombe</p>
+    <div class="meta-strip">
+      <span class="meta-chip green">6 Sessions</span>
+      <span class="meta-chip gold">R3,500 / session</span>
+      <span class="meta-chip gold">R24,150 incl. VAT</span>
+      <span class="meta-chip">7 hours each</span>
+      <span class="meta-chip">~11 weeks</span>
+      <span class="meta-chip">In-person · Mount Edgecombe</span>
+      <span class="meta-chip">23 March 2026</span>
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <p class="sec-eyebrow">Programme Overview</p>
+    <h2 class="sec-title">Six Sessions. One Direction.</h2>
+
+    <div class="overview-stats">
+      <div class="stat-cell"><span class="stat-num">6</span><div class="stat-label">Co-development sessions<br>7 hours each</div></div>
+      <div class="stat-cell"><span class="stat-num">15</span><div class="stat-label">In-person (11 managers<br>+ 3–5 directors)</div></div>
+      <div class="stat-cell"><span class="stat-num">11</span><div class="stat-label">Supervisors joining<br>selected sessions online</div></div>
+      <div class="stat-cell"><span class="stat-num">6</span><div class="stat-label">Working deliverables<br>SASA retains</div></div>
+      <div class="stat-cell"><span class="stat-num">~2wk</span><div class="stat-label">Cadence between<br>sessions</div></div>
+      <div class="stat-cell"><span class="stat-num">R21k</span><div class="stat-label">Programme total<br>excl. VAT</div></div>
+    </div>
+
+    <div class="arc-row">
+      <div class="arc-cell">
+        <div class="arc-label">Phase 1</div>
+        <div class="arc-sessions">Sessions 1–3</div>
+        <div class="arc-desc">Data foundations + prompt literacy</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-label">Phase 2</div>
+        <div class="arc-sessions">Sessions 4–5</div>
+        <div class="arc-desc">Technical capability + reporting automation</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-label">Phase 3</div>
+        <div class="arc-sessions">Session 6</div>
+        <div class="arc-desc">Local infrastructure + governance + roadmap close-out</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section id="context">
+    <p class="sec-eyebrow">Context &amp; Parameters</p>
+    <h2 class="sec-title">What We're Working With</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Parameter</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td class="strong">Budget line</td><td>Professional Fees — consulting and integration development, not training</td></tr>
+        <tr><td class="strong">Location</td><td>SASA facility, Mount Edgecombe, KwaZulu-Natal (in-person + hybrid remote)</td></tr>
+        <tr><td class="strong">Session format</td><td>7 hours: 09:00–12:30 · lunch · 13:30–17:00</td></tr>
+        <tr><td class="strong">Cadence</td><td>Approximately every 2 weeks (~11 weeks total)</td></tr>
+        <tr><td class="strong">In-person</td><td>11 managers + 3–5 directors (~15 total)</td></tr>
+        <tr><td class="strong">Remote</td><td>Up to 11 supervisors joining selected sessions; 15-minute synthesis at start</td></tr>
+        <tr><td class="strong">AI tool</td><td>Claude Pro shared account (~$100/month, ~R1,700) + Microsoft Copilot (existing licences)</td></tr>
+        <tr><td class="strong">Technical scope</td><td>Python, Node.js, RAG, large SASA datasets (10 years, multiple centres)</td></tr>
+        <tr><td class="strong">Advanced members</td><td>Dave and Sheetal already building — their work used as benchmarks and demonstrations</td></tr>
+        <tr><td class="strong">Paperwork deadline</td><td>Wednesday, 25 March 2026</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <p class="sec-eyebrow">Curriculum Philosophy</p>
+    <h2 class="sec-title">How This Programme Works</h2>
+
+    <p style="color:var(--text-muted); margin-bottom:1rem; font-size:0.95rem; line-height:1.7;"><strong style="color:var(--text);">Core principle:</strong> Every session produces a working deliverable using SASA's actual data. No synthetic examples. No slideware deliverables.</p>
+
+    <p style="color:var(--text-muted); margin-bottom:1rem; font-size:0.95rem; line-height:1.7;"><strong style="color:var(--text);">Prompt Engineering Thread:</strong> Sessions 1–3 carry a deliberate prompt engineering track — embedded in real tasks, not a standalone module. By Session 3, every participant has a personal prompt library, understands context management, and can adapt prompt patterns to new problems independently.</p>
+
+    <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:0.95rem; line-height:1.7;"><strong style="color:var(--text);">Language discipline:</strong> All deliverables framed as "built" or "specified". Invoices reference "Applied AI Consulting" and "integration development" — consistent with Professional Fees budget line.</p>
+
+    <div class="arc-row">
+      <div class="arc-cell">
+        <div class="arc-label">Prompt Track</div>
+        <div class="arc-sessions">Sessions 1–3</div>
+        <div class="arc-desc">RCTF anatomy → Prompt reuse → RAG + context management</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-label">Build Track</div>
+        <div class="arc-sessions">Sessions 4–5</div>
+        <div class="arc-desc">Pipeline code → Reporting automation</div>
+      </div>
+      <div class="arc-cell">
+        <div class="arc-label">Infrastructure Track</div>
+        <div class="arc-sessions">Session 6</div>
+        <div class="arc-desc">Ollama/Open WebUI → Governance → 90-day plans</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 1 -->
+  <section id="s1">
+    <p class="sec-eyebrow">Sessions 1–3 · Data Foundations + Prompt Literacy</p>
+    <h2 class="sec-title">Session Designs</h2>
+
+    <div class="session-card">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">1</div>
+          <div class="week-tag">Week 1</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag gold">Foundations</span>
+            <span class="tag green">Prompt Engineering</span>
+          </div>
+          <h3 class="session-title">Foundations Audit, Strategic Framing &amp; Prompt Foundations</h3>
+          <div class="session-subtitle">Mapping SASA's data landscape — and building the prompt discipline the whole programme runs on</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">The first session maps SASA's current data landscape, standardises tooling across the group, and agrees on specific integration targets every subsequent session builds toward. Existing AI work within SASA is reviewed and used as the benchmark for the rest of the group.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">Morning — audit &amp; tooling</div>
+          <ul class="item-list">
+            <li>Review AI work already completed by Dave and Sheetal — present as the benchmark, not the exception</li>
+            <li>Map SASA's data landscape: R7106 records, LIMS exports, Autolab CSVs, mill reports — identify highest integration potential</li>
+            <li>Configure tooling: Claude Pro shared account, Copilot licence review, desktop setup for all attendees</li>
+            <li>Define programme capstone goals as a group — integration targets all sessions build toward</li>
+          </ul>
+        </div>
+
+        <div class="prompt-block">
+          <div class="pb-header">
+            <div class="pb-dot"></div>
+            <div class="pb-title">Afternoon — Prompt Engineering Foundations (90 min)</div>
+          </div>
+          <ul class="prompt-items">
+            <li>Prompt anatomy: Role · Context · Task · Format (RCTF) — first template built from real SASA report language</li>
+            <li>Claude-specific techniques: XML tags for structured output; 200K token context window; system prompts; Projects vs. conversations</li>
+            <li>Prompt iteration workflow: draft → test → refine → save — treating prompts as living documents</li>
+            <li>Common failure modes: vague instructions, missing context, unspecified format — diagnosed from real SASA examples</li>
+            <li>Establish SASA shared prompt library in SharePoint: naming conventions, categories, validation discipline</li>
+          </ul>
+        </div>
+
+        <div class="deliverable">
+          <div class="del-label">Session Deliverable</div>
+          <p>SASA data &amp; systems map + integration targets document + consulting log + seed prompt library (10–15 entries)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 2 -->
+  <section id="s2">
+    <div class="session-card">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">2</div>
+          <div class="week-tag">Week 3</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag gold">Excel</span>
+            <span class="tag green">Prompt Reuse</span>
+            <span class="tag blue">Copilot</span>
+          </div>
+          <h3 class="session-title">Excel as a Data Engineering Surface</h3>
+          <div class="session-subtitle">Rebuilding existing Excel workflows as AI-augmented decision tools</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">Session 2 takes one real SASA Excel report and rebuilds it live using Claude as co-pilot — producing a reusable AI-augmented workflow and exception-flagging template a supervisor can operate independently.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">Morning — Excel co-pilot work</div>
+          <ul class="item-list">
+            <li>Rebuild one real SASA Excel report using Claude as live co-pilot</li>
+            <li>Structured data principles: column naming, type consistency, AI-readable format</li>
+          </ul>
+        </div>
+
+        <div class="prompt-block">
+          <div class="pb-header">
+            <div class="pb-dot"></div>
+            <div class="pb-title">Prompt Reuse Patterns (45 min)</div>
+          </div>
+          <ul class="prompt-items">
+            <li>Parameterised templates vs. fixed prompts — when to generalise, when to specialise</li>
+            <li>Excel prompt library: summarise, flag exceptions, extract trends, compare periods</li>
+            <li>Prompt curation and version discipline — avoiding drift across the team</li>
+            <li>Add validated prompts to shared SASA library with naming conventions</li>
+          </ul>
+        </div>
+
+        <div class="half-day">
+          <div class="half-day-label">Afternoon — Copilot comparison &amp; template build</div>
+          <ul class="item-list">
+            <li>Apply Microsoft Copilot Excel integration to same dataset — compare outputs, establish workflow preference</li>
+            <li>Design exception-flagging template for one reporting area (e.g. lab results outside control limits)</li>
+            <li>Document workflow for supervisor-level operation without technical support</li>
+          </ul>
+        </div>
+
+        <div class="deliverable">
+          <div class="del-label">Session Deliverable</div>
+          <p>Rebuilt AI-augmented Excel report + exception-flagging template + Excel prompt library additions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 3 -->
+  <section id="s3">
+    <div class="session-card">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">3</div>
+          <div class="week-tag">Week 5</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag gold">RAG</span>
+            <span class="tag green">Context Management</span>
+            <span class="tag blue">Large Datasets</span>
+          </div>
+          <h3 class="session-title">Working with Large Datasets, RAG &amp; Context Management</h3>
+          <div class="session-subtitle">Making 10 years of multi-centre SASA data queryable and manageable</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">Session 3 addresses SASA's scale challenge: how to query 10 years of multi-centre operational data without feeding everything to an AI at once. RAG and context management techniques are introduced and applied to real SASA datasets.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">Morning — RAG &amp; data structure</div>
+          <ul class="item-list">
+            <li>Introduce RAG (Retrieval Augmented Generation): the AI-as-librarian pattern — practical analogy, no code required</li>
+            <li>Work with SASA multi-year multi-centre data: slice, filter, summarise using Claude with structured exports</li>
+            <li>Surface data structural problems that limit AI effectiveness</li>
+            <li>Build a simple document index for targeted AI queries</li>
+          </ul>
+        </div>
+
+        <div class="prompt-block">
+          <div class="pb-header">
+            <div class="pb-dot"></div>
+            <div class="pb-title">Afternoon — Context Management &amp; Large Dataset Prompting (90 min)</div>
+          </div>
+          <ul class="prompt-items">
+            <li>Context window management: Claude's 200K token capacity — when to paste vs. chunk vs. use RAG</li>
+            <li>Chunking strategies: split large datasets and query across chunks without losing coherence</li>
+            <li>Summarisation chains: compress 10-year multi-centre data into structured briefings without losing outliers</li>
+            <li>Prompting for synthesis vs. extraction — "what does this mean" vs. "find the anomalies"</li>
+            <li>Multi-document prompting: structuring queries across multiple SASA sources in one conversation</li>
+            <li>Design SASA data-preparation checklist for LIMS, Autolab, and mill formats</li>
+          </ul>
+        </div>
+
+        <div class="deliverable">
+          <div class="del-label">Session Deliverable</div>
+          <p>SASA data-preparation checklist + working RAG demonstration + context management reference card</p>
+        </div>
+        <div class="note-box">High-value session for online supervisors — the RAG concept, context guide, and checklist apply across all roles.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 4 -->
+  <section id="s4">
+    <p class="sec-eyebrow">Sessions 4–5 · Technical Capability + Reporting Automation</p>
+
+    <div class="session-card">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">4</div>
+          <div class="week-tag">Week 7</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag blue">Python</span>
+            <span class="tag blue">Node.js</span>
+            <span class="tag gold">LIMS Pipeline</span>
+          </div>
+          <h3 class="session-title">Python &amp; Node.js as Integration Glue</h3>
+          <div class="session-subtitle">Writing and understanding the code that connects SASA's systems to AI</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">Managers direct and review the code — the AI writes it. This session builds the literacy to do that confidently, then puts it to work on a real LIMS data pipeline.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">What we build together</div>
+          <ul class="item-list">
+            <li>Consulting frame: you direct and review — the AI writes the code</li>
+            <li>Build a real Python data pipeline: LIMS export → transformation → flagged output → formatted report</li>
+            <li>Introduce Node.js contrast: Python for data manipulation; Node.js for API/web connectors to SharePoint and source systems</li>
+            <li>Introduction to version control for AI-generated code</li>
+            <li>Each participant identifies one repetitive data task in their area for automation</li>
+          </ul>
+        </div>
+
+        <div class="deliverable">
+          <div class="del-label">Session Deliverable</div>
+          <p>Working LIMS-to-output data pipeline stub + automation candidate list per team area</p>
+        </div>
+        <div class="prereq-bar">Prerequisite: Python 3.x, Node.js LTS, and VS Code pre-installed on all attendee machines. IT support required before this session.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 5 -->
+  <section id="s5">
+    <div class="session-card">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">5</div>
+          <div class="week-tag">Week 9</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag gold">Reporting</span>
+            <span class="tag blue">Copilot</span>
+            <span class="tag purple">Narratives</span>
+          </div>
+          <h3 class="session-title">PowerPoint, Reporting &amp; AI-Generated Narratives</h3>
+          <div class="session-subtitle">Eliminating manual report commentary and presentation preparation</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">One of the highest-ROI applications of AI for SASA: replacing the hours spent writing the same interpretive report commentary every cycle with a repeatable, director-approved workflow.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">Morning — narrative workflow</div>
+          <ul class="item-list">
+            <li>Audit reporting burden: quantify hours per week writing interpretive text — the ROI conversation for directors</li>
+            <li>Build repeatable narrative workflow: structured data → Claude prompt → draft → human review → sign-off</li>
+            <li>Apply to one actual SASA periodic report</li>
+          </ul>
+        </div>
+
+        <div class="half-day">
+          <div class="half-day-label">Afternoon — presentation &amp; template build</div>
+          <ul class="item-list">
+            <li>Use Microsoft Copilot PowerPoint integration to generate slides from a SASA data summary</li>
+            <li>Refine via prompt iteration — not just accepting the first output</li>
+            <li>Design report commentary template: SASA house style, regulatory language, exception conventions encoded</li>
+            <li>Produce one complete AI-assisted report draft from real data — reviewed and approved by a director in-session</li>
+          </ul>
+        </div>
+
+        <div class="deliverable">
+          <div class="del-label">Session Deliverable</div>
+          <p>AI-assisted SASA report draft + reusable report commentary prompt template</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 6 -->
+  <section id="s6">
+    <p class="sec-eyebrow">Session 6 · Programme Close-out</p>
+
+    <div class="session-card close-session">
+      <div class="session-card-header">
+        <div class="session-number-block">
+          <div class="num">6</div>
+          <div class="week-tag">Week 11</div>
+        </div>
+        <div class="session-header-info">
+          <div class="session-tag-row">
+            <span class="tag green">Local AI</span>
+            <span class="tag green">Governance</span>
+            <span class="tag green">Roadmap</span>
+          </div>
+          <h3 class="session-title">Local AI Infrastructure, Governance &amp; Programme Roadmap</h3>
+          <div class="session-subtitle">Deploying AI inside SASA's environment — and establishing how it is sustained</div>
+        </div>
+      </div>
+      <div class="session-card-body">
+        <p class="session-intro">The final session serves two purposes: deploying SASA's local AI capability so no sensitive data leaves the building, and closing the programme with a governance framework and 12-month roadmap every participant walks away with.</p>
+
+        <div class="half-day">
+          <div class="half-day-label">Morning — local AI deployment</div>
+          <ul class="item-list">
+            <li>Open with IT meeting findings — map against Session 3 data boundary decisions</li>
+            <li>Install and configure local AI model on SASA server (with IT present if possible)</li>
+            <li>Walk through Ollama server mode + Open WebUI browser access — no software required on individual machines</li>
+            <li>Design SASA data governance framework: cloud vs. on-premise classification — one-page policy for director sign-off</li>
+            <li>Build local RAG demonstration: index SASA internal documents, query without internet</li>
+          </ul>
+        </div>
+
+        <div class="half-day">
+          <div class="half-day-label">Afternoon — governance &amp; roadmap close-out</div>
+          <ul class="item-list">
+            <li>Review all six sessions against Session 1 integration targets — what was built, what remains</li>
+            <li>Build SASA AI governance framework: acceptable use policy, data classification, prompt library ownership, model maintenance</li>
+            <li>Design ongoing operating model: who owns what, how new use cases are prioritised, how the consulting log stays current</li>
+            <li>Address skills continuity: advanced-tier roles vs. operational literacy — who needs to go deeper</li>
+            <li>12-month roadmap: 3–5 integration targets sequenced by value and complexity, with owners and effort</li>
+            <li>Individual 90-day action plans — one concrete next step per participant</li>
+          </ul>
+        </div>
+
+        <div class="deliverable green">
+          <div class="del-label">Session Deliverable</div>
+          <p>Local AI server operational + data governance policy + 12-month integration roadmap + individual 90-day action plans</p>
+        </div>
+        <div class="note-box">Server minimum: 16 GB RAM · modern CPU · dedicated GPU with 4+ GB VRAM · 50 GB SSD · network-accessible. Recommended: 32 GB RAM · NVIDIA RTX 3060 (12 GB VRAM) · 100 GB SSD.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section id="deliverables">
+    <p class="sec-eyebrow">Summary</p>
+    <h2 class="sec-title">What SASA Receives</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Session</th><th>Deliverable</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">S1</td><td>SASA data &amp; systems map + integration targets document + consulting log + seed prompt library</td></tr>
+        <tr><td class="mono">S2</td><td>AI-augmented Excel report + exception-flagging template + Excel prompt library</td></tr>
+        <tr><td class="mono">S3</td><td>Data-preparation checklist + RAG demonstration + context management reference card</td></tr>
+        <tr><td class="mono">S4</td><td>LIMS-to-output data pipeline stub + automation candidate list per team area</td></tr>
+        <tr><td class="mono">S5</td><td>AI-assisted SASA report draft + reusable report commentary template</td></tr>
+        <tr><td class="mono">S6</td><td>Local AI server operational + data governance policy + 12-month roadmap + 90-day action plans</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.5rem;">Every session also updates the shared SASA consulting log: prompt libraries, scripts, specifications, and reference materials accessible to all participants.</p>
+  </section>
+
+  <!-- EXTENSION -->
+  <section id="extension">
+    <p class="sec-eyebrow">Optional Follow-on</p>
+    <h2 class="sec-title">Extension Programme</h2>
+
+    <p style="color:var(--text-muted); margin-bottom:1.25rem; font-size:0.92rem;">Sessions 7–10 are available as a follow-on engagement at the same rate — covering the integrations deferred from the core programme.</p>
+
+    <div class="extension-block">
+      <div class="ext-eyebrow">Optional Extension · Sessions 7–10</div>
+      <div class="ext-title">Advanced Integration &amp; Deployment</div>
+      <ul class="ext-sessions">
+        <li><strong>Session 7:</strong> LIMS &amp; Autolab integration — AI-assisted exception detection, notification architecture</li>
+        <li><strong>Session 8:</strong> Agentic workflows &amp; automation pipelines — multi-step AI processes using n8n</li>
+        <li><strong>Session 9:</strong> Source system integration &amp; production deployment — API connectors, live implementation</li>
+        <li><strong>Session 10:</strong> Capstone review, advanced governance &amp; extended roadmap</li>
+      </ul>
+      <div class="ext-price">4 sessions × R3,500 = R14,000 excl. VAT &nbsp;|&nbsp; R16,100 incl. VAT (15%)</div>
+    </div>
+  </section>
+
+  <!-- PREREQUISITES -->
+  <section id="prerequisites">
+    <p class="sec-eyebrow">Preparation</p>
+    <h2 class="sec-title">Prerequisites</h2>
+
+    <h3 class="sub-title">Before Session 1</h3>
+    <ul class="checklist">
+      <li>Claude Pro shared account set up and access distributed to all attendees</li>
+      <li>Attendee machines have admin rights for software installation</li>
+      <li>Projector and screen on-site + video conferencing link for remote participants</li>
+      <li>SharePoint location established for consulting log and prompt library</li>
+      <li>Richard reviews Dave and Sheetal's existing AI work before this session</li>
+    </ul>
+
+    <h3 class="sub-title">Before Session 4</h3>
+    <ul class="checklist">
+      <li>Python 3.x pre-installed on all attendee machines (IT support required)</li>
+      <li>Node.js LTS pre-installed on all attendee machines (IT support required)</li>
+      <li>VS Code pre-installed on all attendee machines</li>
+    </ul>
+
+    <h3 class="sub-title">Before Session 6</h3>
+    <ul class="checklist">
+      <li>IT meeting completed; infrastructure findings available to bring to session</li>
+      <li>Dedicated AI server available on local network (16 GB RAM minimum)</li>
+      <li>Ollama pre-installed on server</li>
+      <li>Model pre-downloaded: Llama 3 (~4 GB), Mistral (~4 GB), or Phi-3 (~2 GB)</li>
+    </ul>
+
+    <h3 class="sub-title">All sessions</h3>
+    <ul class="checklist">
+      <li>Sample or live SASA data available per session topic (agreed ahead of each session)</li>
+    </ul>
+  </section>
+
+  <!-- INVESTMENT -->
+  <section id="investment">
+    <p class="sec-eyebrow">Financial Summary</p>
+    <h2 class="sec-title">Investment</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Option</th><th>Sessions</th><th>Rate</th><th>Subtotal</th><th>VAT (15%)</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="strong">6-session programme</td>
+          <td>6 × 7 hrs</td>
+          <td class="mono">R3,500</td>
+          <td class="mono">R21,000</td>
+          <td class="mono">R3,150</td>
+          <td class="mono">R24,150</td>
+        </tr>
+        <tr>
+          <td class="strong">Extension (Sessions 7–10)</td>
+          <td>4 × 7 hrs</td>
+          <td class="mono">R3,500</td>
+          <td class="mono">R14,000</td>
+          <td class="mono">R2,100</td>
+          <td class="mono">R16,100</td>
+        </tr>
+        <tr class="total-row">
+          <td class="strong" colspan="3">Full programme (all 10 sessions)</td>
+          <td class="mono">R35,000</td>
+          <td class="mono">R5,250</td>
+          <td class="mono">R40,250</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.5rem; line-height:1.8;">
+      Sessions invoiced individually on completion · Payment due 14 days from invoice date<br>
+      Travel, accommodation, and expenses billed separately where applicable<br>
+      Cancellation requires minimum 5 business days' notice
+    </p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <p><strong style="color:var(--text);">Richard [Surname]</strong><br>
+      [Company / Trading Name] · [Email] · [Phone]</p>
+    </div>
+    <div class="footer-right">
+      <p>PROP-SASA-2026-003</p>
+      <p>Curriculum V5 · 23 March 2026</p>
+      <p>Valid until 31 March 2026</p>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

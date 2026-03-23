@@ -36,10 +36,10 @@ KwaZulu-Natal
 
 | # | Description | Qty | Unit Rate | Amount |
 |---|---|---|---|---|
-| 1 | Applied AI Consulting & Development — Co-development session | 10 sessions | R3,500.00 | R35,000.00 |
+| 1 | Applied AI Consulting & Development — Co-development session | 6 sessions | R3,500.00 | R21,000.00 |
 | | *In-person delivery at SASA facility, Mount Edgecombe* | | | |
 | | *7 hours per session (3.5 hrs + lunch/breaks + 3.5 hrs)* | | | |
-| | *Includes: session materials, prompt libraries, scripts, integration specs, and shared consulting log access* | | | |
+| | *Includes: session materials, prompt libraries, scripts, and shared consulting log access* | | | |
 
 ---
 
@@ -47,27 +47,27 @@ KwaZulu-Natal
 
 | | |
 |---|---|
-| Subtotal (excl. VAT) | R35,000.00 |
-| VAT @ 15% | R5,250.00 |
-| **Total (incl. VAT)** | **R40,250.00** |
+| Subtotal (excl. VAT) | R21,000.00 |
+| VAT @ 15% | R3,150.00 |
+| **Total (incl. VAT)** | **R24,150.00** |
 
 ---
 
-## Reduced Programme Option
+## Programme Extension Option
 
-If the full 10-session programme is not approved in the current budget cycle, the following reduced option is available:
+Sessions 7–10 are available as a follow-on engagement at the same rate:
 
 | # | Description | Qty | Unit Rate | Amount |
 |---|---|---|---|---|
-| 1 | Applied AI Consulting & Development — Co-development session | 8 sessions | R3,500.00 | R28,000.00 |
+| 1 | Applied AI Consulting & Development — Extension sessions | 4 sessions | R3,500.00 | R14,000.00 |
 
 | | |
 |---|---|
-| Subtotal (excl. VAT) | R28,000.00 |
-| VAT @ 15% | R4,200.00 |
-| **Total (incl. VAT)** | **R32,200.00** |
+| Subtotal (excl. VAT) | R14,000.00 |
+| VAT @ 15% | R2,100.00 |
+| **Total (incl. VAT)** | **R16,100.00** |
 
-*Sessions 9 and 10 (Source System Integration & Capstone Roadmap) would be deferred or added in a subsequent engagement.*
+*Extension covers: LIMS & Autolab integration, agentic workflows, source system deployment, and capstone review.*
 
 ---
 
@@ -85,7 +85,6 @@ If the full 10-session programme is not approved in the current budget cycle, th
 - Sessions are invoiced individually upon completion of each session
 - Payment due within **14 days** of invoice date
 - All invoices issued in South African Rand (ZAR)
-- All amounts exclude VAT unless stated otherwise
 - VAT will be charged at the prevailing rate (currently 15%)
 
 ---
@@ -110,7 +109,7 @@ If the full 10-session programme is not approved in the current budget cycle, th
 4. Sessions cancelled with less than 5 business days' notice will be charged at 50% of the session rate
 5. Expenses (travel, accommodation) are estimated separately and billed at cost with supporting documentation
 6. All intellectual property in materials, scripts, and tools co-developed during sessions is owned jointly by the parties unless otherwise agreed in writing
-7. Confidentiality: all SASA data, systems, and operational information encountered during delivery will be treated as strictly confidential
+7. Confidentiality: all SASA data, systems, and operational information will be treated as strictly confidential
 
 ---
 

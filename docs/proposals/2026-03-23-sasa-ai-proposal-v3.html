@@ -21,6 +21,11 @@
     --rule:       #D8CFC0;
     --urgent:     #8B1A1A;
     --urgent-bg:  #FDF2F2;
+    --green:      #1A4A2E;
+    --green-light:#2E6B44;
+    --green-pale: #E8F2EC;
+    --orange:     #B85A1A;
+    --orange-pale:#FDF0E8;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; }
@@ -29,7 +34,7 @@
 
   /* URGENT BANNER */
   .urgent-banner { background: var(--urgent-bg); border-left: 4px solid var(--urgent); padding: 0.85rem 1.25rem; margin-bottom: 2rem; }
-  .urgent-banner p { color: var(--urgent); font-size: 1rem; font-weight: 500; margin: 0; max-width: 100%; }
+  .urgent-banner p { color: var(--urgent); font-size: 1rem; font-weight: 500; margin: 0; }
   .urgent-banner strong { font-weight: 700; }
 
   /* COVER */
@@ -85,6 +90,7 @@
   .session-detail + .session-detail { border-top: 1px solid var(--rule); padding-top: 3rem; }
   .session-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .session-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; background: var(--gold); padding: 0.25rem 0.6rem; flex-shrink: 0; }
+  .session-tag.close-tag { background: var(--green); }
   h3.session-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.45rem; font-weight: 700; color: var(--charcoal); line-height: 1.2; }
   h3.session-name em { display: block; font-size: 0.95rem; font-weight: 400; color: var(--ink-mid); margin-top: 0.15rem; }
   .session-description { color: var(--ink-mid); margin-bottom: 1.25rem; max-width: 640px; }
@@ -94,9 +100,21 @@
   ul.bullet-list li { padding: 0.28rem 0 0.28rem 1.5rem; position: relative; font-size: 1.02rem; }
   ul.bullet-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold-light); }
   ul.bullet-list li em { font-style: italic; color: var(--ink-mid); }
+
+  /* PROMPT BLOCK */
+  .prompt-block { background: #0F1B14; border-left: 3px solid var(--green-light); padding: 0.85rem 1.25rem; margin: 1rem 0; border-radius: 0 2px 2px 0; }
+  .prompt-block .pb-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-light); margin-bottom: 0.45rem; }
+  .prompt-block ul { list-style: none; padding: 0; }
+  .prompt-block ul li { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: #A8C8B0; padding: 0.2rem 0 0.2rem 1.2rem; position: relative; }
+  .prompt-block ul li::before { content: '>'; position: absolute; left: 0; color: var(--green-light); }
+
   .deliverable-box { background: var(--gold-pale); border-left: 3px solid var(--gold); padding: 0.85rem 1.25rem; margin-top: 1.25rem; }
   .deliverable-box .label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
-  .deliverable-box p { font-size: 0.98rem; color: var(--ink); font-weight: 500; margin: 0; max-width: 100%; }
+  .deliverable-box p { font-size: 0.98rem; color: var(--ink); font-weight: 500; margin: 0; }
+
+  .deliverable-box.green { background: var(--green-pale); border-left-color: var(--green); }
+  .deliverable-box.green .label { color: var(--green); }
+
   .notice-box { background: var(--cream-deep); border: 1px solid var(--rule); padding: 0.85rem 1.25rem; margin-top: 0.85rem; font-style: italic; font-size: 0.92rem; color: var(--ink-mid); }
   .prereq-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--gold); background: var(--gold-pale); border: 1px solid var(--gold-light); padding: 0.5rem 0.85rem; margin-top: 0.85rem; display: inline-block; }
 
@@ -124,13 +142,15 @@
   .glossary-table td:first-child { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--gold); white-space: nowrap; font-weight: 500; width: 200px; }
   .glossary-table tr:last-child td { border-bottom: none; }
 
-  /* INCLUDES */
-  .includes-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); margin: 1.5rem 0; }
-  .include-item { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; gap: 0.75rem; }
-  .include-item:nth-child(even) { border-right: none; }
-  .include-icon { color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
-  .include-text strong { display: block; font-size: 0.92rem; color: var(--charcoal); font-weight: 600; margin-bottom: 0.1rem; }
-  .include-text span { font-size: 0.85rem; color: var(--ink-mid); }
+  /* EXTENSION BLOCK */
+  .extension-block { background: var(--orange-pale); border: 1px solid #D4A088; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+  .extension-block .ext-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+  .extension-block h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.75rem; }
+  .extension-block p { font-size: 0.98rem; color: var(--ink-mid); margin-bottom: 0.85rem; }
+  .extension-block ul { list-style: none; padding: 0; margin: 0 0 0.85rem; }
+  .extension-block ul li { padding: 0.22rem 0 0.22rem 1.4rem; position: relative; font-size: 0.95rem; color: var(--ink); }
+  .extension-block ul li::before { content: '→'; position: absolute; left: 0; color: var(--orange); }
+  .extension-block .ext-price { font-family: 'DM Mono', monospace; font-size: 0.82rem; color: var(--orange); background: rgba(184,90,26,0.08); border: 1px solid rgba(184,90,26,0.2); padding: 0.4rem 0.8rem; display: inline-block; }
 
   /* FOOTER */
   .doc-footer { padding: 3rem 0 2rem; border-top: 1px solid var(--rule); margin-top: 5rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; }
@@ -167,8 +187,8 @@
     <div class="cover-budget">Budget Line: Professional Fees</div>
     <div class="cover-meta">
       <div class="cover-meta-item"><div class="cover-meta-label">Prepared for</div><div class="cover-meta-value">SASA</div></div>
-      <div class="cover-meta-item"><div class="cover-meta-label">Sessions</div><div class="cover-meta-value">10 × 7 hours</div></div>
-      <div class="cover-meta-item"><div class="cover-meta-label">Investment</div><div class="cover-meta-value">R35,000</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Sessions</div><div class="cover-meta-value">6 × 7 hours</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Investment</div><div class="cover-meta-value">R24,150 incl. VAT</div></div>
       <div class="cover-meta-item"><div class="cover-meta-label">Date</div><div class="cover-meta-value">23 March 2026</div></div>
       <div class="cover-meta-item"><div class="cover-meta-label">Reference</div><div class="cover-meta-value">PROP-SASA-2026-003</div></div>
       <div class="cover-meta-item"><div class="cover-meta-label">Prepared by</div><div class="cover-meta-value">Richard [Surname]</div></div>
@@ -180,7 +200,7 @@
     <p class="section-eyebrow">— Executive Summary</p>
     <h2 class="section-title">A Professional Services Engagement</h2>
     <p class="section-intro">
-      This proposal outlines a ten-session Applied AI Consulting and Development Programme
+      This proposal outlines a six-session Applied AI Consulting and Development Programme
       delivered at SASA's Mount Edgecombe facility. This is a professional services engagement
       under the professional fees budget — not a training initiative.
     </p>
@@ -188,16 +208,18 @@
       The focus throughout is on building, integrating, and deploying AI-driven tools and workflows
       directly into SASA's existing systems and data environment — using SASA's own operational
       data and building directly on the foundations already established by members of the team.
-      Every session produces a working deliverable SASA retains and uses immediately.
+      Every session produces a working deliverable SASA retains and uses immediately. The programme
+      concludes with a working local AI deployment, a data governance policy, and a 12-month
+      integration roadmap.
     </p>
     <div class="divider"></div>
     <div class="summary-grid">
-      <div class="summary-item"><div class="num">10</div><div class="desc">Co-development sessions<br>7 hours each</div></div>
-      <div class="summary-item"><div class="num">~20</div><div class="desc">Weeks to complete<br>(every 2 weeks)</div></div>
+      <div class="summary-item"><div class="num">6</div><div class="desc">Co-development sessions<br>7 hours each</div></div>
+      <div class="summary-item"><div class="num">~11</div><div class="desc">Weeks to complete<br>(every 2 weeks)</div></div>
       <div class="summary-item"><div class="num">15</div><div class="desc">In-person + 11 online<br>supervisors</div></div>
-      <div class="summary-item"><div class="num">10</div><div class="desc">Working deliverables<br>SASA keeps</div></div>
+      <div class="summary-item"><div class="num">6</div><div class="desc">Working deliverables<br>SASA keeps</div></div>
       <div class="summary-item"><div class="num">R0</div><div class="desc">Ongoing tool costs<br>after programme</div></div>
-      <div class="summary-item"><div class="num">R35k</div><div class="desc">Total investment<br>excl. VAT</div></div>
+      <div class="summary-item"><div class="num">R21k</div><div class="desc">Total investment<br>excl. VAT</div></div>
     </div>
   </div>
 
@@ -207,7 +229,7 @@
     <h2 class="section-title">How We Work Together</h2>
     <p class="section-intro">Every session works with SASA's actual data and systems. The deliverables are working tools, tested integrations, documented workflows, and deployable pipelines.</p>
     <ul class="principles-list">
-      <li>We build models using company data, not constructed examples — every exercise uses real SASA datasets</li>
+      <li>We build using company data, not constructed examples — every exercise uses real SASA datasets</li>
       <li>Each session produces a tangible deliverable SASA keeps and can use from the following Monday</li>
       <li>Advanced team members are leveraged as context contributors and peer demonstrators — not held back</li>
       <li>Sessions accommodate different capability levels simultaneously — some building, others directing and reviewing</li>
@@ -219,19 +241,15 @@
   <!-- SESSION OVERVIEW -->
   <div class="section">
     <p class="section-eyebrow">— Programme Overview</p>
-    <h2 class="section-title">Ten Sessions, One Direction</h2>
+    <h2 class="section-title">Six Sessions, One Direction</h2>
     <p class="section-intro">Each session is a co-development engagement building toward AI embedded in SASA's operational infrastructure.</p>
     <div class="session-overview">
-      <div class="session-row"><div class="session-num"><span>1</span></div><div class="session-info"><div class="session-title-sm">Foundations Audit &amp; Strategic Framing</div><div class="session-theme-sm">Mapping SASA's data landscape and setting integration targets</div></div><div class="session-week">Week 1</div></div>
-      <div class="session-row"><div class="session-num"><span>2</span></div><div class="session-info"><div class="session-title-sm">Excel as a Data Engineering Surface</div><div class="session-theme-sm">Rebuilding Excel workflows as AI-augmented decision tools</div></div><div class="session-week">Week 3</div></div>
-      <div class="session-row"><div class="session-num"><span>3</span></div><div class="session-info"><div class="session-title-sm">Working with Large Datasets &amp; RAG</div><div class="session-theme-sm">Making 10 years of multi-centre data queryable</div></div><div class="session-week">Week 5</div></div>
+      <div class="session-row"><div class="session-num"><span>1</span></div><div class="session-info"><div class="session-title-sm">Foundations Audit, Strategic Framing &amp; Prompt Foundations</div><div class="session-theme-sm">Mapping SASA's data landscape and building the prompt discipline the whole programme uses</div></div><div class="session-week">Week 1</div></div>
+      <div class="session-row"><div class="session-num"><span>2</span></div><div class="session-info"><div class="session-title-sm">Excel as a Data Engineering Surface</div><div class="session-theme-sm">Rebuilding Excel workflows as AI-augmented decision tools with prompt reuse patterns</div></div><div class="session-week">Week 3</div></div>
+      <div class="session-row"><div class="session-num"><span>3</span></div><div class="session-info"><div class="session-title-sm">Working with Large Datasets, RAG &amp; Context Management</div><div class="session-theme-sm">Making 10 years of multi-centre SASA data queryable and manageable</div></div><div class="session-week">Week 5</div></div>
       <div class="session-row"><div class="session-num"><span>4</span></div><div class="session-info"><div class="session-title-sm">Python &amp; Node.js as Integration Glue</div><div class="session-theme-sm">Building the code that connects SASA's systems to AI</div></div><div class="session-week">Week 7</div></div>
-      <div class="session-row"><div class="session-num"><span>5</span></div><div class="session-info"><div class="session-title-sm">PowerPoint, Reporting &amp; AI Narratives</div><div class="session-theme-sm">Eliminating manual report commentary and presentation preparation</div></div><div class="session-week">Week 9</div></div>
-      <div class="session-row"><div class="session-num"><span>6</span></div><div class="session-info"><div class="session-title-sm">Running AI on SASA Infrastructure</div><div class="session-theme-sm">Deploying AI models inside SASA's environment — no data leaves the building</div></div><div class="session-week">Week 11</div></div>
-      <div class="session-row"><div class="session-num"><span>7</span></div><div class="session-info"><div class="session-title-sm">LIMS &amp; Autolab Integration</div><div class="session-theme-sm">Connecting AI directly to SASA's laboratory management systems</div></div><div class="session-week">Week 13</div></div>
-      <div class="session-row"><div class="session-num"><span>8</span></div><div class="session-info"><div class="session-title-sm">Agentic Workflows &amp; Automation Pipelines</div><div class="session-theme-sm">Building AI processes that run without constant human instruction</div></div><div class="session-week">Week 15</div></div>
-      <div class="session-row"><div class="session-num"><span>9</span></div><div class="session-info"><div class="session-title-sm">Source System Integration &amp; Production Deployment</div><div class="session-theme-sm">Embedding AI at the point of data creation — not after the fact</div></div><div class="session-week">Week 17</div></div>
-      <div class="session-row"><div class="session-num"><span>10</span></div><div class="session-info"><div class="session-title-sm">Capstone Review, Governance &amp; Roadmap</div><div class="session-theme-sm">Consolidating what was built — sustaining the capability</div></div><div class="session-week">Week 19</div></div>
+      <div class="session-row"><div class="session-num"><span>5</span></div><div class="session-info"><div class="session-title-sm">PowerPoint, Reporting &amp; AI-Generated Narratives</div><div class="session-theme-sm">Eliminating manual report commentary and presentation preparation</div></div><div class="session-week">Week 9</div></div>
+      <div class="session-row"><div class="session-num"><span>6</span></div><div class="session-info"><div class="session-title-sm">Local AI Infrastructure, Governance &amp; Programme Roadmap</div><div class="session-theme-sm">Deploying AI inside SASA's environment and establishing a sustained capability</div></div><div class="session-week">Week 11</div></div>
     </div>
   </div>
 
@@ -240,202 +258,279 @@
     <p class="section-eyebrow">— Session Details</p>
     <h2 class="section-title">What Happens Each Day</h2>
 
+    <!-- S1 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 1</span><h3 class="session-name">Foundations Audit &amp; Strategic Framing<em>Mapping SASA's data landscape — setting the integration targets that guide all ten sessions</em></h3></div>
-      <p class="session-description">Rather than covering theory, the first session maps SASA's current AI landscape, standardises tooling across the group, and agrees on the specific integration targets every subsequent session will build toward. Existing AI work already completed within SASA is reviewed and used as the benchmark for the whole group.</p>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
+      <div class="session-header">
+        <span class="session-tag">Session 1</span>
+        <h3 class="session-name">Foundations Audit, Strategic Framing &amp; Prompt Foundations
+          <em>Mapping SASA's data landscape — and building the prompt discipline the whole programme runs on</em>
+        </h3>
+      </div>
+      <p class="session-description">The first session maps SASA's current data landscape, standardises tooling, agrees on integration targets, and establishes the prompt foundations every session builds on. Existing AI work within SASA is reviewed and used as the benchmark for the rest of the group.</p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — audit &amp; tooling</div>
         <ul class="bullet-list">
-          <li>Review and contextualise AI work already completed internally — presenting it as the benchmark, not the exception</li>
-          <li>Map SASA's data landscape: R7106 records, LIMS exports, Autolab CSVs, multi-centre historical data, mill reports — identify highest integration potential</li>
-          <li>Configure and standardise tooling: Claude Pro shared account, Copilot licence review, setup for all attendees</li>
-          <li>Establish shared prompt discipline using SASA's own report language and terminology</li>
-          <li>Define programme capstone goals as a group — agreed integration targets (e.g., LIMS exception flagging, automated report commentary)</li>
-          <li>Set up the shared consulting log: folder structure, naming, access for remote attendees</li>
+          <li>Review AI work already completed by advanced team members — present as the benchmark, not the exception</li>
+          <li>Map SASA's data landscape: R7106 records, LIMS exports, Autolab CSVs, mill reports — identify highest integration potential</li>
+          <li>Configure tooling: Claude Pro shared account, Copilot licence review, desktop setup for all attendees</li>
+          <li>Define programme capstone goals as a group — integration targets all sessions build toward</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>SASA data &amp; systems map + agreed integration targets document + consulting log established</p></div>
-    </div>
-
-    <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 2</span><h3 class="session-name">Excel as a Data Engineering Surface<em>Turning existing Excel workflows into AI-augmented decision tools</em></h3></div>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
-        <ul class="bullet-list">
-          <li>Rebuild one real SASA Excel report using Claude as live co-pilot: formula logic, data cleaning, conditional exception flagging</li>
-          <li>Introduce structured data principles that make AI tools reason reliably over tabular data</li>
-          <li>Build a reusable Claude prompt library for Excel: summarisation, anomaly detection, trend commentary</li>
-          <li>Apply Microsoft Copilot's Excel integration — compare against Claude direct prompting, establish workflow preference</li>
-          <li>Design an exception-flagging template for one reporting area that a supervisor can operate without technical support</li>
-          <li><em>(PowerPoint integration also covered — generating slides directly from data. Requires Claude Pro shared account.)</em></li>
+      <div class="prompt-block">
+        <div class="pb-label">Afternoon — Prompt Engineering Foundations</div>
+        <ul>
+          <li>Prompt anatomy: role, context, task, format (RCTF) — first template built from real SASA report language</li>
+          <li>Claude-specific techniques: XML tags, 200K context window, system prompts, Projects vs. conversations</li>
+          <li>Prompt iteration workflow: draft → test → refine → save as living documents</li>
+          <li>Common failure modes: vague instructions, missing context, unspecified format — diagnosed from real examples</li>
+          <li>Establish SASA shared prompt library in SharePoint: naming, categories, validation discipline</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>Rebuilt AI-augmented Excel report + exception-flagging template for one SASA reporting area</p></div>
+      <div class="deliverable-box">
+        <div class="label">Session Deliverable</div>
+        <p>SASA data &amp; systems map + integration targets document + consulting log + seed prompt library (10–15 entries)</p>
+      </div>
     </div>
 
+    <!-- S2 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 3</span><h3 class="session-name">Working with Large Datasets &amp; RAG<em>Making 10 years of multi-centre SASA data queryable — without uploading everything to an AI</em></h3></div>
-      <p class="session-description">RAG (Retrieval Augmented Generation) is the pattern that makes large-scale historical analysis practical. This session introduces the concept through hands-on work with SASA's own multi-year, multi-centre data.</p>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
+      <div class="session-header">
+        <span class="session-tag">Session 2</span>
+        <h3 class="session-name">Excel as a Data Engineering Surface
+          <em>Rebuilding existing Excel workflows as AI-augmented decision tools</em>
+        </h3>
+      </div>
+      <p class="session-description">Session 2 takes one real SASA Excel report and rebuilds it live using Claude as co-pilot — producing a reusable AI-augmented workflow and exception-flagging template a supervisor can operate independently.</p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — Excel co-pilot work</div>
         <ul class="bullet-list">
-          <li>Introduce RAG: how AI answers questions about large data collections without being given the entire dataset</li>
-          <li>Work directly with SASA's multi-year, multi-centre exports — slice, filter, summarise, surface where data structures create friction</li>
-          <li>Build a simple document index: targeted AI queries against the right data subset rather than everything at once</li>
-          <li>Introduce Python: a 5-line AI-generated script reshaping datasets that would take hours in Excel — no prior coding needed</li>
-          <li>Design a data-preparation checklist for SASA's specific formats: LIMS, Autolab, mill reports</li>
+          <li>Rebuild one real SASA Excel report using Claude as a live co-pilot</li>
+          <li>Structured data principles: column naming, type consistency, AI-readable format</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>SASA data-preparation checklist + working RAG demonstration against internal SASA documents</p></div>
-    </div>
-
-    <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 4</span><h3 class="session-name">Python &amp; Node.js as Integration Glue<em>Writing and understanding the code that connects SASA's systems to AI</em></h3></div>
-      <p class="session-description">Managers direct and review the code; the AI writes it. This session builds the literacy to commission AI-generated pipelines confidently.</p>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
-        <ul class="bullet-list">
-          <li>Build a real Python data pipeline: LIMS export → transformation → flagged output → formatted report, all AI-generated</li>
-          <li>Introduce Node.js: Python for data, Node.js for API and web-facing connectors to SharePoint and source systems</li>
-          <li>Each participant identifies one repetitive data task for automation — these feed Sessions 7 and 8</li>
-        </ul>
-      </div>
-      <div class="prereq-note">IT requirement: Python and Node.js must be pre-installed on attendee machines before this session</div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>Working LIMS-to-output data pipeline stub + automation candidate list per team area</p></div>
-    </div>
-
-    <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 5</span><h3 class="session-name">PowerPoint, Reporting &amp; AI-Generated Narratives<em>Eliminating manual report commentary and presentation preparation</em></h3></div>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
-        <ul class="bullet-list">
-          <li>Audit reporting burden: quantify hours per week writing the same interpretive text — the ROI conversation</li>
-          <li>Build a repeatable workflow: structured data → Claude prompt → draft narrative → human review and sign-off</li>
-          <li>Apply to one actual SASA periodic report — produce a complete draft in-session</li>
-          <li>Use Copilot's PowerPoint integration to generate a presentation from a SASA summary — refined through prompt iteration</li>
-          <li>Design a report commentary template encoding SASA's house style, regulatory language, and exception conventions</li>
-        </ul>
-      </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>AI-assisted SASA report draft + reusable report commentary prompt template</p></div>
-    </div>
-
-    <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 6</span><h3 class="session-name">Running AI on SASA Infrastructure<em>Deploying AI models inside SASA's environment — no data leaves the building</em></h3></div>
-      <p class="session-description">This session incorporates findings from the IT infrastructure meeting and builds on SASA's data boundary decisions from Session 3.</p>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
-        <ul class="bullet-list">
-          <li>Install and configure a local AI model on SASA's server with IT present — participants understand what they are commissioning</li>
-          <li>Walk through Open WebUI: all team members access the AI via browser — no software on individual machines</li>
-          <li>Design SASA's data governance framework: what goes to Claude Pro, what stays on-premise — one-page policy for director sign-off</li>
-          <li>Build a local RAG demonstration: query SASA internal documents without any internet connection</li>
-          <li>Establish the hosting and maintenance model: ownership, upgrade path, SharePoint role</li>
+      <div class="prompt-block">
+        <div class="pb-label">Prompt Reuse Patterns (45 min)</div>
+        <ul>
+          <li>Parameterised templates vs. fixed prompts — when to generalise, when to specialise</li>
+          <li>Excel prompt library: summarise, flag exceptions, extract trends, compare periods</li>
+          <li>Prompt curation and version discipline — avoiding drift across the team</li>
+          <li>Add validated prompts to shared SASA library with naming conventions</li>
         </ul>
       </div>
       <div class="content-block">
-        <div class="content-block-label">Server specification (SASA to provide)</div>
-        <table class="spec-table">
-          <thead><tr><th>Component</th><th>Minimum</th><th>Recommended</th></tr></thead>
-          <tbody>
-            <tr><td class="highlight">CPU</td><td>Intel i5 / Ryzen 5 (8th gen+)</td><td>Intel i7 / Ryzen 7 (12th gen+)</td></tr>
-            <tr><td class="highlight">RAM</td><td>16 GB</td><td>32 GB</td></tr>
-            <tr><td class="highlight">GPU</td><td>Dedicated, 4 GB VRAM</td><td>NVIDIA RTX 3060 (12 GB VRAM)+</td></tr>
-            <tr><td class="highlight">Storage</td><td>50 GB free SSD</td><td>100 GB free SSD</td></tr>
-            <tr><td class="highlight">Network</td><td>Local network access</td><td>Wired ethernet preferred</td></tr>
-          </tbody>
-        </table>
+        <div class="content-block-label">Afternoon — Copilot comparison &amp; template build</div>
+        <ul class="bullet-list">
+          <li>Apply Microsoft Copilot Excel integration to same dataset — compare outputs, establish workflow preference</li>
+          <li>Design exception-flagging template for one reporting area (e.g. lab results outside control limits)</li>
+          <li>Document workflow for supervisor-level operation without technical support</li>
+        </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>Local AI server operational + SASA data governance policy document</p></div>
+      <div class="deliverable-box">
+        <div class="label">Session Deliverable</div>
+        <p>Rebuilt AI-augmented Excel report + exception-flagging template + Excel prompt library additions</p>
+      </div>
     </div>
 
+    <!-- S3 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 7</span><h3 class="session-name">LIMS &amp; Autolab Integration<em>Connecting AI directly to SASA's laboratory management systems</em></h3></div>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
+      <div class="session-header">
+        <span class="session-tag">Session 3</span>
+        <h3 class="session-name">Working with Large Datasets, RAG &amp; Context Management
+          <em>Making 10 years of multi-centre SASA data queryable and manageable</em>
+        </h3>
+      </div>
+      <p class="session-description">Session 3 addresses the core challenge of SASA's scale: how do you query 10 years of multi-centre operational data without feeding everything to an AI at once? Retrieval Augmented Generation and context management techniques are introduced and applied to real SASA datasets.</p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — RAG &amp; data structure</div>
         <ul class="bullet-list">
-          <li>Map the LIMS data flow end to end — identify where exceptions are caught late or missed entirely</li>
-          <li>Build an AI-assisted exception detection layer: define business rules with laboratory managers, implement as a Python script or prompt chain</li>
-          <li>Design the notification architecture: exception flagged → channel (email, Teams, SharePoint) → alert content</li>
-          <li>Address Autolab integration: map where AI intercepts instrument data upstream of LIMS (calibration drift, anomaly detection)</li>
-          <li>Produce a written integration specification IT can implement or commission independently</li>
+          <li>Introduce RAG (Retrieval Augmented Generation): the AI-as-librarian pattern — practical analogy, no code required</li>
+          <li>Work with SASA multi-year multi-centre data: slice, filter, summarise using Claude with structured exports</li>
+          <li>Surface data structural problems that limit AI effectiveness</li>
+          <li>Build a simple document index for targeted AI queries</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>LIMS exception detection workflow + Autolab integration specification</p></div>
+      <div class="prompt-block">
+        <div class="pb-label">Afternoon — Context Management &amp; Large Dataset Prompting</div>
+        <ul>
+          <li>Context window management: Claude's 200K token capacity — when to paste vs. chunk vs. use RAG</li>
+          <li>Chunking strategies: split a large dataset and query across chunks without losing coherence</li>
+          <li>Summarisation chains: compress 10-year multi-centre data into structured briefings without losing outliers</li>
+          <li>Prompting for synthesis vs. extraction — "what does this mean" vs. "find the anomalies"</li>
+          <li>Multi-document prompting: structuring queries across multiple SASA sources in one conversation</li>
+          <li>Design SASA data-preparation checklist for LIMS, Autolab, and mill formats</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session Deliverable</div>
+        <p>SASA data-preparation checklist + working RAG demonstration + context management reference card</p>
+      </div>
+      <div class="notice-box">High-value session for online supervisors — the RAG concept, context guide, and checklist apply across all roles.</div>
     </div>
 
+    <!-- S4 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 8</span><h3 class="session-name">Agentic Workflows &amp; Automation Pipelines<em>AI processes that run without constant human instruction</em></h3></div>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
+      <div class="session-header">
+        <span class="session-tag">Session 4</span>
+        <h3 class="session-name">Python &amp; Node.js as Integration Glue
+          <em>Writing and understanding the code that connects SASA's systems to AI</em>
+        </h3>
+      </div>
+      <p class="session-description">Session 4 is a capability-building session. Managers direct and review the code — the AI writes it. The session builds the literacy to do that confidently, then puts it to work on a real LIMS data pipeline.</p>
+      <div class="content-block">
+        <div class="content-block-label">What we build together</div>
         <ul class="bullet-list">
-          <li>Distinguish prompt from agent — multi-step autonomous decision-making using SASA's LIMS workflow as reference</li>
-          <li>Build a multi-step agentic workflow: data arrives → AI checks rules → exception detected → draft alert generated → human reviews → acts</li>
-          <li>Design failure modes and human override: safe failure, correct escalation, audit trail — critical for a regulated industry</li>
-          <li>Each participant maps one workflow for conversion from manual review to agentic exception flagging</li>
+          <li>Consulting frame established: you direct and review — the AI writes the code</li>
+          <li>Build a real Python data pipeline: LIMS export → transformation → flagged output → formatted report</li>
+          <li>Introduce Node.js contrast: Python for data manipulation; Node.js for API/web connectors to SharePoint and source systems</li>
+          <li>Introduction to version control for AI-generated code</li>
+          <li>Each participant identifies one repetitive data task in their area for automation</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>Working agentic exception-flagging workflow + automation pipeline maps per team area</p></div>
+      <div class="deliverable-box">
+        <div class="label">Session Deliverable</div>
+        <p>Working LIMS-to-output data pipeline stub + automation candidate list per team area</p>
+      </div>
+      <p class="prereq-note">Prerequisite: Python 3.x, Node.js LTS, and VS Code pre-installed on all attendee machines. IT support required before this session.</p>
     </div>
 
+    <!-- S5 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 9</span><h3 class="session-name">Source System Integration &amp; Production Deployment<em>Embedding AI at the point of data creation — not after the fact</em></h3></div>
-      <div class="content-block"><div class="content-block-label">What we do together</div>
+      <div class="session-header">
+        <span class="session-tag">Session 5</span>
+        <h3 class="session-name">PowerPoint, Reporting &amp; AI-Generated Narratives
+          <em>Eliminating manual report commentary and presentation preparation</em>
+        </h3>
+      </div>
+      <p class="session-description">One of the highest-ROI applications of AI for SASA: replacing the hours spent writing the same interpretive report commentary every cycle with a repeatable, director-approved workflow.</p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — narrative workflow</div>
         <ul class="bullet-list">
-          <li>Take two or three workflow maps from Session 8 and build functional integration prototypes: real data, real rules, real output channels</li>
-          <li>Build a lightweight API connector (Node.js or Python) allowing SASA's AI layer to query source systems without manual exports</li>
-          <li>Review the Autolab-to-LIMS chain with prototypes in hand — partial live implementation where feasible</li>
-          <li>Produce SASA's AI architecture diagram: which systems talk to which AI layer, what data moves where, what humans approve</li>
+          <li>Audit the current reporting burden: quantify hours per week writing interpretive text — the ROI conversation</li>
+          <li>Build a repeatable narrative workflow: structured data → Claude prompt → draft → human review → sign-off</li>
+          <li>Apply to one actual SASA periodic report</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>Working integration prototypes + SASA AI architecture diagram</p></div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon — presentation &amp; template build</div>
+        <ul class="bullet-list">
+          <li>Use Microsoft Copilot PowerPoint integration to generate slides from a SASA data summary</li>
+          <li>Refine via prompt iteration — not just accepting the first output</li>
+          <li>Design report commentary template: SASA house style, regulatory language, exception conventions encoded</li>
+          <li>Produce one complete AI-assisted report draft from real data — reviewed and approved by a director in-session</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session Deliverable</div>
+        <p>AI-assisted SASA report draft + reusable report commentary prompt template</p>
+      </div>
     </div>
 
+    <!-- S6 -->
     <div class="session-detail">
-      <div class="session-header"><span class="session-tag">Session 10</span><h3 class="session-name">Capstone Review, Governance &amp; Roadmap<em>Consolidating what was built — establishing how it is sustained</em></h3></div>
-      <div class="content-block"><div class="content-block-label">Morning — showcase</div>
+      <div class="session-header">
+        <span class="session-tag close-tag">Session 6</span>
+        <h3 class="session-name">Local AI Infrastructure, Governance &amp; Programme Roadmap
+          <em>Deploying AI inside SASA's environment — and establishing how it is sustained</em>
+        </h3>
+      </div>
+      <p class="session-description">The final session serves two purposes: deploying SASA's local AI capability so no sensitive data leaves the building, and closing the programme with a governance framework and a 12-month roadmap every participant walks away with.</p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — local AI deployment</div>
         <ul class="bullet-list">
-          <li>Each participant or team presents their best deliverable from the programme (5 minutes each) — directors in attendance</li>
-          <li>Structured review against Session 1 targets: outcome versus ambition, what remains</li>
+          <li>Open with IT meeting findings — map against Session 3 data boundary decisions</li>
+          <li>Install and configure local AI model on SASA server (with IT present if possible)</li>
+          <li>Walk through Ollama server mode + Open WebUI browser access — no software required on individual machines</li>
+          <li>Design SASA data governance framework: cloud vs. on-premise classification — one-page policy for director sign-off</li>
+          <li>Build local RAG demonstration: index SASA internal documents, query without internet</li>
         </ul>
       </div>
-      <div class="content-block"><div class="content-block-label">Afternoon — governance &amp; roadmap</div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon — governance &amp; roadmap close-out</div>
         <ul class="bullet-list">
-          <li>Build SASA's AI governance framework: acceptable use, data classification, prompt library ownership, model maintenance</li>
-          <li>Design the ongoing operating model: who maintains what, how new use cases are prioritised</li>
-          <li>12-month roadmap: three to five integration targets sequenced by value and complexity, with owners and effort estimates</li>
+          <li>Review all six sessions against Session 1 integration targets — what was built, what remains</li>
+          <li>Build SASA AI governance framework: acceptable use policy, data classification, prompt library ownership, model maintenance</li>
+          <li>Design ongoing operating model: who owns what, how new use cases are prioritised, how the consulting log stays current</li>
+          <li>Address skills continuity: advanced-tier roles vs. operational literacy — who needs to go deeper</li>
+          <li>12-month roadmap: 3–5 integration targets sequenced by value and complexity, with owners and effort</li>
+          <li>Individual 90-day action plans — one concrete next step per participant</li>
         </ul>
       </div>
-      <div class="deliverable-box"><div class="label">Session deliverable</div><p>AI governance framework + 12-month integration roadmap + individual 90-day action plans</p></div>
+      <div class="deliverable-box green">
+        <div class="label">Session Deliverable</div>
+        <p>Local AI server operational + data governance policy + 12-month integration roadmap + individual 90-day action plans</p>
+      </div>
+      <div class="notice-box">Server minimum: 16 GB RAM, modern multi-core CPU, dedicated GPU with 4+ GB VRAM, 50 GB SSD, network-accessible. Full specification in Technical Requirements.</div>
     </div>
+
   </div>
 
-  <!-- DELIVERABLES -->
+  <!-- WHAT SASA RECEIVES -->
   <div class="section">
     <p class="section-eyebrow">— Deliverables</p>
     <h2 class="section-title">What SASA Receives</h2>
-    <div class="includes-grid">
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>SASA Data &amp; Systems Map</strong><span>Integration targets and consulting log from Session 1</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>AI-Augmented Excel Report</strong><span>Exception-flagging template for one reporting area</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>Data Prep Checklist + RAG Demo</strong><span>Against SASA's own internal documents</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>LIMS Data Pipeline + Automation Map</strong><span>Working stub + candidate list per team area</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>AI-Assisted Report Draft</strong><span>Full report + reusable commentary template</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>Local AI Server</strong><span>Operational + data governance policy document</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>LIMS Exception Detection Workflow</strong><span>+ Autolab integration specification</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>Agentic Exception-Flagging Workflow</strong><span>+ automation pipeline maps per team area</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>Integration Prototypes</strong><span>+ SASA AI architecture diagram</span></div></div>
-      <div class="include-item"><span class="include-icon">◆</span><div class="include-text"><strong>Governance Framework + 12-Month Roadmap</strong><span>+ individual 90-day action plans</span></div></div>
+    <p class="section-intro">Every session produces a working deliverable SASA retains. All outputs are stored in the shared consulting log alongside prompt libraries, scripts, and reference materials.</p>
+    <table class="std-table">
+      <thead><tr><th>Session</th><th>Deliverable</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>SASA data &amp; systems map + integration targets document + seed prompt library</td></tr>
+        <tr class="alt-row"><td>2</td><td>AI-augmented Excel report + exception-flagging template + Excel prompt library</td></tr>
+        <tr><td>3</td><td>Data-preparation checklist + RAG demonstration + context management reference card</td></tr>
+        <tr class="alt-row"><td>4</td><td>LIMS-to-output data pipeline stub + automation candidate list per team area</td></tr>
+        <tr><td>5</td><td>AI-assisted SASA report draft + reusable report commentary template</td></tr>
+        <tr class="alt-row"><td>6</td><td>Local AI server operational + data governance policy + 12-month roadmap + 90-day action plans</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXTENSION -->
+  <div class="section">
+    <p class="section-eyebrow">— Extension Programme</p>
+    <h2 class="section-title">Going Further</h2>
+    <p class="section-intro">Sessions 7–10 are available as a follow-on engagement at the same rate — covering the integrations deferred from the core programme.</p>
+
+    <div class="extension-block">
+      <div class="ext-label">Optional Extension · Sessions 7–10</div>
+      <h4>Advanced Integration &amp; Deployment</h4>
+      <p>Once the foundations are in place, the extension programme takes SASA into live system integration, agentic automation, and production deployment.</p>
+      <ul>
+        <li><strong>Session 7:</strong> LIMS &amp; Autolab integration — AI-assisted exception detection, notification architecture</li>
+        <li><strong>Session 8:</strong> Agentic workflows &amp; automation pipelines — multi-step AI processes using n8n</li>
+        <li><strong>Session 9:</strong> Source system integration &amp; production deployment — API connectors, live implementation</li>
+        <li><strong>Session 10:</strong> Capstone review, advanced governance &amp; extended roadmap</li>
+      </ul>
+      <div class="ext-price">4 sessions × R3,500 = R14,000 excl. VAT &nbsp;|&nbsp; R16,100 incl. VAT</div>
     </div>
   </div>
 
-  <!-- LICENSING -->
+  <!-- TECHNICAL REQUIREMENTS -->
   <div class="section">
     <p class="section-eyebrow">— Technical Requirements</p>
-    <h2 class="section-title">AI Licensing &amp; Software</h2>
-    <p class="section-intro">Most tools used are free and open-source. The one recommended paid account is a shared Claude subscription for the whole team.</p>
-    <div class="notice-box" style="font-style:normal; margin-bottom:1.5rem;">
-      <strong>Recommended: Shared Claude Pro Account — approximately $100/month (R1,700/month)</strong><br>
-      One account shared across the team. Provides: most capable Claude models, extended context for large document analysis, full Excel and PowerPoint integration. SASA already holds Microsoft Copilot licences — used in Sessions 2 and 5.
-      <br><em style="font-size:0.9rem; margin-top:0.4rem; display:block;">Claude licensing information will be provided separately ahead of the IT meeting.</em>
-    </div>
-    <table class="std-table">
+    <h2 class="section-title">What Needs to Be in Place</h2>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--charcoal); margin:1.5rem 0 0.75rem;">AI Licensing</h3>
+    <p style="color:var(--ink-mid); margin-bottom:1rem;">Recommended: one Claude Pro shared account (~$100/month, approximately R1,700). Provides access to the most capable models, extended context for large documents and datasets, and full Excel and PowerPoint integration. SASA already holds Microsoft Copilot licences — used in Sessions 2 and 5 alongside Claude.</p>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--charcoal); margin:1.5rem 0 0.75rem;">Software Requirements</h3>
+    <table class="spec-table">
       <thead><tr><th>Software</th><th>Required Before</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Python 3.x</td><td>Session 4</td><td>IT approval or pre-installation required</td></tr>
-        <tr><td>Node.js (LTS)</td><td>Session 4</td><td>IT approval or pre-installation required</td></tr>
-        <tr><td>VS Code</td><td>Session 4</td><td>Free, standard installation</td></tr>
-        <tr><td>Ollama (on server)</td><td>Session 6</td><td>Installed on dedicated server only — not individual machines</td></tr>
+        <tr><td class="highlight">Python 3.x</td><td>Session 4</td><td>IT approval or pre-installation required</td></tr>
+        <tr><td class="highlight">Node.js (LTS)</td><td>Session 4</td><td>IT approval or pre-installation required</td></tr>
+        <tr><td class="highlight">VS Code</td><td>Session 4</td><td>Free, standard installation</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--charcoal); margin:1.5rem 0 0.75rem;">Local AI Server (Session 6)</h3>
+    <p style="color:var(--ink-mid); margin-bottom:1rem;">One machine on SASA's network running AI models. All team members access via browser — no AI software required on individual machines.</p>
+    <table class="spec-table">
+      <thead><tr><th>Component</th><th>Minimum</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td class="highlight">CPU</td><td>Intel i5 / Ryzen 5 (8th gen+)</td><td>Intel i7 / Ryzen 7 (12th gen+)</td></tr>
+        <tr><td class="highlight">RAM</td><td>16 GB</td><td>32 GB</td></tr>
+        <tr><td class="highlight">GPU</td><td>Dedicated GPU, 4 GB VRAM</td><td>NVIDIA RTX 3060 (12 GB VRAM) or better</td></tr>
+        <tr><td class="highlight">Storage</td><td>50 GB free SSD</td><td>100 GB free SSD</td></tr>
+        <tr><td class="highlight">Network</td><td>Local network access</td><td>Wired ethernet preferred</td></tr>
+        <tr><td class="highlight">OS</td><td>Windows 10/11 or Linux</td><td>Ubuntu 22.04+ recommended</td></tr>
       </tbody>
     </table>
   </div>
@@ -443,55 +538,61 @@
   <!-- INVESTMENT -->
   <div class="section">
     <p class="section-eyebrow">— Investment</p>
-    <h2 class="section-title">Pricing</h2>
+    <h2 class="section-title">Programme Fees</h2>
     <table class="std-table">
-      <thead><tr><th>Description</th><th>Sessions</th><th class="price">Fee</th></tr></thead>
+      <thead><tr><th>Item</th><th>Sessions</th><th>Rate</th><th class="price">Fee</th></tr></thead>
       <tbody>
-        <tr><td>Applied AI Consulting &amp; Development — co-development sessions</td><td>10 × 7 hrs</td><td class="price">R35,000</td></tr>
-        <tr class="total-row"><td><strong>Total (excl. VAT)</strong></td><td></td><td class="price">R35,000</td></tr>
+        <tr>
+          <td>Applied AI Consulting &amp; Development</td>
+          <td>6 sessions × 7 hours</td>
+          <td>R3,500 per session</td>
+          <td class="price">R21,000</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="font-size:0.85rem; color:var(--ink-mid); font-style:italic;">VAT at 15%</td>
+          <td class="price" style="font-size:0.85rem; color:var(--ink-mid);">R3,150</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3"><strong>Total including VAT</strong></td>
+          <td class="price">R24,150</td>
+        </tr>
       </tbody>
     </table>
-    <p style="font-size:0.9rem; color:var(--ink-mid); margin-top:0.5rem;">VAT @ 15% = R5,250 &nbsp;|&nbsp; Total incl. VAT = <strong>R40,250</strong></p>
-    <div class="notice-box" style="margin-top:1rem;">
-      <strong>Reduced option:</strong> If the full programme is not approved, a reduced engagement of 8 sessions is available at <strong>R28,000 (excl. VAT)</strong>. Sessions 9 and 10 would be deferred or added in a subsequent engagement.
-    </div>
-    <p style="font-size:0.88rem; color:var(--ink-mid); margin-top:1rem;">Travel, accommodation and expenses billed separately at cost. Sessions invoiced individually on completion. Cancellation or rescheduling requires minimum 5 business days' notice.</p>
+    <p style="font-size:0.88rem; color:var(--ink-mid); margin-top:0.5rem; line-height:1.7;">
+      Sessions invoiced individually on completion. Payment due within 14 days of invoice date.<br>
+      Travel, accommodation, and expenses billed separately where applicable.<br>
+      Cancellation or rescheduling requires a minimum of 5 business days' notice.
+    </p>
   </div>
 
   <!-- GLOSSARY -->
   <div class="section">
-    <p class="section-eyebrow">— Appendix</p>
-    <h2 class="section-title">AI Terminology Reference</h2>
-    <p class="section-intro">A plain-language glossary of terms used throughout this programme — to keep all participants oriented regardless of technical background.</p>
+    <p class="section-eyebrow">— Reference</p>
+    <h2 class="section-title">AI Terminology</h2>
+    <p class="section-intro">Plain-language definitions for terms used throughout this proposal.</p>
     <table class="glossary-table">
       <thead><tr><th>Term</th><th>Plain-language definition</th></tr></thead>
       <tbody>
-        <tr><td>AI</td><td>Software that understands language, analyses data, and generates outputs without explicit rules for every situation</td></tr>
-        <tr><td>LLM</td><td>Large Language Model — the type of AI powering Claude, ChatGPT, and Copilot</td></tr>
-        <tr><td>Claude</td><td>Anthropic's AI assistant — the primary tool used in this programme</td></tr>
-        <tr><td>Claude Pro</td><td>Paid Claude subscription (~$100/month) giving access to the most capable models and higher usage limits</td></tr>
-        <tr><td>Prompt</td><td>The instruction or question you give to an AI — how it is phrased significantly affects output quality</td></tr>
-        <tr><td>Prompt Engineering</td><td>The practice of crafting precise prompts to get reliable, high-quality AI outputs consistently</td></tr>
-        <tr><td>Context Window</td><td>How much text an AI can "see" at once — larger windows allow working with longer documents and more data</td></tr>
-        <tr><td>RAG</td><td>Retrieval Augmented Generation — AI retrieves relevant information from a document store before responding; enables querying large private datasets</td></tr>
-        <tr><td>Token</td><td>The unit an AI processes — roughly one word or part of a word; pricing and context limits are measured in tokens</td></tr>
-        <tr><td>Copilot</td><td>Microsoft's AI integration in Microsoft 365 (Word, Excel, PowerPoint, Outlook) — SASA already holds licences</td></tr>
-        <tr><td>API</td><td>Application Programming Interface — a structured way for one system to talk to another; used to connect Claude to Excel, LIMS, or other systems</td></tr>
-        <tr><td>Python</td><td>A programming language suited to data manipulation and automation — all code in this programme is AI-generated; no prior experience required</td></tr>
-        <tr><td>Node.js</td><td>A JavaScript environment for building API integrations and web-facing connectors</td></tr>
-        <tr><td>VS Code</td><td>Free code editor from Microsoft used to review, run, and manage AI-generated scripts</td></tr>
-        <tr><td>Claude Code CLI</td><td>Terminal-based tool for running Claude from a command line or code environment</td></tr>
-        <tr><td>Windsurf</td><td>An AI-powered code editor where the AI participates in writing and explaining code as you work</td></tr>
-        <tr><td>Ollama</td><td>Free, open-source tool for running AI language models locally on a server — no internet or cloud required</td></tr>
-        <tr><td>Open WebUI</td><td>Browser-based interface for accessing a local Ollama model — looks like ChatGPT but runs entirely on SASA's own hardware</td></tr>
-        <tr><td>Agent / Agentic Workflow</td><td>AI set up to complete a multi-step task autonomously — e.g., check LIMS data, detect exception, draft alert, send it — without a human prompting each step</td></tr>
-        <tr><td>MCP</td><td>Model Context Protocol — an open standard connecting AI models to external tools and data sources in a controlled, auditable way</td></tr>
-        <tr><td>n8n</td><td>Open-source, self-hostable workflow automation — like Zapier but runs on SASA's own infrastructure at no cost</td></tr>
-        <tr><td>LIMS</td><td>Laboratory Information Management System — SASA's laboratory data system; a key integration target for AI exception detection</td></tr>
-        <tr><td>Autolab</td><td>SASA's laboratory instrument automation system; feeds data into LIMS; upstream AI integration point for anomaly detection</td></tr>
-        <tr><td>Embedding</td><td>Numerical representation of text enabling AI to measure similarity between documents — the mechanism behind RAG retrieval</td></tr>
-        <tr><td>Fine-tuning</td><td>Training an AI on specific data — not used here; prompting and RAG achieve the same goals without the cost and complexity</td></tr>
-        <tr><td>SharePoint</td><td>Microsoft's document and collaboration platform already in use at SASA — used as a notification and document layer in this programme</td></tr>
+        <tr><td>AI</td><td>Software that understands language, analyses data, and generates text or code — without being programmed with explicit rules for every situation</td></tr>
+        <tr><td>LLM</td><td>The type of AI powering Claude, ChatGPT, and Copilot — trained on large volumes of text to understand and generate language</td></tr>
+        <tr><td>Claude</td><td>Anthropic's AI assistant — the primary tool used in this programme. Available via browser, API, and mobile</td></tr>
+        <tr><td>Claude Pro</td><td>A paid subscription tier (~$100/month) giving access to the most capable models and higher usage limits</td></tr>
+        <tr><td>Prompt</td><td>The instruction or question you give to an AI. How you phrase it significantly affects the quality of the response</td></tr>
+        <tr><td>Prompt Engineering</td><td>The practice of crafting prompts precisely to get reliable, high-quality outputs from an AI model</td></tr>
+        <tr><td>Context Window</td><td>How much text an AI can "see" at once. Claude supports up to 200,000 tokens — enough for very large documents and datasets</td></tr>
+        <tr><td>RAG</td><td>Retrieval Augmented Generation — AI retrieves relevant information from a document store before responding, enabling answers about large or private datasets</td></tr>
+        <tr><td>Token</td><td>The unit an AI processes — roughly one word or part of a word. Pricing and context limits are measured in tokens</td></tr>
+        <tr><td>Copilot</td><td>Microsoft's AI integration built into Microsoft 365 (Word, Excel, PowerPoint, Outlook). SASA already holds licences</td></tr>
+        <tr><td>API</td><td>Application Programming Interface — a structured way for software systems to talk to each other, used to connect Claude to Excel, LIMS, or other systems</td></tr>
+        <tr><td>Python</td><td>A widely used programming language suited to data manipulation and automation. All code in this programme is AI-generated — no prior experience required</td></tr>
+        <tr><td>Node.js</td><td>A JavaScript-based environment for building web-facing connectors and API integrations</td></tr>
+        <tr><td>VS Code</td><td>A free code editor from Microsoft, used to review, run, and manage AI-generated scripts</td></tr>
+        <tr><td>Ollama</td><td>A free, open-source tool for running AI models locally on a server — no internet or cloud service required</td></tr>
+        <tr><td>Open WebUI</td><td>A browser-based interface for a locally running Ollama model — looks like ChatGPT but runs on SASA's own hardware</td></tr>
+        <tr><td>Agentic Workflow</td><td>An AI set up to complete multi-step tasks autonomously — e.g. check data, detect an exception, draft an alert, send it — without a human prompting each step</td></tr>
+        <tr><td>n8n</td><td>An open-source, self-hostable workflow automation tool used to build agentic pipelines — free, runs on SASA's own infrastructure</td></tr>
+        <tr><td>LIMS</td><td>Laboratory Information Management System — SASA's laboratory data management system, a key integration target</td></tr>
+        <tr><td>Autolab</td><td>SASA's laboratory instrument automation system — feeds data into LIMS; an upstream integration point for anomaly detection</td></tr>
       </tbody>
     </table>
   </div>
@@ -500,13 +601,15 @@
   <div class="doc-footer">
     <div class="footer-contact">
       <strong>Richard [Surname]</strong>
-      <p>[Email]<br>[Phone]<br>[Company / Trading Name]</p>
+      <p>[Company / Trading Name]<br>[Email] | [Phone]</p>
+      <p style="margin-top:0.75rem; font-style:italic; font-size:0.88rem; color:var(--ink-light);">
+        To confirm, please respond to this proposal or issue a purchase order referencing PROP-SASA-2026-003.
+      </p>
     </div>
     <div class="footer-ref">
       <p>PROP-SASA-2026-003</p>
       <p>23 March 2026</p>
-      <p style="margin-top:0.5rem; color:var(--gold);">R35,000 excl. VAT</p>
-      <p style="margin-top:0.25rem; color:var(--urgent); font-size:0.58rem;">Deadline: 25 March 2026</p>
+      <p>Valid until 31 March 2026</p>
     </div>
   </div>
 
