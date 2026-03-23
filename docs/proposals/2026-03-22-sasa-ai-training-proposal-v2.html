@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Training Programme Proposal — SASA 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:       #FAF7F0;
+    --cream-deep:  #F2EDE3;
+    --gold:        #B8862A;
+    --gold-light:  #D4A84B;
+    --gold-pale:   #F0E2C4;
+    --charcoal:    #1E1A16;
+    --ink:         #2D2820;
+    --ink-mid:     #5C5248;
+    --ink-light:   #8C8278;
+    --rule:        #D8CFC0;
+    --white:       #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── PAGE WRAPPER ──────────────────────────────── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* ─── COVER ─────────────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 0 4rem;
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -2rem; right: -2rem;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.12;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-mid);
+    margin-bottom: 3.5rem;
+  }
+
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    max-width: 520px;
+  }
+
+  .cover-meta-item {
+    padding: 1rem 1.25rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .cover-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.25rem;
+  }
+
+  .cover-meta-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  .cover-decoration {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 240px;
+    height: 240px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  /* ─── SECTION ────────────────────────────────────── */
+  .section {
+    padding: 4rem 0 0;
+  }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .section-intro {
+    font-size: 1.15rem;
+    color: var(--ink-mid);
+    max-width: 680px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── SESSION CARDS ──────────────────────────────── */
+  .session-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 2rem 0;
+    border: 1px solid var(--rule);
+  }
+
+  .session-card {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .session-card:last-child {
+    border-bottom: none;
+  }
+
+  .session-num {
+    background: var(--cream-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+    border-right: 1px solid var(--rule);
+  }
+
+  .session-num span {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .session-body {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .session-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.2rem;
+  }
+
+  .session-theme {
+    font-style: italic;
+    color: var(--ink-light);
+    font-size: 0.95rem;
+  }
+
+  /* ─── SESSION DETAIL ─────────────────────────────── */
+  .session-detail {
+    margin: 3rem 0 0;
+    padding: 0;
+  }
+
+  .session-detail + .session-detail {
+    border-top: 1px solid var(--rule);
+    padding-top: 3rem;
+  }
+
+  .session-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .session-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--gold);
+    padding: 0.25rem 0.6rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  h3.session-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+
+  h3.session-name em {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-mid);
+    margin-top: 0.15rem;
+  }
+
+  .session-description {
+    color: var(--ink-mid);
+    margin-bottom: 1.5rem;
+    max-width: 640px;
+  }
+
+  .content-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .content-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.6rem;
+  }
+
+  ul.bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.bullet-list li {
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+
+  ul.bullet-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold-light);
+    font-weight: 300;
+  }
+
+  .deliverable-box {
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    padding: 0.9rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .deliverable-box .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .deliverable-box p {
+    font-size: 1rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .notice-box {
+    background: var(--cream-deep);
+    border: 1px solid var(--rule);
+    padding: 0.9rem 1.25rem;
+    margin-top: 1rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-mid);
+  }
+
+  /* ─── INCLUDES TABLE ─────────────────────────────── */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  .include-item {
+    padding: 1.1rem 1.4rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .include-item:nth-child(even) {
+    border-right: none;
+  }
+
+  .include-icon {
+    color: var(--gold);
+    font-size: 1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .include-text strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+  }
+
+  .include-text span {
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+  }
+
+  /* ─── PREREQS ────────────────────────────────────── */
+  .prereq-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .prereq-group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--gold-pale);
+  }
+
+  .prereq-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .prereq-list li {
+    padding: 0.35rem 0 0.35rem 1.75rem;
+    position: relative;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .prereq-list li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--gold-light);
+    font-size: 0.9rem;
+  }
+
+  /* ─── QUOTE TABLE ────────────────────────────────── */
+  .quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0 1rem;
+    font-size: 1rem;
+  }
+
+  .quote-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 2px solid var(--rule);
+    font-weight: 500;
+  }
+
+  .quote-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  .quote-table tr:last-child td {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    background: var(--cream-deep);
+  }
+
+  .quote-table .price {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--gold);
+  }
+
+  .quote-table tr:last-child .price {
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  .quote-note {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    font-style: italic;
+    margin-top: 0.75rem;
+  }
+
+  /* ─── SCHEDULE TABLE ─────────────────────────────── */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+  }
+
+  .schedule-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 2px solid var(--rule);
+  }
+
+  .schedule-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .schedule-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ─── TOOLS TABLE ────────────────────────────────── */
+  .tools-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .tools-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 2px solid var(--rule);
+  }
+
+  .tools-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    vertical-align: top;
+  }
+
+  .tools-table tr:last-child td { border-bottom: none; }
+
+  .tool-name {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .cost-free {
+    color: #4A7C59;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  /* ─── PROGRAMME SUMMARY ──────────────────────────── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  .summary-item {
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .summary-item:nth-child(3n) { border-right: none; }
+  .summary-item:nth-last-child(-n+3) { border-bottom: none; }
+
+  .summary-item .num {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    font-style: italic;
+  }
+
+  .summary-item .desc {
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    line-height: 1.4;
+  }
+
+  /* ─── DIVIDERS ───────────────────────────────────── */
+  .divider {
+    width: 3rem;
+    height: 2px;
+    background: var(--gold);
+    margin: 2rem 0;
+  }
+
+  .full-divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 4rem 0 0;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  .doc-footer {
+    padding: 3rem 0 2rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-contact p {
+    font-size: 0.95rem;
+    color: var(--ink-mid);
+    line-height: 1.9;
+  }
+
+  .footer-contact strong {
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: right;
+  }
+
+  /* ─── PRINT ──────────────────────────────────────── */
+  @media print {
+    body { font-size: 10pt; }
+    .page { padding: 0 1.5cm; max-width: 100%; }
+    .cover { min-height: auto; padding: 2cm 0 1.5cm; page-break-after: always; }
+    .cover::before { display: none; }
+    .section { page-break-inside: avoid; }
+    .session-detail { page-break-inside: avoid; }
+    h2.section-title, h3.session-name { page-break-after: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .cover-meta { grid-template-columns: 1fr 1fr; }
+    .includes-grid { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .summary-item:nth-child(2n) { border-right: none; }
+    .summary-item:nth-child(3n) { border-right: 1px solid var(--rule); }
+    .summary-item:nth-child(2n) { border-right: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════ COVER ══════════════════════════════ -->
+  <div class="cover">
+
+    <svg class="cover-decoration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" stroke="#B8862A" stroke-width="1"/>
+      <circle cx="100" cy="100" r="75" stroke="#B8862A" stroke-width="0.5"/>
+      <circle cx="100" cy="100" r="55" stroke="#B8862A" stroke-width="1"/>
+      <line x1="100" y1="5" x2="100" y2="195" stroke="#B8862A" stroke-width="0.5"/>
+      <line x1="5" y1="100" x2="195" y2="100" stroke="#B8862A" stroke-width="0.5"/>
+      <line x1="33" y1="33" x2="167" y2="167" stroke="#B8862A" stroke-width="0.5"/>
+      <line x1="167" y1="33" x2="33" y2="167" stroke="#B8862A" stroke-width="0.5"/>
+    </svg>
+
+    <p class="cover-label">Training Proposal · 2026</p>
+
+    <h1 class="cover-title">
+      AI Training<br>
+      <em>Programme</em>
+    </h1>
+
+    <p class="cover-subtitle">Six sessions for the South African Sugar Association</p>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Prepared for</div>
+        <div class="cover-meta-value">SASA</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Sessions</div>
+        <div class="cover-meta-value">6 full days</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Investment</div>
+        <div class="cover-meta-value">R21,000</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Date</div>
+        <div class="cover-meta-value">March 2026</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Reference</div>
+        <div class="cover-meta-value">SASA-AI-2026-001</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Prepared by</div>
+        <div class="cover-meta-value">[Your Name]</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════ INTRODUCTION ════════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Introduction</p>
+    <h2 class="section-title">Building on What We Started</h2>
+    <p class="section-intro">
+      Following the introductory AI workshop earlier this year, this proposal outlines a structured
+      six-session programme designed to take your team significantly further — from awareness to
+      practical capability.
+    </p>
+    <p style="color: var(--ink-mid); max-width: 680px; line-height: 1.8;">
+      The programme is built specifically for the sugar industry. Every exercise, dataset, and
+      workflow example is grounded in the work your team does day to day: mill performance data,
+      season reporting, grower communications, and operational analysis. By the end of the programme,
+      your team will not only know how to use modern AI tools — they will have built things with
+      them that your organisation can actually use.
+    </p>
+    <div class="divider"></div>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="num">6</div>
+        <div class="desc">Full-day sessions<br>9:30 – 15:00</div>
+      </div>
+      <div class="summary-item">
+        <div class="num">8</div>
+        <div class="desc">Weeks to complete<br>the full programme</div>
+      </div>
+      <div class="summary-item">
+        <div class="num">6</div>
+        <div class="desc">Tangible deliverables<br>you keep</div>
+      </div>
+      <div class="summary-item">
+        <div class="num">10+</div>
+        <div class="desc">AI tools introduced<br>and practised</div>
+      </div>
+      <div class="summary-item">
+        <div class="num">R0</div>
+        <div class="desc">Ongoing cost of tools<br>after the programme</div>
+      </div>
+      <div class="summary-item">
+        <div class="num">90</div>
+        <div class="desc">Day AI adoption plan<br>per team at close</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════ PROGRAMME OVERVIEW ════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Programme Overview</p>
+    <h2 class="section-title">Six Sessions, One Direction</h2>
+    <p class="section-intro">
+      Each session teaches tools in the morning and applies them to a real SASA workflow in the
+      afternoon. Sessions are designed so that remote or occasional attendees can follow each one
+      independently, while a continuous thread — the SASA Intelligence Toolkit — runs through
+      the full programme.
+    </p>
+
+    <div class="session-grid">
+      <div class="session-card">
+        <div class="session-num"><span>1</span></div>
+        <div class="session-body">
+          <div class="session-title">AI as Your Thinking Partner</div>
+          <div class="session-theme">Getting dramatically more from AI tools you already have</div>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-num"><span>2</span></div>
+        <div class="session-body">
+          <div class="session-title">Excel &amp; Data Mastery with AI</div>
+          <div class="session-theme">Turning spreadsheets into analysis engines</div>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-num"><span>3</span></div>
+        <div class="session-body">
+          <div class="session-title">Coding with AI</div>
+          <div class="session-theme">Building scripts and automations — no prior coding needed</div>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-num"><span>4</span></div>
+        <div class="session-body">
+          <div class="session-title">Running AI Locally</div>
+          <div class="session-theme">AI that stays on your machine — private, fast, and free</div>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-num"><span>5</span></div>
+        <div class="session-body">
+          <div class="session-title">Agentic Workflows</div>
+          <div class="session-theme">AI that runs tasks automatically — without you prompting it</div>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-num"><span>6</span></div>
+        <div class="session-body">
+          <div class="session-title">Capstone &amp; Roadmap</div>
+          <div class="session-theme">Showcase what you built. Plan where you go next.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ SESSION DETAILS ════════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Session Details</p>
+    <h2 class="section-title">What Happens Each Day</h2>
+
+    <!-- Session 1 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 1</span>
+        <h3 class="session-name">
+          AI as Your Thinking Partner
+          <em>Building on the introductory session — going deeper</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        The first session addressed the basics of AI tools and prompting. This session picks up
+        from there and demonstrates how dramatically your results improve when you understand
+        how to frame problems, assign context, and structure your requests.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">What we cover</div>
+        <ul class="bullet-list">
+          <li>The mental model shift — AI as a junior analyst, not a search engine</li>
+          <li>Advanced prompting: role assignment, chain-of-thought reasoning, multi-step instructions</li>
+          <li>Analysing long documents — paste an entire mill season report and ask structured questions</li>
+          <li>Controlling tone, format, and audience — produce three different versions of the same content</li>
+          <li>Microsoft Copilot in Word and Outlook — AI built into the tools you already use, no installation needed</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon build</div>
+        <ul class="bullet-list">
+          <li>Each participant identifies their most time-consuming writing task</li>
+          <li>Build and refine a prompt that produces a first draft they would actually use</li>
+          <li>Collected prompts form the <strong>SASA Prompt Library</strong> — a shared, living document the team continues to grow</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>SASA Prompt Library — 10–15 tested, named prompts for real tasks</p>
+      </div>
+    </div>
+
+    <!-- Session 2 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 2</span>
+        <h3 class="session-name">
+          Excel &amp; Data Mastery with AI
+          <em>Integrating Claude directly with Excel — and beyond</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        Your team already lives in Excel. This session goes beyond prompting and shows how to
+        integrate Claude directly with your spreadsheets — so AI isn't something you switch to
+        separately, it's part of the workflow itself.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">What we cover</div>
+        <ul class="bullet-list">
+          <li>Direct Claude integration with Excel — send data to Claude and receive analysis, summaries, and recommendations without leaving the spreadsheet</li>
+          <li>AI-generated formulas — describe in plain language what you want, receive the formula</li>
+          <li>Data cleaning and restructuring — paste messy, inconsistent data and get clean structured output</li>
+          <li>Building performance dashboards from R7106 weekly exports — pivot tables, charts, conditional formatting guided by AI</li>
+          <li>Microsoft Excel Copilot walkthrough (where available on your licences)</li>
+          <li><em>(PowerPoint integration — generating slides and summaries directly from data. Requires paid Claude account — see recommended account below.)</em></li>
+        </ul>
+      </div>
+
+      <div class="notice-box" style="margin-bottom: 1.25rem;">
+        <strong style="display:block; margin-bottom:0.3rem; font-style:normal;">Recommended: Shared Claude Account (~$200/month)</strong>
+        To get full value from integrations and access to the most capable models, we recommend SASA share a single Claude Team or API account at approximately $200/month. This covers the whole team without per-seat costs and unlocks top-tier models, maximum effort / extended thinking settings, Projects, and the Excel and PowerPoint integration features used in this session and beyond.
+      </div>
+
+      <div class="content-block">
+        <div class="content-block-label">Afternoon build</div>
+        <ul class="bullet-list">
+          <li>Connect Claude to Excel using the integration layer</li>
+          <li>Work with actual R7106 export data — send to Claude, receive formatted analysis</li>
+          <li>Generate a mill performance summary and a slide-ready PowerPoint output driven entirely by AI</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>Live Claude–Excel integration producing automated mill reporting and analysis from your own data</p>
+      </div>
+    </div>
+
+    <!-- Session 3 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 3</span>
+        <h3 class="session-name">
+          Coding with AI
+          <em>No experience required — you describe it, AI writes it</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        This session reframes coding entirely. With AI as your co-author, you describe what
+        you need in plain language and guide the result. Participants are often surprised
+        how quickly they can produce working tools.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">What we cover</div>
+        <ul class="bullet-list">
+          <li>The new paradigm: describe the problem, AI writes the code, you review and guide</li>
+          <li>Claude Code CLI — a terminal-based AI coding assistant, from first install to first result</li>
+          <li>Windsurf IDE — an AI-powered code editor that lets you have a conversation about your project</li>
+          <li>Python fundamentals through AI: reading a CSV file, filtering and summarising data, exporting results</li>
+          <li>When to use which tool — Claude Code vs Windsurf vs the Claude.ai browser interface</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon build</div>
+        <ul class="bullet-list">
+          <li>Step by step, with AI assistance throughout, write a Python script that reads an R7106 CSV export</li>
+          <li>Calculates per-mill averages across key fields</li>
+          <li>Produces a formatted summary report — everyone runs it on their own machine with real data</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>Working Python script — R7106 CSV export → automated summary report</p>
+      </div>
+      <div class="notice-box">
+        IT requirement: Machines must have administrator rights. Python 3 must be pre-installed or IT must approve installation on the session day.
+      </div>
+    </div>
+
+    <!-- Session 4 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 4</span>
+        <h3 class="session-name">
+          Running AI Locally
+          <em>One machine on the network — everyone connects via browser</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        For many organisations, the hesitation around AI tools comes down to data privacy.
+        This session eliminates that concern entirely. Critically, not every person needs to
+        run AI on their own computer — one dedicated machine on the local network can serve
+        the entire team through a browser interface. Nothing leaves the building.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">What we cover</div>
+        <ul class="bullet-list">
+          <li>Why local AI matters for the sugar industry — confidential mill data, grower records, regulatory context</li>
+          <li>The network model: one server running Ollama, everyone accesses it via browser — no per-machine setup required</li>
+          <li>Installing and configuring Ollama in server mode on the dedicated machine</li>
+          <li>Choosing a model: Llama 3, Mistral, Gemma, Phi-3 — what each is suited for and the trade-offs</li>
+          <li>Open WebUI — all attendees connect via browser, like a shared web app, from their own machines</li>
+          <li>Continue.dev — an AI coding assistant for VS Code that connects to the local server</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon build</div>
+        <ul class="bullet-list">
+          <li>Attendees connect to the shared local AI server via their browsers</li>
+          <li>Query a confidential-style mill report — nothing leaves the network</li>
+          <li>Extend the Session 3 Python script to call the local model for AI-generated narrative summaries</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>Shared local AI server accessible to everyone on the network — and the knowledge to maintain and extend it</p>
+      </div>
+      <div class="notice-box">
+        This session is intentionally run offline from cloud services. No external AI tools are used — to demonstrate clearly that capable, private AI requires no internet connection and no ongoing subscription cost.
+      </div>
+
+      <div class="content-block" style="margin-top: 1.5rem;">
+        <div class="content-block-label">Dedicated machine specification (SASA to provide)</div>
+        <p style="font-size: 0.95rem; color: var(--ink-mid); margin-bottom: 1rem; max-width: 100%;">
+          One machine on the local network is all that's needed. All attendees connect to it
+          via their browser — no AI software installed on individual machines.
+        </p>
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left; padding:0.5rem 0.75rem; border-bottom:2px solid var(--rule); font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-light);">Component</th>
+              <th style="text-align:left; padding:0.5rem 0.75rem; border-bottom:2px solid var(--rule); font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-light);">Minimum (demo / 2B models)</th>
+              <th style="text-align:left; padding:0.5rem 0.75rem; border-bottom:2px solid var(--rule); font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-light);">Recommended (team / 7B models)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); font-weight:500;">CPU</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">Modern i5 / Ryzen 5 (8th gen+)</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">Intel i7 / Ryzen 7 (12th gen+)</td></tr>
+            <tr><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); font-weight:500;">RAM</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">16 GB</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">32 GB</td></tr>
+            <tr><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); font-weight:500;">GPU</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">Dedicated GPU, 4 GB VRAM</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">NVIDIA RTX 3060 (12 GB VRAM) or better</td></tr>
+            <tr><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); font-weight:500;">Storage</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">20 GB free (SSD)</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">50 GB free (SSD)</td></tr>
+            <tr><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); font-weight:500;">Network</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">Local network access</td><td style="padding:0.55rem 0.75rem; border-bottom:1px solid var(--rule); color:var(--ink-mid);">Wired ethernet preferred</td></tr>
+            <tr><td style="padding:0.55rem 0.75rem; font-weight:500;">OS</td><td style="padding:0.55rem 0.75rem; color:var(--ink-mid);">Windows 10/11 or Linux</td><td style="padding:0.55rem 0.75rem; color:var(--ink-mid);">Windows 10/11 or Ubuntu 22.04+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Session 5 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 5</span>
+        <h3 class="session-name">
+          Agentic Workflows
+          <em>AI that works in the background — without you being present</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        The previous sessions covered AI tools you use actively. This session introduces a
+        different category: AI that works in the background, triggered by events, running
+        tasks on your behalf.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">What we cover</div>
+        <ul class="bullet-list">
+          <li>What AI agents actually are: AI + tools + a loop</li>
+          <li>MCP (Model Context Protocol) — the standard that connects Claude to files, spreadsheets, browsers, and APIs</li>
+          <li>n8n — open-source, self-hostable workflow automation (like Zapier, but you own and control it)</li>
+          <li>Patterns relevant to the sugar industry: anomaly detection, scheduled report generation, grower alert systems</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon build — group chooses one option</div>
+        <ul class="bullet-list">
+          <li><strong>Option A — Mill Data Monitor:</strong> Detects new R7106 export files, processes them, and sends an anomaly-flagged summary by email</li>
+          <li><strong>Option B — Narrative Report Generator:</strong> Reads weekly mill data, sends it to a local AI, saves the generated narrative to SharePoint</li>
+          <li><strong>Option C — Grower Communication Workflow:</strong> One row of grower data in, a personalised letter out</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>Working automated workflow connected to a real SASA data source</p>
+      </div>
+    </div>
+
+    <!-- Session 6 -->
+    <div class="session-detail">
+      <div class="session-header">
+        <span class="session-tag">Session 6</span>
+        <h3 class="session-name">
+          Capstone &amp; Roadmap
+          <em>Showcase what you built. Plan where you go next.</em>
+        </h3>
+      </div>
+      <p class="session-description">
+        The final session has two purposes: celebrating what the team has built, and making
+        sure the momentum continues after the programme ends.
+      </p>
+      <div class="content-block">
+        <div class="content-block-label">Morning — showcase</div>
+        <ul class="bullet-list">
+          <li>Each participant or team presents their best build from the programme (5 minutes each)</li>
+          <li>Group review: what worked, what surprised the team, what will actually continue being used</li>
+          <li>Facilitator draws out themes and standout results</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-label">Afternoon — strategic direction</div>
+        <ul class="bullet-list">
+          <li>Where AI is heading in agriculture and agribusiness over the next 3–5 years</li>
+          <li>What SASA should be preparing for: precision ag, grower analytics, supply chain intelligence, predictive maintenance</li>
+          <li>Building internal capability: the AI champion role, community of practice, keeping skills current</li>
+          <li><strong>Roadmap exercise:</strong> Each team leaves with a written 90-day AI adoption plan for their specific area</li>
+        </ul>
+      </div>
+      <div class="deliverable-box">
+        <div class="label">Session deliverable</div>
+        <p>Individual 90-day AI action plans + SASA internal AI roadmap document</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ WHAT'S INCLUDED ═════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Deliverables</p>
+    <h2 class="section-title">What You Leave With</h2>
+    <p class="section-intro">
+      Every session produces something tangible. Below is what SASA retains after the full programme.
+    </p>
+
+    <div class="includes-grid">
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>SASA Prompt Library</strong>
+          <span>10–15 tested prompts for real tasks, growing across all sessions</span>
+        </div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>Claude–Excel Integration</strong>
+          <span>Live AI-powered mill reporting and PowerPoint output from your data</span>
+        </div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>Python Script</strong>
+          <span>R7106 CSV export → formatted automated summary report</span>
+        </div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>Shared Local AI Server</strong>
+          <span>Ollama + Open WebUI on one dedicated network machine — browser access for the whole team</span>
+        </div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>Automated Workflow</strong>
+          <span>Working agentic workflow connected to a real SASA data source</span>
+        </div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">◆</span>
+        <div class="include-text">
+          <strong>90-Day Roadmap</strong>
+          <span>Team action plans + SASA internal AI adoption roadmap</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size: 0.95rem; color: var(--ink-mid); margin-top: 0.5rem;">
+      Each session also includes a slide deck, printed reference sheet, all exercise files, and one week of follow-up Q&amp;A by email.
+    </p>
+  </div>
+
+  <!-- ══════════════════════════ PREREQUISITES ═══════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Requirements</p>
+    <h2 class="section-title">What SASA Needs to Arrange</h2>
+    <p class="section-intro">
+      To ensure sessions run without technical delays, please arrange the following in advance.
+    </p>
+
+    <div class="prereq-group">
+      <div class="prereq-group-label">Before Session 1</div>
+      <ul class="prereq-list">
+        <li>Attendee machines have administrator rights for software installation</li>
+        <li>Projector and screen on-site; video conferencing link for remote participants</li>
+        <li>Shared location established for the SASA Prompt Library (SharePoint, Google Drive, or equivalent)</li>
+      </ul>
+    </div>
+
+    <div class="prereq-group">
+      <div class="prereq-group-label">Before Session 3</div>
+      <ul class="prereq-list">
+        <li>Python 3 pre-installed on all machines, or IT approval to install on the day</li>
+      </ul>
+    </div>
+
+    <div class="prereq-group">
+      <div class="prereq-group-label">Before Session 4</div>
+      <ul class="prereq-list">
+        <li>Dedicated local AI machine available and connected to the local network (see hardware spec in Session 4)</li>
+        <li>Ollama installed and running in server mode on the dedicated machine</li>
+        <li>VS Code installed on machines being used for coding exercises</li>
+        <li>Chosen AI model pre-downloaded onto the dedicated machine (2–4 GB) — must be done before session day to avoid bandwidth delays</li>
+      </ul>
+    </div>
+
+    <div class="prereq-group">
+      <div class="prereq-group-label">All Sessions</div>
+      <ul class="prereq-list">
+        <li>Sample or anonymised R7106 export data available for exercises</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ INVESTMENT ══════════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Investment</p>
+    <h2 class="section-title">Pricing</h2>
+
+    <table class="quote-table">
+      <thead>
+        <tr>
+          <th>Session</th>
+          <th class="price">Fee</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Session 1 — AI as Your Thinking Partner</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td>Session 2 — Excel &amp; Data Mastery with AI</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td>Session 3 — Coding with AI</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td>Session 4 — Running AI Locally</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td>Session 5 — Agentic Workflows</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td>Session 6 — Capstone &amp; Roadmap</td>
+          <td class="price">R3,500</td>
+        </tr>
+        <tr>
+          <td><strong>Programme Total</strong></td>
+          <td class="price">R21,000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="quote-note">All fees exclude VAT. Travel, accommodation and expenses billed separately where applicable. Sessions are invoiced individually on completion. Cancellation or rescheduling requires a minimum of 5 business days' notice.</p>
+  </div>
+
+  <!-- ══════════════════════════ SCHEDULE ════════════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Schedule</p>
+    <h2 class="section-title">Suggested Cadence</h2>
+    <p class="section-intro">
+      Sessions work best spaced one to two weeks apart — enough time to apply what was learned,
+      not so long that momentum is lost. At this cadence, the full programme completes within
+      approximately eight weeks.
+    </p>
+
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Session</th>
+          <th>Suggested Timing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Session 1 — AI as Your Thinking Partner</td><td>Week 1</td></tr>
+        <tr><td>Session 2 — Excel &amp; Data Mastery with AI</td><td>Week 2–3</td></tr>
+        <tr><td>Session 3 — Coding with AI</td><td>Week 3–4</td></tr>
+        <tr><td>Session 4 — Running AI Locally</td><td>Week 5–6</td></tr>
+        <tr><td>Session 5 — Agentic Workflows</td><td>Week 6–7</td></tr>
+        <tr><td>Session 6 — Capstone &amp; Roadmap</td><td>Week 7–8</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════ TOOLS ═══════════════════════════════════ -->
+  <div class="section">
+    <p class="section-number">— Tools</p>
+    <h2 class="section-title">What We Use</h2>
+    <p class="section-intro">
+      Most tools are free or open-source. The one recommended paid account is a shared Claude
+      subscription that covers the entire team.
+    </p>
+
+    <div class="notice-box" style="margin-bottom: 1.5rem;">
+      <strong style="display:block; margin-bottom:0.3rem; font-style:normal;">Recommended: Shared Claude Account — ~$200/month</strong>
+      A single shared Claude Team or API account at approximately $200/month covers the whole team and unlocks: top-tier models (Opus-level), maximum effort / extended thinking settings, Projects for team organisation, and the full Excel and PowerPoint integration features. Optional for introductory sessions, strongly recommended from Session 2 onwards.
+    </div>
+
+    <table class="tools-table">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Cost</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tool-name">Claude.ai</span></td>
+          <td><span class="cost-free">Free tier / ~$200/mo shared</span></td>
+          <td>Primary AI assistant + Excel &amp; PowerPoint integration</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Microsoft Copilot (Word / Outlook)</span></td>
+          <td><span class="cost-free">Included in M365</span></td>
+          <td>In-Office AI — no installation needed</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Python</span></td>
+          <td><span class="cost-free">Free, open-source</span></td>
+          <td>Scripting and automation</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Claude Code CLI</span></td>
+          <td><span class="cost-free">Free</span></td>
+          <td>Terminal AI coding assistant</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Windsurf IDE</span></td>
+          <td><span class="cost-free">Free tier available</span></td>
+          <td>AI-powered code editor</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Ollama</span></td>
+          <td><span class="cost-free">Free, open-source</span></td>
+          <td>Local AI model runtime</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Open WebUI</span></td>
+          <td><span class="cost-free">Free, open-source</span></td>
+          <td>Local ChatGPT-style interface</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">Continue.dev</span></td>
+          <td><span class="cost-free">Free, open-source</span></td>
+          <td>Local AI coding in VS Code</td>
+        </tr>
+        <tr>
+          <td><span class="tool-name">n8n</span></td>
+          <td><span class="cost-free">Free, open-source</span></td>
+          <td>Workflow automation (self-hosted)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════ FOOTER ══════════════════════════════════ -->
+  <div class="doc-footer">
+    <div class="footer-contact">
+      <strong>[Your Name]</strong>
+      <p>
+        [Your Email]<br>
+        [Your Phone]<br>
+        [Company / Trading Name]
+      </p>
+    </div>
+    <div class="footer-ref">
+      <p>SASA-AI-2026-001</p>
+      <p>March 2026</p>
+      <p style="margin-top: 0.5rem; color: var(--gold);">R21,000 excl. VAT</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
