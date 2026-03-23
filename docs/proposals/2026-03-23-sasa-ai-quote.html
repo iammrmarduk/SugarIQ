@@ -12,182 +12,155 @@
 
   :root {
     --ink: #1a1a1a;
-    --ink-light: #4a4a4a;
-    --ink-faint: #7a7a7a;
-    --rule: #d0d0d0;
-    --rule-light: #e8e8e8;
+    --ink-mid: #3a3a3a;
+    --ink-light: #5a5a5a;
+    --ink-faint: #9a9a9a;
+    --rule: #dedede;
+    --rule-light: #eeeeee;
     --bg: #ffffff;
-    --bg-field: #f7f7f5;
+    --bg-field: #f8f8f6;
+    --bg-header: #f2f2ef;
     --accent: #1a3a2a;
     --accent-mid: #2e5e44;
-    --accent-light: #e8f0eb;
     --urgent: #b91c1c;
     --urgent-bg: #fef2f2;
     --urgent-border: #fca5a5;
-    --gold: #b08d35;
-    --gold-light: #f5eedc;
+    --gold: #a07c28;
+    --gold-bg: #faf4e6;
+    --gold-border: #d4b060;
   }
 
-  @page {
-    size: A4;
-    margin: 20mm 18mm;
-  }
+  @page { size: A4; margin: 18mm 16mm; }
 
   body {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 10.5pt;
+    font-size: 10pt;
     color: var(--ink);
     background: var(--bg);
-    line-height: 1.6;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
 
   .page {
-    max-width: 800px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 48px 56px;
+    padding: 44px 52px 60px;
   }
 
-  /* ── URGENT BANNER ── */
-  .urgent-banner {
+  /* ── URGENT ── */
+  .urgent {
     background: var(--urgent-bg);
-    border: 1.5px solid var(--urgent-border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .urgent-banner .icon {
-    font-size: 16px;
-    line-height: 1.4;
-    flex-shrink: 0;
-  }
-  .urgent-banner p {
-    font-size: 9.5pt;
+    border: 1px solid var(--urgent-border);
+    border-radius: 3px;
+    padding: 8px 14px;
+    margin-bottom: 32px;
+    font-size: 8.5pt;
     color: var(--urgent);
     font-weight: 500;
-  }
-  .urgent-banner strong {
-    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 
   /* ── HEADER ── */
   .doc-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 24px;
-    align-items: start;
-    margin-bottom: 36px;
-    padding-bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
     border-bottom: 2px solid var(--accent);
   }
 
   .doc-title {
     font-family: 'Playfair Display', serif;
-    font-size: 28pt;
+    font-size: 26pt;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: -0.01em;
-    line-height: 1.1;
-    margin-bottom: 6px;
+    line-height: 1;
+    margin-bottom: 4px;
   }
 
-  .doc-subtitle {
-    font-size: 10pt;
+  .doc-sub {
+    font-size: 9pt;
     color: var(--ink-light);
-    font-weight: 400;
-    letter-spacing: 0.04em;
     text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
   .doc-ref {
     text-align: right;
   }
 
-  .ref-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 7.5pt;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .ref-value {
+  .ref-num {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11pt;
     font-weight: 500;
     color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
   }
 
-  .ref-date {
-    font-size: 9pt;
-    color: var(--ink-light);
-    margin-top: 4px;
+  .ref-meta {
+    font-size: 8.5pt;
+    color: var(--ink-faint);
+    line-height: 1.7;
   }
 
   /* ── PARTIES ── */
   .parties {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-bottom: 36px;
+    gap: 16px;
+    margin-bottom: 28px;
   }
 
   .party {
-    padding: 18px 20px;
+    padding: 13px 16px;
     background: var(--bg-field);
+    border: 1px solid var(--rule);
     border-left: 3px solid var(--accent-mid);
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 3px 3px 0;
   }
 
   .party-role {
-    font-size: 7.5pt;
+    font-size: 7pt;
     font-weight: 600;
     color: var(--accent-mid);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 8px;
+    letter-spacing: 0.14em;
+    margin-bottom: 5px;
   }
 
   .party-name {
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: 600;
     color: var(--ink);
     margin-bottom: 2px;
   }
 
   .party-detail {
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: var(--ink-light);
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
-  .party-placeholder {
-    font-style: italic;
-    color: var(--ink-faint);
-  }
+  em.ph { font-style: italic; color: var(--ink-faint); }
 
-  /* ── SECTION HEADERS ── */
-  .section-header {
-    font-size: 8pt;
+  /* ── SECTION LABEL ── */
+  .sec-label {
+    font-size: 7pt;
     font-weight: 600;
     color: var(--accent-mid);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
     border-bottom: 1px solid var(--rule);
   }
 
-  /* ── LINE ITEMS TABLE ── */
-  .section {
-    margin-bottom: 32px;
-  }
+  .section { margin-bottom: 24px; }
 
+  /* ── LINE ITEMS TABLE ── */
   .items-table {
     width: 100%;
     border-collapse: collapse;
@@ -196,398 +169,210 @@
 
   .items-table thead tr {
     background: var(--accent);
-    color: white;
+    color: #fff;
   }
 
   .items-table thead th {
-    padding: 10px 12px;
+    padding: 8px 12px;
     text-align: left;
-    font-size: 7.5pt;
+    font-size: 7pt;
     font-weight: 500;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
-  .items-table thead th:last-child,
-  .items-table thead th:nth-child(3),
-  .items-table thead th:nth-child(4) {
-    text-align: right;
-  }
+  .items-table thead th.r { text-align: right; }
 
   .items-table tbody tr {
     border-bottom: 1px solid var(--rule-light);
   }
 
-  .items-table tbody tr:hover {
-    background: var(--bg-field);
-  }
-
   .items-table tbody td {
-    padding: 12px 12px;
+    padding: 11px 12px;
     vertical-align: top;
   }
 
-  .items-table tbody td:last-child,
-  .items-table tbody td:nth-child(3),
-  .items-table tbody td:nth-child(4) {
+  .items-table tbody td.r {
     text-align: right;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9pt;
     white-space: nowrap;
+    color: var(--ink-mid);
   }
 
-  .item-desc {
-    font-weight: 500;
+  .item-title {
+    font-weight: 600;
     color: var(--ink);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
-  .item-detail {
+  .item-note {
     font-size: 8.5pt;
     color: var(--ink-faint);
-    line-height: 1.6;
-  }
-
-  .item-detail li {
-    margin-left: 14px;
-    list-style: disc;
   }
 
   /* ── TOTALS ── */
-  .totals-block {
+  .totals-wrap {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
-  .totals-table {
-    width: 300px;
+  .totals {
+    width: 260px;
     border-collapse: collapse;
   }
 
-  .totals-table td {
-    padding: 7px 12px;
+  .totals td {
+    padding: 5px 12px;
     font-size: 9.5pt;
   }
 
-  .totals-table td:last-child {
+  .totals td:last-child {
     text-align: right;
     font-family: 'IBM Plex Mono', monospace;
-  }
-
-  .totals-table tr.subtotal td {
-    border-top: 1px solid var(--rule);
-  }
-
-  .totals-table tr.vat td {
-    color: var(--ink-light);
     font-size: 9pt;
   }
 
-  .totals-table tr.total-final {
-    background: var(--accent);
-    color: white;
-  }
-
-  .totals-table tr.total-final td {
-    padding: 11px 12px;
-    font-weight: 600;
-    font-size: 11pt;
-    border-radius: 0;
-  }
-
-  .totals-table tr.total-final td:last-child {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11pt;
-  }
+  .totals tr.sub td { border-top: 1px solid var(--rule); color: var(--ink-mid); }
+  .totals tr.vat td { color: var(--ink-faint); font-size: 9pt; }
+  .totals tr.grand { background: var(--accent); }
+  .totals tr.grand td { color: #fff; font-weight: 600; font-size: 10.5pt; padding: 9px 12px; }
+  .totals tr.grand td:last-child { font-family: 'IBM Plex Mono', monospace; }
 
   /* ── REDUCED OPTION ── */
-  .reduced-block {
-    background: var(--gold-light);
-    border: 1px solid #d4af6a;
-    border-radius: 4px;
-    padding: 20px 24px;
-    margin-bottom: 32px;
+  .reduced {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 3px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
   }
 
-  .reduced-block .section-header {
+  .reduced .sec-label {
     color: var(--gold);
-    border-color: #d4af6a;
-    margin-bottom: 14px;
+    border-color: var(--gold-border);
+    margin-bottom: 10px;
   }
 
-  .reduced-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 9pt;
-    margin-bottom: 12px;
+  .reduced-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    font-size: 9.5pt;
+    border-bottom: 1px solid var(--gold-border);
+    color: var(--ink-mid);
   }
 
-  .reduced-table td {
-    padding: 5px 0;
-    vertical-align: top;
-  }
+  .reduced-row:last-of-type { border-bottom: none; }
+  .reduced-row .amt { font-family: 'IBM Plex Mono', monospace; font-size: 9pt; }
+  .reduced-row.total { font-weight: 600; color: var(--ink); padding-top: 7px; }
 
-  .reduced-table td:last-child {
-    text-align: right;
-    font-family: 'IBM Plex Mono', monospace;
-  }
+  .reduced-note { font-size: 8pt; color: var(--gold); margin-top: 8px; font-style: italic; }
 
-  .reduced-table tr.reduced-total td {
-    border-top: 1px solid #d4af6a;
-    padding-top: 8px;
-    font-weight: 600;
-  }
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
 
-  .reduced-note {
+  /* ── TERMS LIST ── */
+  .terms { list-style: none; padding: 0; counter-reset: t; }
+  .terms li {
+    counter-increment: t;
     font-size: 8.5pt;
     color: var(--ink-light);
-    font-style: italic;
-  }
-
-  /* ── ADDITIONAL ITEMS ── */
-  .additional-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 9pt;
-    margin-bottom: 0;
-  }
-
-  .additional-table th {
-    text-align: left;
-    font-size: 7.5pt;
-    font-weight: 600;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 6px 10px;
-    background: var(--bg-field);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .additional-table td {
-    padding: 9px 10px;
-    vertical-align: top;
-    border-bottom: 1px solid var(--rule-light);
-    color: var(--ink-light);
-  }
-
-  .additional-table td:first-child {
-    font-weight: 500;
-    color: var(--ink);
-  }
-
-  /* ── TWO COLUMN GRID ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-
-  /* ── PAYMENT TERMS ── */
-  .terms-list {
-    padding: 0;
-    list-style: none;
-  }
-
-  .terms-list li {
-    font-size: 9pt;
-    color: var(--ink-light);
-    padding: 5px 0 5px 20px;
+    padding: 4px 0 4px 18px;
     position: relative;
     border-bottom: 1px solid var(--rule-light);
     line-height: 1.5;
   }
-
-  .terms-list li::before {
-    content: counter(term);
-    counter-increment: term;
+  .terms li::before {
+    content: counter(t);
     position: absolute;
     left: 0;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: var(--accent-mid);
     font-weight: 500;
-    top: 5px;
+    top: 4px;
   }
-
-  .terms-list { counter-reset: term; }
 
   /* ── BANKING ── */
-  .banking-grid {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4px 16px;
-    font-size: 9pt;
-  }
+  .banking { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  .banking tr { border-bottom: 1px solid var(--rule-light); }
+  .banking td { padding: 5px 0; }
+  .banking td:first-child { color: var(--ink-faint); font-size: 8pt; text-transform: uppercase; letter-spacing: 0.06em; width: 110px; }
+  .banking td:last-child { font-family: 'IBM Plex Mono', monospace; color: var(--ink-mid); }
 
-  .banking-grid .label {
-    color: var(--ink-faint);
-    font-size: 8pt;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 4px 0;
-    border-bottom: 1px solid var(--rule-light);
-    white-space: nowrap;
-  }
-
-  .banking-grid .value {
-    color: var(--ink);
-    padding: 4px 0;
-    border-bottom: 1px solid var(--rule-light);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9pt;
-  }
-
-  .banking-grid .value.placeholder {
-    color: var(--ink-faint);
-    font-style: italic;
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-
-  /* ── CONDITIONS ── */
-  .conditions-list {
-    counter-reset: cond;
-    padding: 0;
-    list-style: none;
-  }
-
-  .conditions-list li {
-    counter-increment: cond;
-    font-size: 9pt;
-    color: var(--ink-light);
-    padding: 5px 0 5px 22px;
-    position: relative;
-    border-bottom: 1px solid var(--rule-light);
-    line-height: 1.5;
-  }
-
-  .conditions-list li::before {
-    content: counter(cond) ".";
-    position: absolute;
-    left: 0;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 8pt;
-    color: var(--ink-faint);
-    top: 5px;
-  }
+  /* ── ADDITIONAL ── */
+  .addl { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  .addl th { font-size: 7pt; font-weight: 600; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 8px; background: var(--bg-field); border-bottom: 1px solid var(--rule); text-align: left; }
+  .addl td { padding: 7px 8px; font-size: 9pt; color: var(--ink-light); border-bottom: 1px solid var(--rule-light); vertical-align: top; }
+  .addl td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
 
   /* ── ACCEPTANCE ── */
-  .acceptance-block {
-    margin-top: 40px;
-    padding-top: 28px;
+  .acceptance {
+    margin-top: 32px;
+    padding-top: 20px;
     border-top: 2px solid var(--accent);
   }
 
   .acceptance-title {
     font-family: 'Playfair Display', serif;
-    font-size: 14pt;
+    font-size: 13pt;
     color: var(--accent);
-    margin-bottom: 16px;
+    margin-bottom: 6px;
   }
 
-  .acceptance-note {
-    font-size: 9pt;
-    color: var(--ink-light);
-    margin-bottom: 28px;
-    font-style: italic;
-  }
+  .acceptance-note { font-size: 8.5pt; color: var(--ink-faint); margin-bottom: 20px; font-style: italic; }
 
-  .sig-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
+  .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 
-  .sig-block {
-    padding: 20px;
+  .sig-box {
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 3px;
+    padding: 14px 16px;
   }
 
-  .sig-party {
-    font-size: 8pt;
-    font-weight: 600;
-    color: var(--accent-mid);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 24px;
-  }
+  .sig-party { font-size: 7pt; font-weight: 600; color: var(--accent-mid); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
 
-  .sig-line {
-    border-bottom: 1px solid var(--ink-light);
-    margin-bottom: 4px;
-    height: 28px;
-  }
-
-  .sig-label {
-    font-size: 7.5pt;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 16px;
-  }
+  .sig-field { margin-bottom: 12px; }
+  .sig-line { border-bottom: 1px solid var(--ink-faint); margin-bottom: 3px; height: 22px; }
+  .sig-lbl { font-size: 7pt; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; }
 
   /* ── FOOTER ── */
   .doc-footer {
-    margin-top: 40px;
-    padding-top: 16px;
+    margin-top: 32px;
+    padding-top: 12px;
     border-top: 1px solid var(--rule);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-from {
-    font-size: 9pt;
-    color: var(--ink-light);
-    line-height: 1.6;
-  }
-
-  .footer-from strong {
-    color: var(--ink);
-    font-weight: 600;
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .footer-ref {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 8pt;
+    align-items: baseline;
+    font-size: 8.5pt;
     color: var(--ink-faint);
-    text-align: right;
   }
 
   @media print {
-    body { font-size: 10pt; }
+    body { font-size: 9.5pt; }
     .page { padding: 0; }
-    .urgent-banner { break-inside: avoid; }
-    .section { break-inside: avoid; }
-    .sig-grid { break-inside: avoid; }
+    .section, .two-col, .sig-grid { break-inside: avoid; }
   }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Urgent banner -->
-  <div class="urgent-banner">
-    <span class="icon">⚠</span>
-    <p><strong>Urgent:</strong> All paperwork must be approved by <strong>Wednesday, 25 March 2026</strong> to meet internal budget processing deadlines.</p>
-  </div>
+  <div class="urgent">⚠&ensp;All paperwork must be approved by <strong>Wednesday, 25 March 2026</strong> to meet internal budget processing deadlines.</div>
 
   <!-- Header -->
   <div class="doc-header">
     <div>
       <div class="doc-title">Quotation</div>
-      <div class="doc-subtitle">Applied AI Consulting &amp; Development Programme</div>
+      <div class="doc-sub">Applied AI Consulting &amp; Development Programme</div>
     </div>
     <div class="doc-ref">
-      <span class="ref-label">Reference</span>
-      <div class="ref-value">QUOTE-SASA-2026-001</div>
-      <div class="ref-date">Date: 23 March 2026<br>Valid until: 31 March 2026</div>
+      <span class="ref-num">QUOTE-SASA-2026-001</span>
+      <div class="ref-meta">Date: 23 March 2026<br>Valid until: 31 March 2026</div>
     </div>
   </div>
 
@@ -595,12 +380,11 @@
   <div class="parties">
     <div class="party">
       <div class="party-role">Prepared by</div>
-      <div class="party-name">Richard <span class="party-placeholder">[Surname]</span></div>
+      <div class="party-name">Richard <em class="ph">[Surname]</em></div>
       <div class="party-detail">
-        <span class="party-placeholder">[Company / Trading Name]</span><br>
-        <span class="party-placeholder">[Registration Number]</span><br>
-        <span class="party-placeholder">[VAT Number]</span><br>
-        <span class="party-placeholder">[Email] | [Phone]</span>
+        <em class="ph">[Company / Trading Name]</em><br>
+        <em class="ph">[Reg No.]</em> &nbsp;·&nbsp; <em class="ph">[VAT No.]</em><br>
+        <em class="ph">[Email]</em> &nbsp;·&nbsp; <em class="ph">[Phone]</em>
       </div>
     </div>
     <div class="party">
@@ -608,48 +392,44 @@
       <div class="party-name">South African Sugar Association</div>
       <div class="party-detail">
         Mount Edgecombe, KwaZulu-Natal<br>
-        Attention: <span class="party-placeholder">[Contact Name]</span><br>
-        Budget Line: <strong>Professional Fees</strong>
+        Attn: <em class="ph">[Contact Name]</em><br>
+        Budget line: <strong>Professional Fees</strong>
       </div>
     </div>
   </div>
 
   <!-- Line Items -->
   <div class="section">
-    <div class="section-header">Line Items</div>
+    <div class="sec-label">Line Items</div>
     <table class="items-table">
       <thead>
         <tr>
-          <th style="width:28px">#</th>
+          <th style="width:22px">#</th>
           <th>Description</th>
-          <th style="width:80px">Qty</th>
-          <th style="width:100px">Unit Rate</th>
-          <th style="width:100px">Amount</th>
+          <th class="r" style="width:88px">Qty</th>
+          <th class="r" style="width:90px">Unit Rate</th>
+          <th class="r" style="width:90px">Amount</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td style="font-family:'IBM Plex Mono',monospace;font-size:9pt;font-weight:500">1</td>
+          <td style="font-family:'IBM Plex Mono',monospace;font-size:8.5pt;color:var(--ink-faint)">1</td>
           <td>
-            <div class="item-desc">Applied AI Consulting &amp; Development — Co-development session</div>
-            <ul class="item-detail">
-              <li>In-person delivery at SASA facility, Mount Edgecombe</li>
-              <li>7 hours per session (3.5 hrs + lunch/breaks + 3.5 hrs)</li>
-              <li>Includes: session materials, prompt libraries, scripts, integration specs, and shared consulting log access</li>
-            </ul>
+            <div class="item-title">Applied AI Consulting &amp; Development — Co-development session</div>
+            <div class="item-note">In-person · SASA Mount Edgecombe · 7 hrs/session · Materials, scripts &amp; consulting log included</div>
           </td>
-          <td>10 sessions</td>
-          <td>R3,500.00</td>
-          <td>R35,000.00</td>
+          <td class="r">10 sessions</td>
+          <td class="r">R3,500.00</td>
+          <td class="r">R35,000.00</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- Totals -->
-  <div class="totals-block">
-    <table class="totals-table">
-      <tr class="subtotal">
+  <div class="totals-wrap">
+    <table class="totals">
+      <tr class="sub">
         <td>Subtotal (excl. VAT)</td>
         <td>R35,000.00</td>
       </tr>
@@ -657,7 +437,7 @@
         <td>VAT @ 15%</td>
         <td>R5,250.00</td>
       </tr>
-      <tr class="total-final">
+      <tr class="grand">
         <td>Total (incl. VAT)</td>
         <td>R40,250.00</td>
       </tr>
@@ -665,50 +445,40 @@
   </div>
 
   <!-- Reduced Option -->
-  <div class="reduced-block">
-    <div class="section-header">Reduced Programme Option</div>
-    <p style="font-size:9pt;color:#7a6030;margin-bottom:14px">If the full 10-session programme is not approved in the current budget cycle, the following reduced option is available:</p>
-    <table class="reduced-table">
-      <tr>
-        <td>Applied AI Consulting &amp; Development — Co-development session (8 sessions)</td>
-        <td>8 × R3,500.00</td>
-        <td>R28,000.00</td>
-      </tr>
-      <tr>
-        <td style="color:#7a6030;font-size:8.5pt">VAT @ 15%</td>
-        <td></td>
-        <td style="color:#7a6030;font-size:8.5pt">R4,200.00</td>
-      </tr>
-      <tr class="reduced-total">
-        <td>Total (incl. VAT)</td>
-        <td></td>
-        <td>R32,200.00</td>
-      </tr>
-    </table>
-    <p class="reduced-note" style="margin-top:10px">Sessions 9 and 10 (Source System Integration &amp; Capstone Roadmap) would be deferred or added in a subsequent engagement.</p>
+  <div class="reduced">
+    <div class="sec-label">Reduced Programme Option</div>
+    <div class="reduced-row">
+      <span>Applied AI Consulting &amp; Development (8 sessions)</span>
+      <span class="amt">8 × R3,500.00</span>
+    </div>
+    <div class="reduced-row">
+      <span style="color:var(--ink-faint)">VAT @ 15%</span>
+      <span class="amt" style="color:var(--ink-faint)">R4,200.00</span>
+    </div>
+    <div class="reduced-row total">
+      <span>Total (incl. VAT)</span>
+      <span class="amt">R32,200.00</span>
+    </div>
+    <div class="reduced-note">Sessions 9 and 10 deferred to a subsequent engagement under this option.</div>
   </div>
 
   <!-- Additional Items -->
   <div class="section">
-    <div class="section-header">Additional Items (if applicable)</div>
-    <table class="additional-table">
+    <div class="sec-label">Additional Items (if applicable)</div>
+    <table class="addl">
       <thead>
-        <tr>
-          <th>Item</th>
-          <th>Estimated Cost</th>
-          <th>Notes</th>
-        </tr>
+        <tr><th>Item</th><th>Estimated Cost</th><th>Notes</th></tr>
       </thead>
       <tbody>
         <tr>
           <td>Travel &amp; accommodation</td>
           <td>At cost</td>
-          <td>Billed separately on actuals if required</td>
+          <td>Billed separately on actuals with supporting documentation</td>
         </tr>
         <tr>
           <td>Claude Pro shared account</td>
-          <td>~R1,700/month (~$100/month)</td>
-          <td>Recommended; procured directly by SASA</td>
+          <td>~R1,700 / month</td>
+          <td>~$100/month · Recommended · Procured directly by SASA</td>
         </tr>
       </tbody>
     </table>
@@ -717,87 +487,64 @@
   <!-- Payment & Banking -->
   <div class="two-col">
     <div class="section">
-      <div class="section-header">Payment Terms</div>
-      <ol class="terms-list">
-        <li>Sessions are invoiced individually upon completion of each session</li>
-        <li>Payment due within <strong>14 days</strong> of invoice date</li>
-        <li>All invoices issued in South African Rand (ZAR)</li>
-        <li>All amounts exclude VAT unless stated otherwise</li>
+      <div class="sec-label">Payment Terms</div>
+      <ol class="terms">
+        <li>Sessions invoiced individually on completion</li>
+        <li>Payment due within 14 days of invoice date</li>
+        <li>All amounts in South African Rand (ZAR)</li>
         <li>VAT charged at prevailing rate (currently 15%)</li>
+        <li>Cancellation requires minimum 5 business days' notice</li>
+        <li>Sessions cancelled with less notice charged at 50% of rate</li>
       </ol>
     </div>
-
     <div class="section">
-      <div class="section-header">Banking Details</div>
-      <div class="banking-grid">
-        <div class="label">Bank</div>
-        <div class="value placeholder">[Bank Name]</div>
-        <div class="label">Account Name</div>
-        <div class="value placeholder">[Account Name]</div>
-        <div class="label">Account No.</div>
-        <div class="value placeholder">[Account Number]</div>
-        <div class="label">Branch Code</div>
-        <div class="value placeholder">[Branch Code]</div>
-        <div class="label">Reference</div>
-        <div class="value">SASA-2026-[Invoice #]</div>
-      </div>
+      <div class="sec-label">Banking Details</div>
+      <table class="banking">
+        <tr><td>Bank</td><td><em class="ph">[Bank Name]</em></td></tr>
+        <tr><td>Account</td><td><em class="ph">[Account Name]</em></td></tr>
+        <tr><td>Acc. No.</td><td><em class="ph">[Account Number]</em></td></tr>
+        <tr><td>Branch</td><td><em class="ph">[Branch Code]</em></td></tr>
+        <tr><td>Reference</td><td>SASA-2026-[Invoice #]</td></tr>
+      </table>
     </div>
   </div>
 
-  <!-- Terms & Conditions -->
+  <!-- Terms -->
   <div class="section">
-    <div class="section-header">Terms &amp; Conditions</div>
-    <ol class="conditions-list">
+    <div class="sec-label">Terms &amp; Conditions</div>
+    <ol class="terms">
       <li>This quotation is valid until 31 March 2026.</li>
       <li>A signed acceptance, purchase order, or written confirmation constitutes agreement to proceed.</li>
-      <li>Cancellation or rescheduling of any session requires a minimum of 5 business days' notice.</li>
-      <li>Sessions cancelled with less than 5 business days' notice will be charged at 50% of the session rate.</li>
       <li>Expenses (travel, accommodation) are estimated separately and billed at cost with supporting documentation.</li>
       <li>All intellectual property in materials, scripts, and tools co-developed during sessions is owned jointly by the parties unless otherwise agreed in writing.</li>
-      <li>Confidentiality: all SASA data, systems, and operational information encountered during delivery will be treated as strictly confidential.</li>
+      <li>Confidentiality: all SASA data, systems, and operational information will be treated as strictly confidential.</li>
     </ol>
   </div>
 
   <!-- Acceptance -->
-  <div class="acceptance-block">
+  <div class="acceptance">
     <div class="acceptance-title">Acceptance</div>
-    <p class="acceptance-note">To accept this quotation, please sign and return, or issue a purchase order referencing QUOTE-SASA-2026-001.</p>
+    <p class="acceptance-note">To accept, please sign and return or issue a purchase order referencing QUOTE-SASA-2026-001.</p>
     <div class="sig-grid">
-      <div class="sig-block">
+      <div class="sig-box">
         <div class="sig-party">SASA — Accepted by</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Name</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Position</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Date</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Signature</div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl">Name</div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl">Position</div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl">Date &amp; Signature</div></div>
       </div>
-      <div class="sig-block">
+      <div class="sig-box">
         <div class="sig-party">Consultant</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Richard <span style="color:var(--ink-faint);font-style:italic">[Surname]</span></div>
-        <div class="sig-line"></div>
-        <div class="sig-label"><span style="color:var(--ink-faint);font-style:italic">[Company / Trading Name]</span></div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Date</div>
-        <div class="sig-line"></div>
-        <div class="sig-label">Signature</div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl">Richard <em class="ph">[Surname]</em></div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl"><em class="ph">[Company / Trading Name]</em></div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-lbl">Date &amp; Signature</div></div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="doc-footer">
-    <div class="footer-from">
-      <strong>Richard <span style="font-style:italic;font-weight:400">[Surname]</span></strong>
-      <span style="font-style:italic;color:var(--ink-faint)">[Email] | [Phone] | [Company / Trading Name]</span>
-    </div>
-    <div class="footer-ref">
-      QUOTE-SASA-2026-001<br>
-      23 March 2026
-    </div>
+    <span>Richard <em class="ph">[Surname]</em> &nbsp;·&nbsp; <em class="ph">[Email]</em> &nbsp;·&nbsp; <em class="ph">[Phone]</em></span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:8pt">QUOTE-SASA-2026-001 · 23 Mar 2026</span>
   </div>
 
 </div>
