@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASA Applied AI Programme — Curriculum Design Spec V4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e1117;
+    --bg-panel: #161b24;
+    --bg-card: #1c2333;
+    --bg-code: #111720;
+    --border: #2a3348;
+    --border-bright: #3d4f6e;
+    --text: #c9d1e0;
+    --text-dim: #7a8ba8;
+    --text-faint: #4a5672;
+    --text-bright: #e8edf5;
+    --accent: #3d8ef0;
+    --accent-dim: #1d4a8a;
+    --accent-glow: rgba(61,142,240,0.12);
+    --green: #2ecc71;
+    --green-dim: #1a4d33;
+    --amber: #f0a03d;
+    --amber-dim: #5c3d10;
+    --amber-bg: rgba(240,160,61,0.08);
+    --red: #e05555;
+    --red-dim: #4a1515;
+    --teal: #2eccc4;
+    --teal-dim: #0d3d3a;
+    --purple: #9b7fe8;
+    --orange: #f07840;
+    --orange-dim: #5c2a10;
+    --sidebar-w: 240px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  .sidebar-logo .org {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-logo .doc-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-bright);
+    line-height: 1.4;
+  }
+
+  .sidebar-logo .version {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--teal);
+    margin-top: 3px;
+  }
+
+  .nav-section {
+    padding: 14px 20px 4px;
+  }
+
+  .nav-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 11.5px;
+    transition: all 0.15s;
+    margin-bottom: 1px;
+  }
+
+  .nav-item:hover {
+    background: var(--accent-glow);
+    color: var(--text-bright);
+  }
+
+  .nav-item .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    font-weight: 600;
+    min-width: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-item .prompt-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .nav-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 12px 20px;
+  }
+
+  .sidebar-meta {
+    margin-top: auto;
+    padding: 16px 20px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+
+  .meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .meta-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--green-dim);
+    color: var(--green);
+  }
+
+  .status-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    flex: 1;
+    overflow-x: hidden;
+    padding: 0 0 80px;
+  }
+
+  .content {
+    max-width: 860px;
+    padding: 40px 56px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .tag.internal { background: var(--red-dim); color: var(--red); }
+  .tag.spec { background: var(--accent-dim); color: var(--accent); }
+  .tag.v4 { background: var(--teal-dim); color: var(--teal); }
+  .tag.prompt-new { background: var(--orange-dim); color: var(--orange); }
+
+  .page-header h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .page-header .subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .header-meta {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 0;
+    margin-top: 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .hm-cell {
+    padding: 10px 20px;
+    border-right: 1px solid var(--border);
+  }
+
+  .hm-cell:last-child { border-right: none; }
+
+  .hm-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+
+  .hm-value {
+    font-size: 12px;
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  /* ── SECTION TITLES ── */
+  section { scroll-margin-top: 24px; }
+
+  .section-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: '//';
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  /* ── CHANGE BLOCK ── */
+  .change-block {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-dim);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+
+  .change-block .change-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .change-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .change-list li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .change-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+
+  .change-list li.new::before {
+    content: '+';
+    color: var(--orange);
+  }
+
+  /* ── PHASE LABELS ── */
+  .phase-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .phase-label.foundations { background: rgba(46,204,113,0.1); color: var(--green); border: 1px solid var(--green-dim); }
+  .phase-label.capability { background: rgba(240,160,61,0.1); color: var(--amber); border: 1px solid var(--amber-dim); }
+  .phase-label.integration { background: rgba(61,142,240,0.1); color: var(--accent); border: 1px solid var(--accent-dim); }
+  .phase-label.production { background: rgba(155,127,232,0.1); color: var(--purple); border: 1px solid rgba(155,127,232,0.3); }
+
+  /* ── SESSION BLOCKS ── */
+  .session-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .session-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .session-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 28px;
+    line-height: 1;
+  }
+
+  .session-title-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1.3;
+  }
+
+  .session-badges {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .session-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .session-badge.online { background: var(--teal-dim); color: var(--teal); }
+  .session-badge.prereq { background: var(--amber-dim); color: var(--amber); }
+  .session-badge.prompt { background: var(--orange-dim); color: var(--orange); }
+
+  .session-body {
+    padding: 16px 20px;
+  }
+
+  .half-day {
+    margin-bottom: 14px;
+  }
+
+  .half-day-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    padding: 3px 8px;
+    background: var(--bg);
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .half-day ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .half-day li {
+    font-size: 12.5px;
+    color: var(--text);
+    padding: 3px 0 3px 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .half-day li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* ── PROMPT BLOCK ── */
+  .prompt-block {
+    background: rgba(240,120,64,0.06);
+    border: 1px solid var(--orange-dim);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 4px 4px 0;
+    margin: 8px 0 12px;
+    overflow: hidden;
+  }
+
+  .prompt-block-header {
+    background: rgba(240,120,64,0.1);
+    padding: 6px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .prompt-block ul {
+    list-style: none;
+    padding: 10px 14px 10px;
+  }
+
+  .prompt-block li {
+    font-size: 12.5px;
+    color: var(--text);
+    padding: 3px 0 3px 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .prompt-block li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* ── DELIVERABLE ── */
+  .session-deliverable {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .deliverable-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .deliverable-text {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .session-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(158,120,240,0.08);
+    border: 1px solid rgba(155,127,232,0.2);
+    border-radius: 4px;
+    font-size: 11.5px;
+    color: var(--purple);
+    line-height: 1.5;
+  }
+
+  .session-note .note-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+    display: block;
+    opacity: 0.7;
+  }
+
+  /* ── TABLES ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .spec-table thead tr {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  .spec-table thead th {
+    padding: 9px 12px;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .spec-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+
+  .spec-table tbody tr:hover {
+    background: rgba(61,142,240,0.04);
+  }
+
+  .spec-table tbody td {
+    padding: 9px 12px;
+    vertical-align: top;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .spec-table tbody td:first-child {
+    font-weight: 500;
+    color: var(--text-bright);
+  }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--teal);
+  }
+
+  /* ── DELIVERABLES GRID ── */
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .dg-row > div {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .dg-row:last-child > div { border-bottom: none; }
+
+  .dg-row { display: contents; }
+
+  .dg-num {
+    background: var(--bg-panel);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 80px;
+    border-right: 1px solid var(--border);
+  }
+
+  .dg-text { color: var(--text); }
+
+  /* ── PREREQS ── */
+  .prereq-group { margin-bottom: 20px; }
+
+  .prereq-group-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    background: var(--bg);
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .prereq-list { list-style: none; padding: 0; }
+
+  .prereq-list li {
+    font-size: 12.5px;
+    color: var(--text);
+    padding: 5px 0 5px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.4;
+  }
+
+  .prereq-list li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--border-bright);
+    top: 4px;
+  }
+
+  /* ── IT BLOCK ── */
+  .it-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .it-block .it-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .it-list { list-style: none; padding: 0; }
+
+  .it-list li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .it-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    top: 3px;
+  }
+
+  /* ── QUOTE ── */
+  .quote-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .quote-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .quote-table thead tr {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  .quote-table thead th {
+    padding: 9px 14px;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .quote-table thead th:last-child { text-align: right; }
+
+  .quote-table tbody tr { border-bottom: 1px solid var(--border); }
+
+  .quote-table tbody td {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--text);
+  }
+
+  .quote-table tbody td:last-child {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-bright);
+  }
+
+  .quote-table tfoot tr {
+    border-top: 1px solid var(--border-bright);
+    background: rgba(61,142,240,0.06);
+  }
+
+  .quote-table tfoot td {
+    padding: 11px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .quote-table tfoot td:last-child { text-align: right; }
+
+  p { font-size: 13px; color: var(--text); line-height: 1.65; margin-bottom: 12px; }
+  strong { color: var(--text-bright); font-weight: 600; }
+
+  .content > section { margin-bottom: 48px; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  @media print {
+    body { display: block; }
+    .sidebar { display: none; }
+    .content { padding: 20px; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="org">SASA — Internal Spec</div>
+    <div class="doc-name">Applied AI Programme<br>Curriculum Design</div>
+    <div class="version">v4 · 2026-03-23 · +Prompt Thread</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item" href="#changes"><span class="num">§1</span> V4 Changes</a>
+    <a class="nav-item" href="#philosophy"><span class="num">§2</span> Philosophy</a>
+    <a class="nav-item" href="#structure"><span class="num">§3</span> Session Structure</a>
+  </div>
+
+  <hr class="nav-divider">
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 1 — Foundations</div>
+    <a class="nav-item" href="#s1"><span class="num">S1</span> Foundations + Prompting <span class="prompt-dot"></span></a>
+    <a class="nav-item" href="#s2"><span class="num">S2</span> Excel + Prompt Library <span class="prompt-dot"></span></a>
+    <a class="nav-item" href="#s3"><span class="num">S3</span> Datasets + Context Mgmt <span class="prompt-dot"></span></a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 2 — Capability</div>
+    <a class="nav-item" href="#s4"><span class="num">S4</span> Python &amp; Node.js</a>
+    <a class="nav-item" href="#s5"><span class="num">S5</span> Reporting &amp; Narratives</a>
+    <a class="nav-item" href="#s6"><span class="num">S6</span> Local Infrastructure</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 3 — Integration</div>
+    <a class="nav-item" href="#s7"><span class="num">S7</span> LIMS &amp; Autolab</a>
+    <a class="nav-item" href="#s8"><span class="num">S8</span> Agentic Workflows</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 4 — Production</div>
+    <a class="nav-item" href="#s9"><span class="num">S9</span> System Integration</a>
+    <a class="nav-item" href="#s10"><span class="num">S10</span> Capstone &amp; Roadmap</a>
+  </div>
+
+  <hr class="nav-divider">
+
+  <div class="nav-section">
+    <div class="nav-section-label">Reference</div>
+    <a class="nav-item" href="#deliverables"><span class="num">§</span> Deliverables</a>
+    <a class="nav-item" href="#quote"><span class="num">§</span> Quote</a>
+    <a class="nav-item" href="#prereqs"><span class="num">§</span> Prerequisites</a>
+    <a class="nav-item" href="#tools"><span class="num">§</span> Tools</a>
+    <a class="nav-item" href="#it-prep"><span class="num">§</span> IT Meeting Prep</a>
+  </div>
+
+  <div class="sidebar-meta">
+    <div class="meta-row">
+      <span class="meta-label">Version</span>
+      <span class="meta-value" style="color:var(--teal)">V4</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-label">Status</span>
+      <span class="status-badge">Ready</span>
+    </div>
+    <div class="meta-row" style="margin-top:6px">
+      <span class="meta-label">Deadline</span>
+      <span class="meta-value" style="color:var(--red)">25 Mar 2026</span>
+    </div>
+    <div style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--orange)">
+      ● Sessions with prompt engineering additions
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+<div class="content">
+
+  <div class="page-header">
+    <div class="tag-row">
+      <span class="tag internal">Internal</span>
+      <span class="tag spec">Curriculum Spec</span>
+      <span class="tag v4">V4</span>
+      <span class="tag prompt-new">+ Prompt Engineering Thread</span>
+    </div>
+    <h1>SASA Applied AI Programme</h1>
+    <div class="subtitle">Curriculum Design Specification V4 — Prompt engineering woven through Sessions 1–3</div>
+    <div class="header-meta">
+      <div class="hm-cell">
+        <div class="hm-label">Date</div>
+        <div class="hm-value">2026-03-23</div>
+      </div>
+      <div class="hm-cell">
+        <div class="hm-label">Sessions</div>
+        <div class="hm-value">10 (or 8)</div>
+      </div>
+      <div class="hm-cell">
+        <div class="hm-label">Duration</div>
+        <div class="hm-value">7 hrs each</div>
+      </div>
+      <div class="hm-cell">
+        <div class="hm-label">Participants</div>
+        <div class="hm-value">15 + 11 online</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V4 CHANGES -->
+  <section id="changes">
+    <div class="section-title">V4 Changes from V3</div>
+    <div class="change-block">
+      <div class="change-title">Additions in V4</div>
+      <ul class="change-list">
+        <li class="new">Prompt engineering added as an explicit curriculum thread across Sessions 1–3</li>
+        <li class="new">Session 1 afternoon: prompt anatomy (RCTF), Claude-specific techniques, XML tags, context window, prompt iteration workflow, shared prompt library setup in SharePoint</li>
+        <li class="new">Session 2 morning: parameterised vs. fixed prompt templates, Excel prompt library patterns, prompt curation and reuse discipline</li>
+        <li class="new">Session 3 afternoon: context window management, when to paste vs. chunk vs. use RAG, chunking strategies, summarisation chains, synthesis vs. extraction prompting, multi-document prompting</li>
+        <li class="new">Session 1 deliverable updated: now includes seed prompt library (10–15 entries) in addition to data/systems map</li>
+        <li class="new">Session 2 deliverable updated: now includes Excel prompt library additions to shared library</li>
+        <li class="new">Session 3 deliverable updated: now includes context management reference card for team</li>
+        <li>All other sessions unchanged from V3</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="section-title">Curriculum Philosophy</div>
+    <div class="card">
+      <p style="margin-bottom:14px"><strong>Core principle:</strong> Every session produces a working deliverable using SASA's actual data. No synthetic examples.</p>
+      <p style="margin-bottom:14px"><strong>Prompt Engineering Thread:</strong> Sessions 1–3 carry a deliberate prompt engineering track. This is embedded in real tasks — not a standalone topic. By Session 3, every participant has a personal prompt library, understands how to manage context with large datasets, and can adapt prompt patterns to new problems independently.</p>
+      <table class="spec-table">
+        <thead><tr><th>Phase</th><th>Sessions</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td><span class="phase-label foundations">Foundations</span></td><td>1–3</td><td>Data foundations + prompt literacy (V4 additions here)</td></tr>
+          <tr><td><span class="phase-label capability">Capability</span></td><td>4–6</td><td>Technical capability + local infrastructure</td></tr>
+          <tr><td><span class="phase-label integration">Integration</span></td><td>7–8</td><td>LIMS, Autolab, agentic workflows</td></tr>
+          <tr><td><span class="phase-label production">Production</span></td><td>9–10</td><td>Deployment + institutionalisation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SESSION STRUCTURE -->
+  <section id="structure">
+    <div class="section-title">Session Structure (7 hours)</div>
+    <div class="card">
+      <table class="spec-table">
+        <thead><tr><th>Time</th><th>Block</th></tr></thead>
+        <tbody>
+          <tr><td><code>09:00–12:30</code></td><td>Morning block (3.5 hrs, one break included)</td></tr>
+          <tr><td><code>12:30–13:30</code></td><td>Lunch</td></tr>
+          <tr><td><code>13:30–17:00</code></td><td>Afternoon block (3.5 hrs, one break included)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── PHASE 1 ── -->
+
+  <section id="s1">
+    <span class="phase-label foundations">Phase 1 — Foundations</span>
+    <div class="section-title">Session 1 — Foundations Audit, Strategic Framing &amp; Prompt Foundations</div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span> Prompt engineering additions (V4)</span>
+    </div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">01</div>
+        <div class="session-title-text">Foundations Audit, Strategic Framing &amp; Prompt Foundations</div>
+        <div class="session-badges"><span class="session-badge prompt">+ Prompt Thread</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Review AI work already done by Dave and Sheetal — present as the benchmark, not the exception</li>
+            <li>Map SASA's data landscape: R7106 records, LIMS exports, Autolab CSVs, multi-centre historical data, mill reports</li>
+            <li>Identify datasets with highest integration potential and operational friction</li>
+            <li>Configure tooling: Claude Pro shared account, Copilot licence review, desktop setup for all attendees</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <div class="prompt-block">
+            <div class="prompt-block-header">Prompt Engineering Foundations — 90 min block (V4)</div>
+            <ul>
+              <li>Prompt anatomy: role, context, task, format (RCTF) — build SASA's first template using actual report language</li>
+              <li>Claude-specific techniques: XML tags for structured output; 200K token context window in practice; Projects vs. conversations; system prompts and when to use them</li>
+              <li>Prompt iteration workflow: draft → test → refine → save — treating prompts as living documents, not one-off queries</li>
+              <li>Common failure modes: vague instructions, missing context, unspecified format — diagnose from real SASA examples</li>
+            </ul>
+          </div>
+          <ul>
+            <li>Define programme capstone goals as a group — agreed integration targets all sessions build toward</li>
+            <li>Establish SASA shared prompt library in SharePoint: naming conventions, categories, validation discipline, who adds entries</li>
+            <li>Set up shared consulting log: folder structure, naming conventions, access for online attendees</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">SASA data &amp; systems map + integration targets document + consulting log + <strong>seed prompt library (10–15 entries)</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="section-title">Session 2 — Excel as a Data Engineering Surface</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">02</div>
+        <div class="session-title-text">Excel as a Data Engineering Surface</div>
+        <div class="session-badges"><span class="session-badge prompt">+ Prompt Thread</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Rebuild one real SASA Excel report using Claude as live co-pilot</li>
+            <li>Structured data principles: column naming, type consistency, AI-readable format</li>
+          </ul>
+          <div class="prompt-block">
+            <div class="prompt-block-header">Prompt Reuse Patterns — 45 min block (V4)</div>
+            <ul>
+              <li>Parameterised prompt templates vs. fixed prompts — how to build a prompt someone else can run and get the same result</li>
+              <li>Excel prompt library patterns: summarise, flag exceptions, extract trends, compare periods — one reusable template per use case</li>
+              <li>Prompt curation discipline: when to adapt vs. when to write fresh; how to version prompts that work; avoiding prompt drift across the team</li>
+              <li>Add validated Excel prompts to SASA shared prompt library (live, in SharePoint)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Apply Microsoft Copilot Excel integration to same dataset — compare outputs, establish workflow preference</li>
+            <li>Design exception-flagging template for one reporting area (e.g., lab results outside control limits)</li>
+            <li>Document workflow for supervisor-level operation — the "how to use this prompt" guide</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">Rebuilt AI-augmented Excel report + exception-flagging template + <strong>Excel prompt library (10+ entries added to shared library)</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="section-title">Session 3 — Working with Large Datasets, RAG &amp; Context Management</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">03</div>
+        <div class="session-title-text">Working with Large Datasets, RAG &amp; Context Management</div>
+        <div class="session-badges">
+          <span class="session-badge online">Online-friendly</span>
+          <span class="session-badge prompt">+ Prompt Thread</span>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Introduce RAG (Retrieval Augmented Generation): the AI-as-librarian pattern — practical analogy, no code required</li>
+            <li>Work with SASA multi-year multi-centre data: slice, filter, summarise using Claude with structured exports</li>
+            <li>Surface data structural problems that limit AI effectiveness</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <div class="prompt-block">
+            <div class="prompt-block-header">Context Management &amp; Large Dataset Prompting — 90 min block (V4)</div>
+            <ul>
+              <li>Understanding the context window: Claude's 200K token capacity in practice — what fits, what doesn't, what happens at the boundary</li>
+              <li>Decision framework: when to paste vs. chunk vs. use RAG — applied to SASA's data types (mill reports, LIMS exports, Autolab CSVs, 10-year historical sets)</li>
+              <li>Chunking strategies: how to split a large dataset and query across chunks without losing coherence between answers</li>
+              <li>Summarisation chains: prompt sequences that compress 10-year multi-centre data into a structured briefing without losing outliers</li>
+              <li>Prompting for synthesis vs. extraction: "what does this mean" vs. "find the anomalies" — different structures, practice with real SASA data</li>
+              <li>Multi-document prompting: structuring queries across multiple SASA sources in a single conversation; labelling conventions that keep Claude oriented</li>
+            </ul>
+          </div>
+          <ul>
+            <li>Build simple document index: SharePoint metadata or structured naming for targeted AI queries</li>
+            <li>Design SASA data-preparation checklist for LIMS, Autolab, and mill report formats</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">SASA data-preparation checklist + working RAG demonstration + <strong>context management reference card for team</strong></span>
+        </div>
+        <div class="session-note">
+          <span class="note-label">Note for online supervisors</span>
+          High-value session to join — the RAG concept, context management guide, and data checklist apply directly to all roles.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHASE 2 ── -->
+
+  <section id="s4">
+    <span class="phase-label capability">Phase 2 — Capability</span>
+    <div class="section-title">Session 4 — Python &amp; Node.js as Integration Glue</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">04</div>
+        <div class="session-title-text">Python &amp; Node.js as Integration Glue</div>
+        <div class="session-badges"><span class="session-badge prereq">Prereq: Python + Node.js installed</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Consulting frame: managers direct and review code, AI writes it — session builds that literacy</li>
+            <li>Build a real Python data pipeline: LIMS export → transformation → flagged output</li>
+            <li>Node.js contrast: Python for data; Node.js for API/web connectors to SharePoint and source systems</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Build pipeline stub: LIMS export → Python → formatted Excel/JSON output</li>
+            <li>Version control thinking for AI-generated code</li>
+            <li>Each participant identifies one repetitive data task for automation (inputs for Sessions 7–8)</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">Working LIMS-to-output data pipeline stub + automation candidate list per team area</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="section-title">Session 5 — PowerPoint, Reporting &amp; AI-Generated Narratives</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">05</div>
+        <div class="session-title-text">PowerPoint, Reporting &amp; AI-Generated Narratives</div>
+        <div class="session-badges"><span class="session-badge online">Online-friendly</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Audit reporting burden — ROI conversation for directors</li>
+            <li>Build repeatable narrative workflow: structured data → Claude prompt → draft → human review → sign-off</li>
+            <li>Apply to one actual SASA periodic report</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Copilot PowerPoint: generate slides from SASA data summary — refine via prompt iteration</li>
+            <li>Design report commentary template: SASA house style, regulatory language, exception conventions encoded</li>
+            <li>Produce one complete AI-assisted report draft — reviewed by a director in-session</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">AI-assisted SASA report draft + reusable report commentary prompt template</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="section-title">Session 6 — Running AI on SASA Infrastructure</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">06</div>
+        <div class="session-title-text">Running AI on SASA Infrastructure</div>
+        <div class="session-badges"><span class="session-badge prereq">Prereq: IT meeting completed</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Open with IT meeting findings — map against Session 3 data boundary decisions</li>
+            <li>Install and configure local AI model on SASA server (with IT present)</li>
+            <li>Ollama server mode + Open WebUI browser access — no software on individual machines</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>SASA data governance framework: cloud vs. on-premise classification — one-page policy for director sign-off</li>
+            <li>Local RAG demonstration: index SASA documents, query without internet</li>
+            <li>Hosting and maintenance model: ownership, upgrade path, SharePoint relation</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">Local AI server operational + SASA data governance policy document</span>
+        </div>
+        <div class="session-note">
+          <span class="note-label">Server Minimum Spec</span>
+          16 GB RAM (32 GB recommended) · CPU i7/Ryzen 7+ · GPU 4+ GB VRAM (12 GB for 7B models) · 50 GB SSD · Network-accessible
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHASE 3 ── -->
+
+  <section id="s7">
+    <span class="phase-label integration">Phase 3 — Integration</span>
+    <div class="section-title">Session 7 — LIMS &amp; Autolab Integration</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">07</div>
+        <div class="session-title-text">LIMS &amp; Autolab Integration</div>
+        <div class="session-badges"></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Map LIMS data flow end to end — identify where exceptions are caught late or missed</li>
+            <li>Define exception business rules with laboratory managers</li>
+            <li>Build AI-assisted exception detection layer: Python script or prompt chain flagging out-of-spec results</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Notification architecture: exception detected → channel (email/Teams/SharePoint) → alert content</li>
+            <li>Autolab: map AI interception upstream of LIMS (calibration drift, anomaly detection)</li>
+            <li>Written integration specification: a brief IT can implement independently</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">LIMS exception detection workflow + Autolab integration specification document</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s8">
+    <div class="section-title">Session 8 — Agentic Workflows &amp; Automation Pipelines</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">08</div>
+        <div class="session-title-text">Agentic Workflows &amp; Automation Pipelines</div>
+        <div class="session-badges"><span class="session-badge online">Online-friendly</span></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Prompt vs. agent: multi-step autonomous decision-making — LIMS workflow from S7 as reference</li>
+            <li>Build multi-step agentic workflow: data → AI checks rules → exception → draft alert → human reviews → acts</li>
+            <li>Tool use and function calling: specific capabilities without unrestricted access</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Failure modes, human override, audit trail — critical for regulated environment</li>
+            <li>Each participant maps one workflow for conversion to agentic exception flagging</li>
+            <li>Begin building one selected workflow end-to-end</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">Working agentic exception-flagging workflow + automation pipeline maps per team area</span>
+        </div>
+        <div class="session-note">
+          <span class="note-label">Pre-built scaffold</span>
+          n8n scaffold provided — configure and extend, not build from scratch. Pre-configured Ollama connection available if S6 server not yet in place.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHASE 4 ── -->
+
+  <section id="s9">
+    <span class="phase-label production">Phase 4 — Production</span>
+    <div class="section-title">Session 9 — Source System Integration &amp; Production Deployment</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">09</div>
+        <div class="session-title-text">Source System Integration &amp; Production Deployment</div>
+        <div class="session-badges"></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning</div>
+          <ul>
+            <li>Build integration prototypes from S8 maps: real data, real rules, real output channels</li>
+            <li>Lightweight API connector (Node.js/Python, AI-generated): SASA AI layer ↔ source system, no manual exports</li>
+            <li>SharePoint role: document/notification layer vs. integration pattern</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon</div>
+          <ul>
+            <li>Autolab-to-LIMS chain review with prototypes — partial live implementation where feasible</li>
+            <li>SASA AI architecture diagram: systems, AI layer, data flows, human approval points</li>
+            <li>Deployment checklist: what each integration requires to go live</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">Working integration prototypes + SASA AI architecture diagram</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s10">
+    <div class="section-title">Session 10 — Capstone Review, Governance &amp; Roadmap</div>
+    <div class="session-block">
+      <div class="session-header">
+        <div class="session-num">10</div>
+        <div class="session-title-text">Capstone Review, Governance &amp; Roadmap</div>
+        <div class="session-badges"></div>
+      </div>
+      <div class="session-body">
+        <div class="half-day">
+          <div class="half-day-label">Morning — Showcase</div>
+          <ul>
+            <li><code>09:00–09:30</code> Finish and tidy work from sessions 1–9</li>
+            <li><code>09:30–11:00</code> Demos — each participant/team, 5 min each, directors present</li>
+            <li><code>11:00–11:15</code> Break</li>
+            <li><code>11:15–12:30</code> Structured review vs. Session 1 targets</li>
+          </ul>
+        </div>
+        <div class="half-day">
+          <div class="half-day-label">Afternoon — Governance + Roadmap</div>
+          <ul>
+            <li>SASA AI governance framework: acceptable use, data classification, prompt library ownership, model maintenance</li>
+            <li>Ongoing operating model: who maintains what, how new use cases are prioritised</li>
+            <li>Skills continuity: Dave/Sheetal tier vs. operational literacy — internal AI consulting function options</li>
+            <li>12-month roadmap: 3–5 integration targets, sequenced by value and complexity, with owners and effort</li>
+          </ul>
+        </div>
+        <div class="session-deliverable">
+          <span class="deliverable-label">Deliverable</span>
+          <span class="deliverable-text">AI governance framework + 12-month integration roadmap + individual 90-day action plans</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section id="deliverables">
+    <div class="section-title">Deliverables Summary</div>
+    <div class="deliverables-grid">
+      <div class="dg-row"><div class="dg-num">Session 1</div><div class="dg-text">Data &amp; systems map + integration targets + consulting log + <strong>seed prompt library</strong></div></div>
+      <div class="dg-row"><div class="dg-num">Session 2</div><div class="dg-text">AI-augmented Excel report + exception-flagging template + <strong>Excel prompt library</strong></div></div>
+      <div class="dg-row"><div class="dg-num">Session 3</div><div class="dg-text">Data-preparation checklist + RAG demonstration + <strong>context management reference card</strong></div></div>
+      <div class="dg-row"><div class="dg-num">Session 4</div><div class="dg-text">LIMS-to-output data pipeline stub + automation candidate list</div></div>
+      <div class="dg-row"><div class="dg-num">Session 5</div><div class="dg-text">AI-assisted report draft + report commentary template</div></div>
+      <div class="dg-row"><div class="dg-num">Session 6</div><div class="dg-text">Local AI server operational + data governance policy</div></div>
+      <div class="dg-row"><div class="dg-num">Session 7</div><div class="dg-text">LIMS exception detection workflow + Autolab integration spec</div></div>
+      <div class="dg-row"><div class="dg-num">Session 8</div><div class="dg-text">Agentic exception-flagging workflow + automation pipeline maps</div></div>
+      <div class="dg-row"><div class="dg-num">Session 9</div><div class="dg-text">Integration prototypes + SASA AI architecture diagram</div></div>
+      <div class="dg-row"><div class="dg-num">Session 10</div><div class="dg-text">Governance framework + 12-month roadmap + 90-day action plans</div></div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="quote">
+    <div class="section-title">Quote Summary</div>
+    <div class="quote-box">
+      <table class="quote-table">
+        <thead><tr><th>Option</th><th>Sessions</th><th>Rate</th><th>Subtotal</th><th>VAT (15%)</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>Full programme</td><td>10</td><td>R3,500</td><td>R35,000</td><td>R5,250</td><td>R40,250</td></tr>
+          <tr><td>Reduced (if needed)</td><td>8</td><td>R3,500</td><td>R28,000</td><td>R4,200</td><td>R32,200</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">Sessions 9–10 deferred in 8-session option</td><td>ref: QUOTE-SASA-2026-001</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- PREREQS -->
+  <section id="prereqs">
+    <div class="section-title">Prerequisites</div>
+    <div class="prereq-group">
+      <div class="prereq-group-title">Before Session 1</div>
+      <ul class="prereq-list">
+        <li>Claude Pro shared account set up and access distributed to all attendees</li>
+        <li>Attendee machines have admin rights for software installation</li>
+        <li>Projector, screen, and video conferencing link for remote participants</li>
+        <li>SharePoint location established for consulting log <strong>and prompt library</strong></li>
+        <li>Richard reviews Dave and Sheetal's existing AI work before this session</li>
+      </ul>
+    </div>
+    <div class="prereq-group">
+      <div class="prereq-group-title">Before Session 4</div>
+      <ul class="prereq-list">
+        <li>Python 3.x pre-installed on all attendee machines</li>
+        <li>Node.js LTS pre-installed on all attendee machines</li>
+        <li>VS Code pre-installed</li>
+        <li>Git (basic) installed for script version management</li>
+      </ul>
+    </div>
+    <div class="prereq-group">
+      <div class="prereq-group-title">Before Session 6</div>
+      <ul class="prereq-list">
+        <li>IT meeting completed; infrastructure findings available</li>
+        <li>Dedicated AI server available on local network</li>
+        <li>Ollama pre-installed on server</li>
+        <li>Model pre-downloaded (Llama 3 ~4 GB, Mistral ~4 GB, or Phi-3 ~2 GB)</li>
+      </ul>
+    </div>
+    <div class="prereq-group">
+      <div class="prereq-group-title">All Sessions</div>
+      <ul class="prereq-list">
+        <li>Sample or live SASA data available per session topic (R7106, LIMS exports, Autolab CSVs as relevant)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="section-title">Tools Reference</div>
+    <div class="card">
+      <table class="spec-table">
+        <thead><tr><th>Tool</th><th>Sessions</th><th>Cost</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Claude.ai (Pro shared)</td><td>1–5, 7–10</td><td>~R1,700/mo</td><td>Primary AI assistant + Excel/PowerPoint integration</td></tr>
+          <tr><td>Microsoft Copilot</td><td>2, 5</td><td>Included in M365</td><td>In-Office AI for Excel and PowerPoint</td></tr>
+          <tr><td>Python</td><td>3, 4, 6–9</td><td>Free</td><td>Data transformation and pipeline scripting</td></tr>
+          <tr><td>Node.js</td><td>4, 9</td><td>Free</td><td>API connectors and web-facing integrations</td></tr>
+          <tr><td>VS Code</td><td>4, 7–9</td><td>Free</td><td>Code review and management</td></tr>
+          <tr><td>Windsurf IDE</td><td>4</td><td>Free tier</td><td>AI-powered code editor</td></tr>
+          <tr><td>Claude Code CLI</td><td>4</td><td>Free</td><td>Terminal-based AI coding</td></tr>
+          <tr><td>Ollama</td><td>6–9</td><td>Free, open-source</td><td>Local AI model runtime on SASA server</td></tr>
+          <tr><td>Open WebUI</td><td>6–9</td><td>Free, open-source</td><td>Browser interface to local AI server</td></tr>
+          <tr><td>n8n</td><td>8, 9</td><td>Free, open-source</td><td>Agentic workflow automation (self-hosted)</td></tr>
+          <tr><td>MCP (Model Context Protocol)</td><td>8, 9</td><td>Free</td><td>Claude tool connections to files, APIs, systems</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- IT PREP -->
+  <section id="it-prep">
+    <div class="section-title">IT Meeting Prep Notes</div>
+    <div class="it-block">
+      <div class="it-title">Key topics to cover with SASA IT</div>
+      <ul class="it-list">
+        <li>Server specification for local AI (16 GB RAM minimum confirmed)</li>
+        <li>LIMS API access or export format for Session 7 integration work</li>
+        <li>Autolab data export format and frequency</li>
+        <li>SharePoint architecture — what integration points exist</li>
+        <li>Python and Node.js installation approval for attendee machines</li>
+        <li>Network: can the AI server be reached by all attendee machines on the same LAN?</li>
+        <li>Data security policy — what data can go to Claude Pro vs. must stay on-premise</li>
+        <li>Claude licensing approval timeline (Richard to send licensing info before this meeting)</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+</main>
+</body>
+</html>
