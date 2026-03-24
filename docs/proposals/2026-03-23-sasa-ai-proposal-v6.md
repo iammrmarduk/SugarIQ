@@ -2,7 +2,7 @@
 ## South African Sugar Association (SASA)
 
 **Prepared for:** South African Sugar Association (SASA)
-**Prepared by:** Richard [Surname] | [Company Name]
+**Prepared by:** Richard Shewry | VillageIO
 **Date:** 23 March 2026
 **Reference:** PROP-SASA-2026-006
 **Budget Line:** Professional Fees
@@ -277,7 +277,7 @@ Approximately **$100/month (approximately R1,700)** — one account shared acros
 
 *To confirm your interest or discuss scheduling, please respond to this proposal. A signed acceptance or purchase order referencing PROP-SASA-2026-006 constitutes agreement to proceed. All documentation must be received by Wednesday, 25 March 2026.*
 
-**Richard [Surname]**
+**Richard Shewry**
 **[Email]**
 **[Phone]**
-**[Company / Trading Name]**
+**VillageIO**

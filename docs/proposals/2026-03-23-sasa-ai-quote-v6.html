@@ -159,6 +159,19 @@ body {
 .tc-list li:last-child { border-bottom: none; }
 .tc-list li::before { content: counter(tc) "."; position: absolute; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 6.5pt; color: var(--ink-faint); top: 3px; }
 
+/* SESSION SCHEDULE */
+.schedule { margin-bottom: 22px; }
+.schedule-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; border: 1px solid var(--rule); }
+.schedule-table thead tr { background: var(--bg-subtle); }
+.schedule-table thead th { padding: 6px 10px; font-size: 6.5pt; font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.10em; text-align: left; border-bottom: 1px solid var(--rule); }
+.schedule-table tbody tr { border-bottom: 1px solid var(--rule-light); }
+.schedule-table tbody tr:last-child { border-bottom: none; }
+.schedule-table tbody td { padding: 7px 10px; vertical-align: top; color: var(--ink-mid); }
+.schedule-table tbody td:first-child { font-family: 'IBM Plex Mono', monospace; font-size: 8pt; color: var(--navy-light); font-weight: 600; width: 30px; text-align: center; }
+.schedule-table .sess-title { font-weight: 600; color: var(--ink); margin-bottom: 1px; font-size: 8.5pt; }
+.schedule-table .sess-desc { font-size: 7.5pt; color: var(--ink-faint); line-height: 1.5; }
+.schedule-table td.timing { font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; color: var(--ink-faint); white-space: nowrap; width: 52px; }
+
 /* ACCEPTANCE */
 .acceptance { margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--navy); }
 .acceptance-heading { font-size: 11pt; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; margin-bottom: 4px; }
@@ -188,8 +201,8 @@ body {
 
   <div class="letterhead">
     <div class="lh-from">
-      <strong>Richard <em>[Surname]</em></strong>
-      <em>[Company / Trading Name]</em><br>
+      <strong>Richard Shewry</strong>
+      VillageIO<br>
       Reg: <em>[Registration Number]</em> &nbsp;·&nbsp; VAT: <em>[VAT Number]</em><br>
       <em>[Email]</em> &nbsp;·&nbsp; <em>[Phone]</em>
     </div>
@@ -209,9 +222,9 @@ body {
   <div class="parties">
     <div class="party">
       <div class="party-label">Service Provider</div>
-      <div class="party-name">Richard <em style="font-style:italic;color:var(--ink-faint)">[Surname]</em></div>
+      <div class="party-name">Richard Shewry</div>
       <div class="party-detail">
-        <em>[Company / Trading Name]</em><br>
+        VillageIO<br>
         Reg: <em>[Registration Number]</em><br>
         VAT: <em>[VAT Number]</em><br>
         <em>[Email]</em> &nbsp;·&nbsp; <em>[Phone]</em>
@@ -263,6 +276,66 @@ body {
         <div class="totals-row grand"><span class="lbl">Total (incl. VAT)</span><span class="amt">R&thinsp;24,150.00</span></div>
       </div>
     </div>
+  </div>
+
+  <!-- SESSION SCHEDULE -->
+  <div class="schedule">
+    <div class="sec-head">Programme Schedule — 6 Co-development Sessions</div>
+    <table class="schedule-table">
+      <thead>
+        <tr><th>#</th><th>Session</th><th>Timing</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="sess-title">Foundations Audit, Strategic Framing &amp; Prompt Engineering</div>
+            <div class="sess-desc">Map SASA data landscape · configure AI tooling · prompt engineering fundamentals (RCTF, XML tags, 200K context) · establish shared prompt library</div>
+          </td>
+          <td class="timing">Week 1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>
+            <div class="sess-title">Excel, Reporting &amp; AI-Generated Workflows</div>
+            <div class="sess-desc">Rebuild SASA Excel report with AI co-pilot · reusable prompt library · exception-flagging template · Copilot integration · report narrative automation · one complete AI-assisted report reviewed by director</div>
+          </td>
+          <td class="timing">Week 3</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <div class="sess-title">Large Datasets, RAG &amp; Context Management</div>
+            <div class="sess-desc">Retrieval Augmented Generation for 10-year multi-centre data · context window management · chunking and summarisation strategies · SASA data-preparation checklist</div>
+          </td>
+          <td class="timing">Week 5</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <div class="sess-title">Python &amp; Automation Pipelines</div>
+            <div class="sess-desc">AI-generated Python data pipeline (LIMS → flagged output) · Node.js for API connectors · version control · automation candidate list (input to Session 6 build day)</div>
+          </td>
+          <td class="timing">Week 7</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <div class="sess-title">Local AI Infrastructure &amp; Agentic Workflows</div>
+            <div class="sess-desc">Install Ollama + Open WebUI on SASA server · browser access for all · local RAG (no internet) · data governance policy · introduce agents and n8n · build SASA agent pipeline (data → exception → alert → output)</div>
+          </td>
+          <td class="timing">Week 9</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <div class="sess-title">Build Day, Governance &amp; Programme Roadmap</div>
+            <div class="sess-desc">Teams build one working tool from their automation candidate lists · showcase builds · SASA AI governance framework · 12-month integration roadmap · individual 90-day action plans</div>
+          </td>
+          <td class="timing">Week 11</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="extension">
@@ -363,15 +436,15 @@ body {
       </div>
       <div class="sig-box">
         <div class="sig-party">Service Provider</div>
-        <div class="sig-field"><div class="sig-line"></div><div class="sig-label">Richard <em style="font-style:italic">[Surname]</em></div></div>
-        <div class="sig-field"><div class="sig-line"></div><div class="sig-label"><em style="font-style:italic">[Company / Trading Name]</em></div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-label">Richard Shewry</div></div>
+        <div class="sig-field"><div class="sig-line"></div><div class="sig-label">VillageIO</div></div>
         <div class="sig-field"><div class="sig-line"></div><div class="sig-label">Signature &amp; Date</div></div>
       </div>
     </div>
   </div>
 
   <div class="doc-footer">
-    <span>Richard <em style="font-style:italic">[Surname]</em> &nbsp;·&nbsp; <em style="font-style:italic">[Email]</em> &nbsp;·&nbsp; <em style="font-style:italic">[Phone]</em></span>
+    <span>Richard Shewry &nbsp;·&nbsp; <em style="font-style:italic">[Email]</em> &nbsp;·&nbsp; <em style="font-style:italic">[Phone]</em></span>
     <span>QUOTE-SASA-2026-001 &nbsp;·&nbsp; 23 MARCH 2026</span>
   </div>
 

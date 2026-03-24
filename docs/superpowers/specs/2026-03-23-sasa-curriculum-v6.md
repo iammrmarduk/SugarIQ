@@ -1,7 +1,7 @@
 # SASA Applied AI Programme — Curriculum Design Spec V6
 **Date:** 2026-03-23
 **Client:** South African Sugar Association (SASA)
-**Facilitator:** Richard [Surname]
+**Facilitator:** Richard Shewry
 **Status:** V6 — Revised session structure: local AI, agents, and build day added to core programme
 
 ---

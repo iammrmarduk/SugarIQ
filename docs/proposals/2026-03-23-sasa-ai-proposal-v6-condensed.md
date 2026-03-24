@@ -66,4 +66,4 @@
 
 *To confirm, please respond to this document or issue a PO referencing PROP-SASA-2026-006.*
 
-**Richard [Surname] | [Email] | [Phone] | [Company]**
+**Richard Shewry | [Email] | [Phone] | VillageIO**

@@ -10,8 +10,8 @@
 ---
 
 **Prepared by:**
-Richard [Surname]
-[Company / Trading Name]
+Richard Shewry
+VillageIO
 [Registration Number]
 [VAT Number]
 [Email] | [Phone]
@@ -50,6 +50,21 @@ KwaZulu-Natal
 | Subtotal (excl. VAT) | R21,000.00 |
 | VAT @ 15% | R3,150.00 |
 | **Total (incl. VAT)** | **R24,150.00** |
+
+---
+
+## Programme Schedule — 6 Co-development Sessions
+
+| # | Session | Timing |
+|---|---|---|
+| 1 | **Foundations Audit, Strategic Framing & Prompt Engineering** — Map SASA data landscape, configure AI tooling, prompt engineering fundamentals (RCTF, XML tags, 200K context), establish shared prompt library | Week 1 |
+| 2 | **Excel, Reporting & AI-Generated Workflows** — Rebuild SASA Excel report with AI co-pilot, reusable prompt library, exception-flagging template, Copilot integration, report narrative automation, one AI-assisted report reviewed by director | Week 3 |
+| 3 | **Large Datasets, RAG & Context Management** — Retrieval Augmented Generation for 10-year multi-centre data, context window management, chunking and summarisation strategies, data-preparation checklist | Week 5 |
+| 4 | **Python & Automation Pipelines** — AI-generated Python pipeline (LIMS → flagged output), Node.js for API connectors, version control, automation candidate list (input to Session 6 build day) | Week 7 |
+| 5 | **Local AI Infrastructure & Agentic Workflows** — Install Ollama + Open WebUI on SASA server, browser access for all, local RAG (no internet), data governance policy, introduce agents and n8n, build SASA agent pipeline | Week 9 |
+| 6 | **Build Day, Governance & Programme Roadmap** — Teams build one working tool, showcase builds, SASA AI governance framework, 12-month integration roadmap, individual 90-day action plans | Week 11 |
+
+*Additional sessions are available as a follow-on engagement to extend the programme further.*
 
 ---
 
@@ -123,6 +138,6 @@ Signature: ______________________________ Position: __________
 
 ---
 
-**Richard [Surname]**
+**Richard Shewry**
 **[Email] | [Phone]**
-**[Company / Trading Name]**
+**VillageIO**
