@@ -66,4 +66,4 @@
 
 *To confirm, please respond to this document or issue a PO referencing PROP-SASA-2026-006.*
 
-**Richard Shewry | [Email] | [Phone] | VillageIO**
+**Richard Shewry | richard@villageio.co.za | 071 385 3031 | VillageIO**

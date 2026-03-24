@@ -278,6 +278,6 @@ Approximately **$100/month (approximately R1,700)** — one account shared acros
 *To confirm your interest or discuss scheduling, please respond to this proposal. A signed acceptance or purchase order referencing PROP-SASA-2026-006 constitutes agreement to proceed. All documentation must be received by Wednesday, 25 March 2026.*
 
 **Richard Shewry**
-**[Email]**
-**[Phone]**
+**richard@villageio.co.za**
+**071 385 3031**
 **VillageIO**

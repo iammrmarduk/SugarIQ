@@ -14,7 +14,7 @@ Richard Shewry
 VillageIO
 [Registration Number]
 [VAT Number]
-[Email] | [Phone]
+richard@villageio.co.za | 071 385 3031
 
 ---
 
@@ -23,7 +23,7 @@ South African Sugar Association (SASA)
 Mount Edgecombe
 KwaZulu-Natal
 
-**Attention:** [Contact Name]
+**Attention:** Programme Coordinator
 **Budget Line:** Professional Fees
 
 ---
@@ -108,10 +108,10 @@ Sessions 7–10 are available as a follow-on engagement at the same rate:
 
 | | |
 |---|---|
-| Bank | [Bank Name] |
-| Account Name | [Account Name] |
-| Account Number | [Account Number] |
-| Branch Code | [Branch Code] |
+| Bank | FNB |
+| Account Name | Villageio (Pty) Ltd |
+| Account Number | 63102585370 |
+| Branch Code | 250655 |
 | Reference | SASA-2026-[Invoice #] |
 
 ---
@@ -139,5 +139,5 @@ Signature: ______________________________ Position: __________
 ---
 
 **Richard Shewry**
-**[Email] | [Phone]**
+**richard@villageio.co.za | 071 385 3031**
 **VillageIO**
