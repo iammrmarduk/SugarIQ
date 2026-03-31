@@ -3,7 +3,7 @@
 
 ---
 
-**Invoice Number:** INV-SASA-2026-001
+**Invoice Number:** INV-SASA-2026-002
 **Invoice Date:** 23 March 2026
 **Due Date:** 6 April 2026 (14 days)
 
@@ -12,8 +12,9 @@
 **From:**
 Richard Shewry
 VillageIO
-[Registration Number]
-[VAT Number]
+119 Madeline Road
+Windermere
+Durban
 richard@villageio.co.za | 071 385 3031
 
 ---
@@ -23,9 +24,8 @@ South African Sugar Association (SASA)
 Mount Edgecombe
 KwaZulu-Natal
 
-**Attention:** Richard Shewry
-**Budget Line:** Professional Fees
-**Quote Reference:** QUOTE-SASA-2026-001
+**Attention:** Programme Coordinator
+**Quote Reference:** QUOTE-SASA-2026-002
 
 ---
 
@@ -41,14 +41,14 @@ KwaZulu-Natal
 
 ## Programme Schedule
 
-| # | Session |
-|---|---|
-| 1 | Foundations Audit, Strategic Framing & Prompt Engineering |
-| 2 | Excel, Reporting & AI-Generated Workflows |
-| 3 | Large Datasets, RAG & Context Management |
-| 4 | Python & Automation Pipelines |
-| 5 | Local AI Infrastructure & Agentic Workflows |
-| 6 | Build Day, Governance & Programme Roadmap |
+| # | Session | Timing |
+|---|---|---|
+| 1 | Foundations Audit, Strategic Framing & Prompt Engineering | Week 1 |
+| 2 | Excel, Reporting & AI-Generated Workflows | Week 3 |
+| 3 | Large Datasets, RAG & Context Management | Week 5 |
+| 4 | Python & Automation Pipelines | Week 7 |
+| 5 | Local AI Infrastructure & Agentic Workflows | Week 9 |
+| 6 | Build Day, Governance & Programme Roadmap | Week 11 |
 
 ---
 
@@ -56,9 +56,9 @@ KwaZulu-Natal
 
 | | |
 |---|---|
-| Subtotal (excl. VAT) | R21,000.00 |
-| VAT @ 15% | R3,150.00 |
-| **Total Due** | **R24,150.00** |
+| Subtotal | R21,000.00 |
+| VAT | R0.00 |
+| **Total Due** | **R21,000.00** |
 
 ---
 
@@ -70,15 +70,16 @@ KwaZulu-Natal
 | Account Name | Villageio (Pty) Ltd |
 | Account Number | 63102585370 |
 | Branch Code | 250655 |
-| Reference | SASA-2026-001 |
+| Reference | SASA-2026-002 |
 
 ---
 
 ## Payment Terms
 
-- Payment due within **14 days** of invoice date
+- Sessions invoiced individually upon completion of each session
+- Payment due within **14 days** of session
 - All amounts in South African Rand (ZAR)
-- VAT charged at the prevailing rate (currently 15%)
+- No VAT
 
 ---
 
